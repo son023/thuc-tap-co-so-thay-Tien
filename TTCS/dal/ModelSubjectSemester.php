@@ -1,6 +1,6 @@
 <?php
 require("DAO.php");
-require("Class/SubjectSemester.php");
+require("../model/SubjectSemester.php");
 require("ModelDepartment.php");
 require("ModelSubject.php");
 

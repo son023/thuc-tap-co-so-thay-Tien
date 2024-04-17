@@ -43,6 +43,11 @@
                             <div class="form-group">
                                 <button type="submit" class="form-control btn kanit-medium">Gửi Mật Khẩu</button>
                             </div>
+                            <div class="form-group ">
+                                <div class="inner-pass">
+                                    <a href="/TTCS/view/index.php" style="color: #fff;text-decoration: none">Đăng nhập</a>
+                                </div>
+                            </div>
                            
                         </form>
                         

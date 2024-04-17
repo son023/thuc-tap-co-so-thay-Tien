@@ -1,6 +1,6 @@
 <?php
 require("DAO.php");
-require("Class/Department.php");
+require("../model/Department.php");
 class ModelDepartment extends DAO {
 
     public function getById(int $uid): Object {

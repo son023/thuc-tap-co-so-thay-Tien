@@ -17,6 +17,7 @@
 </head>
 
 <body class="img js-fullheight" style="background-image: url(../public/image/ok1.jpg);">
+
     <section class="section-one">
         <div class="container">
             <div class="row justify-content-center">
@@ -45,7 +46,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
-                                    <a href="#" style="color: #fff;text-decoration: none">Quên mật khẩu</a>
+                                    <a href="/TTCS/view/forgot.php" style="color: #fff;text-decoration: none">Quên mật khẩu</a>
                                 </div>
                             </div>
                         </form>

@@ -1,0 +1,15 @@
+img {
+    vertical-align: middle;
+    border-style: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    max-width: 100%;
+    height: auto;
+}
+.section-101 .inner-head p{
+    margin:0;
+}
+.section-101 .inner-head {
+    background-color:#82A6FB;
+}

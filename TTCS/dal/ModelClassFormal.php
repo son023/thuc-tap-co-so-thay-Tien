@@ -1,6 +1,6 @@
 <?php
 require("DAO.php");
-require("Class/ClassFormal.php");
+require("../model/ClassFormal.php");
 require("ModelDepartment.php");
 class ModelClassFormal extends DAO {
 
@@ -12,7 +12,7 @@ class ModelClassFormal extends DAO {
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelDepartment=new ModelDepartment();
+                $modelDepartment=new ModelDepartment;
                 $department = $modelDepartment->getById($result["department_id"]);
                 return new ClassFormal(
                   $result['class_formal_id'],

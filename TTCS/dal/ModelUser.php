@@ -1,8 +1,9 @@
 <?php
 require("DAO.php");
-require("Class/User.php");
+require("../model/User.php");
 require("ModelClassFormal.php");
 class ModelUser extends DAO {
+
 
     public function getByUserName(int $uid): Object {
         $sql = "SELECT * FROM  users WHERE user_name = ?";
@@ -13,7 +14,7 @@ class ModelUser extends DAO {
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelClassFormal=new ModelClassFormal;
+                $modelClassFormal=new ModelClassFormal();
                 $classFormal = $modelClassFormal->getById($result["class_formal_id"]);
                 return new User(
                   $result['user_id'],
@@ -51,7 +52,7 @@ class ModelUser extends DAO {
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelClassFormal=new ModelClassFormal;
+                $modelClassFormal=new ModelClassFormal();
                 $classFormal = $modelClassFormal->getById($result["class_formal_id"]);
                 return new User(
                   $result['user_id'],

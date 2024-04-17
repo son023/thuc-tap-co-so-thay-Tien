@@ -245,11 +245,11 @@ img {
 
 .btn{
     
-    background-color:#fbceb5 ;
+    background-color:rgba(255, 255, 255, 0.4);
 }
 .btn:hover,
 .btn:focus {
-    background: #fbceb5;}
+    background: #82A6FB;}
 
 .login-wrap .inner-pass{
     text-align: end;
