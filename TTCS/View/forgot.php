@@ -30,24 +30,20 @@
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <h3 class="mb-4 text-center kanit-medium">Đăng Nhập</h3>
+                        <h3 class="mb-4 text-center kanit-medium">Quên Mật Khẩu</h3>
                         <form action="#" class="signin-form">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Username" required>
                             </div>
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" placeholder="Password"
+                                <input id="password-field"  class="form-control" placeholder="Email"
                                     required>
 
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn kanit-medium">Đăng Nhập</button>
+                                <button type="submit" class="form-control btn kanit-medium">Gửi Mật Khẩu</button>
                             </div>
-                            <div class="form-group ">
-                                <div class="inner-pass">
-                                    <a href="#" style="color: #fff;text-decoration: none">Quên mật khẩu</a>
-                                </div>
-                            </div>
+                           
                         </form>
                         
                     </div>
