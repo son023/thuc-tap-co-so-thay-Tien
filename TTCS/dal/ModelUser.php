@@ -5,7 +5,7 @@ require("ModelClassFormal.php");
 class ModelUser extends DAO {
 
 
-    public function getByUserName(int $uid): Object {
+    public function getByUserName(int $uid): User {
         $sql = "SELECT * FROM  users WHERE user_name = ?";
         try {
     
@@ -43,7 +43,7 @@ class ModelUser extends DAO {
         }
 
     }
-    public function getById(int $uid): Object {
+    public function getById(int $uid): User {
       $sql = "SELECT * FROM  users WHERE user_id = ?";
         try {
     

@@ -19,7 +19,12 @@ require "../inc/header.php";
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <?php
+                                    $user=new ModelUser();
+                                    $u=$user->getById(1);
+
+                                    ?>
+                                    <th><?php echo $u->getFullName() ?></th>
                                     <th>Firstname</th>
                                     <th>Lastname</th>
                                     <th>Age</th>
