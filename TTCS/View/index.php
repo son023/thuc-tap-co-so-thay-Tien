@@ -1,6 +1,21 @@
+<?php
+    session_start();
+    ob_start();
+    require_once("../dal/ModelDAO.php");
+    $modelUser=new ModelUser();
+    
+    if((isset($_POST['dangnhap']))&&($_POST['dangnhap'])){
+        header('Location: new.php');
+        
+    }
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,17 +47,17 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
                         <h3 class="mb-4 text-center kanit-medium">Đăng Nhập</h3>
-                        <form action="#" class="signin-form">
+                        <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="signin-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" required>
+                                <input name="username" type="text" class="form-control" placeholder="Username" required>
                             </div>
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" placeholder="Password"
+                                <input name="password" id="password-field" type="password" class="form-control" placeholder="Password"
                                     required>
 
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn kanit-medium">Đăng Nhập</button>
+                                <button name="dangnhap" type="submit" class="form-control btn kanit-medium">Đăng Nhập</button>
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
