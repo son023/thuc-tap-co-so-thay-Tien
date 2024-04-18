@@ -1,7 +1,7 @@
 <?php
 
-include("Subject.php");
-include("Department.php");
+require_once("Subject.php");
+require_once("Department.php");
 
 class SubjectSemester {
   private int $subjectSemesterId;     // Unique identifier for the subject semester

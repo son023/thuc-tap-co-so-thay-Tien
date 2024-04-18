@@ -1,8 +1,8 @@
 <?php
-include("Subject.php");
-include("User.php");
-include("Schedule.php");
-include("ClassRoom.php");
+require_once("Subject.php");
+require_once("User.php");
+require_once("Schedule.php");
+require_once("ClassRoom.php");
 class ClassCredit {
   private int $classCreditId;
   private string $classCreditName;

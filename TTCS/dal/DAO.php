@@ -3,6 +3,7 @@ define("DB_HOST","mysql:host=localhost;dbname=phpproejct");
 define("DB_USER","root");
 define("DB_PASS", "123456789");
 
+
 abstract class DAO{
    public $host   = DB_HOST;
    public $user   = DB_USER;
@@ -29,6 +30,9 @@ abstract class DAO{
  }
 
 
+
+
+  
  
 
 ?>

@@ -1,7 +1,7 @@
 
 <?php
 
-include("User.php");
+require_once("User.php");
 
 class Email {
   private int $emailId;  // Unique identifier for the email

@@ -1,5 +1,6 @@
 <?php 
-require "../dal/ModelUser.php";
+require "../dal/ModelDAO.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

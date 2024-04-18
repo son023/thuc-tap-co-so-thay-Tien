@@ -1,6 +1,5 @@
 <?php
-include("Department.php");
-include("ClassFormal.php");
+require_once("ClassFormal.php");
 class User {
   private int $userId;
   private ClassFormal $classFormal;
@@ -10,7 +9,7 @@ class User {
   private int $teacherId;
   private int $userRole;
   private int $status;
-  private DateTime $dateOfBirth;
+  private string $dateOfBirth;
   private int $gender;
   private string $birthplace;
   private string $currentAddress;
@@ -25,12 +24,12 @@ class User {
      int $userId,
       ClassFormal $classFormal,
       string $userName,
-      string $passWord, // Consider using a hashed password for security
+      int $passWord,
       string $fullName,
       int $teacherId,
       int $userRole,
       int $status,
-      DateTime $dateOfBirth,
+      string $dateOfBirth,
       int  $gender,
       string $birthplace,
       string $currentAddress,
@@ -39,9 +38,10 @@ class User {
       string $descriptionText = ""   // Optional default value
   ) {
     $this->userId = $userId;
-    $this->userName = $userName;  // Assign username to userId
+   
     $this->classFormal =$classFormal;
     $this->userName = $userName;
+    $this->passWord = $passWord;
     $this->fullName = $fullName;
     $this->teacherId = $teacherId;
     $this->userRole = $userRole;
@@ -56,7 +56,7 @@ class User {
   }
 
   // Getter methods
-  public function getUserId(): string {
+  public function getUserId(): int {
     return $this->userId;
   }
 
@@ -87,7 +87,7 @@ class User {
     return $this->status;
   }
 
-  public function getDateOfBirth(): DateTime {
+  public function getDateOfBirth(): string {
     return $this->dateOfBirth;
   }
 

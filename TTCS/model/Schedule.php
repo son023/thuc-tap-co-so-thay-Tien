@@ -1,6 +1,6 @@
 <?php
 
-include("KipStudy.php");
+require_once("KipStudy.php");
 
 class Schedule {
   private int $scheduleId;  // Unique identifier for the schedule entry

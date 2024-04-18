@@ -1,6 +1,6 @@
 <?php
 
-include("User.php");
+require_once("User.php");
 
 class PhoneNumber {
   private int $phoneNumberId;   // Unique identifier for the phone number

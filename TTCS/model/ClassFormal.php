@@ -1,5 +1,5 @@
 <?php
-include("Department.php");
+require_once("Department.php");
 class ClassFormal {
   private int $classFormalId;
   private int $classNumber;  // Đã sửa tên biến thành classNumber

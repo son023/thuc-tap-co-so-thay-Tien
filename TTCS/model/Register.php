@@ -1,7 +1,7 @@
 <?php
 
-include("ClassCredit.php");
-include("User.php");
+require_once("ClassCredit.php");
+require_once("User.php");
 
 class Register {
   private int $registerId;      // Unique identifier for the registration
