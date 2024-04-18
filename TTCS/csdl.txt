@@ -70,7 +70,17 @@ primary key(schedule_id),
 kip_study_id int not null,
 FOREIGN KEY (kip_study_id) REFERENCES kip_studys(kip_study_id),
 day_study int not null, --1-cn,2 -2
+category varchar(45) not null,
+week_id int not null,
+FOREIGN KEY (week_id) REFERENCES weeks(week_id)
 )
+create table weeks(
+week_id int auto_increment,
+primary key(week_id),
+week_name int not null,
+start_time datetime not null,
+end_time datetime not null
+);
 create table class_rooms(--phong_hoc
 class_room_id int auto_increment,
 primary key(class_room_id),

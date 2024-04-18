@@ -10,12 +10,11 @@ class ClassCredit {
   private int $groupClass;
   private Schedule $schedule;
   private ClassRoom $classRoom;
-  private DateTime $timeStart;
-  private DateTime $timeEnd;
+  private int $classCreditCode;
 
 
   public function __construct(int $classCreditId,
-      $classCreditName, $subject, $groupClass, $schedule, $classRoom,$timeStart,  $timeEnd
+      $classCreditName, $subject, $groupClass, $schedule, $classRoom,$classCreditCode
   ) {
     $this->classCreditId = $classCreditId;
     $this->classCreditName = $classCreditName;
@@ -23,18 +22,14 @@ class ClassCredit {
     $this->groupClass = $groupClass;
     $this->schedule = $schedule;
     $this->classRoom = $classRoom;
-    $this->timeStart = $timeStart;
-    $this->timeEnd = $timeEnd;
+    $this->$classCreditCode=$classCreditCode;
   }
 
   public function getClassCreditId() {
     return $this->classCreditId;
   }
-  public function getTimeStart() {
-    return $this->timeStart;
-  }
-  public function getTimeEnd() {
-    return $this->timeEnd;
+  public function getClassCreditCode(){
+    return $this->classCreditCode;
   }
 
   public function getClassCreditName() {

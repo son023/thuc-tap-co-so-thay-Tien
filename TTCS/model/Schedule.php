@@ -5,12 +5,14 @@ require_once("KipStudy.php");
 class Schedule {
   private int $scheduleId;  // Unique identifier for the schedule entry
   private KipStudy $kipStudy;  // The associated study session
-  private int $dayStudy;     // Day of the week for the study session (consider using an enum for weekdays)
+  private int $dayStudy; 
+  private string $category;    // Day of the week for the study session (consider using an enum for weekdays)
 
-  public function __construct(int $scheduleId, KipStudy $kipStudy, int $dayStudy) {
+  public function __construct(int $scheduleId, KipStudy $kipStudy, int $dayStudy, string $category) {
     $this->scheduleId = $scheduleId;
     $this->kipStudy = $kipStudy;
     $this->dayStudy = $dayStudy;
+    $this->category = $category;
   }
 
   public function getScheduleId(): int {
@@ -24,6 +26,10 @@ class Schedule {
   public function getDayStudy(): int {
     return $this->dayStudy;
   }
+  public function getCategory(): string {
+    return $this->category;
+  }
+
 
   // Optional setter methods (consider adding if needed)
   public function setScheduleId(int $scheduleId): void {

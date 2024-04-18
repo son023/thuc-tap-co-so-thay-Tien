@@ -11,7 +11,7 @@ require "../inc/header.php";
                 ?>
             </div>
             <div class="col-xl-10">
-            <div class="container">
+           
                     <h2>Responsive Table</h2>
                     <p>The .table-responsive class adds a scrollbar to the table when needed:</p>
 
@@ -177,7 +177,7 @@ require "../inc/header.php";
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                  
                 </div>
             </div>
 

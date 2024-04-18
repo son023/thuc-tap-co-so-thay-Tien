@@ -194,8 +194,8 @@ class ModelDepartment extends DAO {
                     $result["group_class"],
                     $schedule,
                     $classRoom,
-                    $result["time_start"],
-                    $result["time_end"]
+                    $result["class_credit_code"],
+                   
                 );
                 
             } 
@@ -211,15 +211,15 @@ class ModelDepartment extends DAO {
           if ($object instanceof ClassCredit) {
             $classCredit = $object;
           }
-          $sql = "INSERT INTO class_credits (class_credit_name, subject_id, group_class, schedule_id, class_room_id,time_start,time_end) VALUES (?, ?, ?, ?, ?, ?,?)";
+          $sql = "INSERT INTO class_credits (class_credit_name, subject_id, group_class, schedule_id, class_room_id,class_credit_code) VALUES (?, ?, ?, ?, ?, ?,?)";
           $stmt =$this->link->prepare($sql);
           $stmt->bindParam(1,$classCredit->getClassCreditName(), PDO::PARAM_STR);
           $stmt->bindParam(2, $classCredit->getSubject()->getSubjectId(), PDO::PARAM_INT);
           $stmt->bindParam(3,$classCredit->getGroupClass(), PDO::PARAM_INT);
           $stmt->bindParam(4, $classCredit->getSchedule()->getScheduleId() , PDO::PARAM_INT);
           $stmt->bindParam(5,$classCredit->getClassRoom()->getClassRoomId(), PDO::PARAM_INT);
-          $stmt->bindParam(3,$classCredit->getTimeStart(), PDO::PARAM_STR);
-          $stmt->bindParam(3,$classCredit->getTimeEnd(), PDO::PARAM_STR);
+          $stmt->bindParam(6,$classCredit->getClassCreditCode(), PDO::PARAM_INT);
+         
           $stmt->execute();
           return true;
         } catch (PDOException $e) {
@@ -247,16 +247,15 @@ class ModelDepartment extends DAO {
             if ($object instanceof ClassCredit) {
               $classCredit = $object;
             }
-        $sql = "UPDATE class_credits SET class_credit_name = ?, subject_id = ?, group_class = ?, schedule_id = ?, class_room_id = ?,time_start = ?,time_end = ? WHERE class_credit_id = ?";
+        $sql = "UPDATE class_credits SET class_credit_name = ?, subject_id = ?, group_class = ?, schedule_id = ?, class_room_id = ?,class_credit_code=?  WHERE class_credit_id = ?";
         $stmt = $this->link->prepare($sql);
         $stmt->bindParam(1,$classCredit->getClassCreditName(), PDO::PARAM_STR);
         $stmt->bindParam(2, $classCredit->getSubject()->getSubjectId(), PDO::PARAM_INT);
         $stmt->bindParam(3,$classCredit->getGroupClass(), PDO::PARAM_INT);
         $stmt->bindParam(4, $classCredit->getSchedule()->getScheduleId() , PDO::PARAM_INT);
         $stmt->bindParam(5,$classCredit->getClassRoom()->getClassRoomId(), PDO::PARAM_INT);
-        $stmt->bindParam(6,$classCredit->getTimeStart(), PDO::PARAM_STR);
-        $stmt->bindParam(7,$classCredit->getTimeEnd(), PDO::PARAM_STR);
-        $stmt->bindParam(8,$classCredit->getClassCreditId(),PDO::PARAM_INT);
+        $stmt->bindParam(6,$classCredit->getClassCreditCode(), PDO::PARAM_INT);
+        $stmt->bindParam(7,$classCredit->getClassCreditId(),PDO::PARAM_INT);
         $stmt->execute();
         return true;
       } catch (PDOException $e) {
@@ -662,6 +661,69 @@ class ModelDepartment extends DAO {
       }
     }
   }
+  class ModelWeek extends DAO{
+    public function getById(int $uid): Object {
+      $sql = "SELECT * FROM weeks WHERE week_id = ?";
+      try {
+          $stmt = $this->link->prepare($sql);
+          $stmt->bindParam(1, $uid, PDO::PARAM_INT);   
+          $stmt->execute(); 
+          $result = $stmt->fetch(PDO::FETCH_ASSOC);  
+          if ($result) {
+             
+              return new Week(
+                  $result["week_id"],
+                  $result["week_name"],
+                  $result["start_time"],
+                $result['end_time']
+              );
+              
+          } 
+      } 
+      catch (PDOException $e) {
+          // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+          echo "Lỗi: " . $e->getMessage();
+      }
+
+  }
+  public function addObject(Object $object):bool{
+      try {
+        if ($object instanceof Week) {
+          $week = $object;
+        }
+        $sql = "INSERT INTO weeks(week_id,week_name,start_time,end_time) VALUES (?, ?, ?, ?)";
+        $stmt =$this->link->prepare($sql);
+        $stmt->bindParam(1,$week->getWeekId(), PDO::PARAM_INT);
+        $stmt->bindParam(2,$week->getWeekName(), PDO::PARAM_INT);
+        $stmt->bindParam(3,$week->getStartTime(), PDO::PARAM_STR);
+        $stmt->bindParam(4,$week->getEndTime(), PDO::PARAM_STR);
+        $stmt->execute();
+        return true;
+      } catch (PDOException $e) {
+        return false;
+      }
+    
+
+  }
+  public function deleteObject(int $objectid):bool{
+    try {
+      $sql = "DELETE FROM weeks WHERE week_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+     
+    } catch (PDOException $e) {
+      echo "". $e->getMessage();
+      return false;
+    }
+  }
+  public function updateObject($object):bool{
+    
+    return false;
+  
+}
+  }
   class ModelSchedule extends DAO {
 
     public function getById(int $uid): Object {
@@ -675,9 +737,10 @@ class ModelDepartment extends DAO {
                 $modelKipstudy= new ModelKipStudy();
                 $kipStudy= $modelKipstudy->getById($result["kip_study_id"]);
                 return new Schedule(
-                    $result["schedule_id"],
+                  $result["schedule_id"],
                   $kipStudy,
-                  $result['day_study']
+                  $result['day_study'],
+                  $result['category']
                 );
                 
             } 
@@ -693,10 +756,11 @@ class ModelDepartment extends DAO {
           if ($object instanceof Schedule) {
             $schedule = $object;
           }
-          $sql = "INSERT INTO schedules(kip_study_id,day_study) VALUES (?, ?)";
+          $sql = "INSERT INTO schedules(kip_study_id,day_study,category) VALUES (?, ?, ?)";
           $stmt =$this->link->prepare($sql);
           $stmt->bindParam(1, $schedule->getKipStudy()->getKipStudyId(), PDO::PARAM_INT);
           $stmt->bindParam(2, $schedule->getDayStudy(), PDO::PARAM_INT);
+          $stmt->bindParam(3, $schedule->getCategory(), PDO::PARAM_STR);
           $stmt->execute();
           return true;
         } catch (PDOException $e) {
@@ -724,11 +788,12 @@ class ModelDepartment extends DAO {
             if ($object instanceof Schedule) {
               $schedule = $object;
             }
-        $sql = "UPDATE schedules SET kip_study_id = ?, day_study = ? WHERE schedule_id = ?";
+        $sql = "UPDATE schedules SET kip_study_id = ?, day_study = ?, category= ? WHERE schedule_id = ?";
         $stmt = $this->link->prepare($sql);
         $stmt->bindParam(1, $schedule->getKipStudy()->getKipStudyId(), PDO::PARAM_INT);
         $stmt->bindParam(2, $schedule->getDayStudy(), PDO::PARAM_INT);
-        $stmt->bindParam(3,$schedule->getScheduleId(),PDO::PARAM_INT);
+        $stmt->bindParam(3, $schedule->getCategory(), PDO::PARAM_STR);
+        $stmt->bindParam(4,$schedule->getScheduleId(),PDO::PARAM_INT);
         $stmt->execute();
         return true;
       } catch (PDOException $e) {
