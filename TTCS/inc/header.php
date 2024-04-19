@@ -1,6 +1,10 @@
 <?php 
-require "../dal/ModelDAO.php";
-
+    session_start();
+    ob_start();
+    require_once("../dal/ModelDAO.php");
+    if(!isset($_SESSION['login'])){
+        header('location: index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +24,7 @@ require "../dal/ModelDAO.php";
 </head>
 <body>
 <div class="section-100">
-    <div class="container-fluid">
+   
         <div class="row">
             <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-12 img">
             <img src="../public/image/2.png">

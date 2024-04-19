@@ -998,36 +998,20 @@ class ModelDepartment extends DAO {
   class ModelUser extends DAO {
 
 
-    public function getByUserName(int $uid): User {
-        $sql = "SELECT * FROM  users WHERE user_name = ?";
+    public function getRole($userName,$passWord) {
+        $sql = 'SELECT * FROM  users WHERE user_name = ? and pass_word = ?';
         try {
     
             $stmt = $this->link->prepare($sql);         
-            $stmt->bindParam(1, $uid, PDO::PARAM_INT);          
+            $stmt->bindParam(1, $userName, PDO::PARAM_STR);   
+            $stmt->bindParam(2, $passWord, PDO::PARAM_STR);          
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelClassFormal=new ModelClassFormal();
-                $classFormal = $modelClassFormal->getById($result["class_formal_id"]);
-                return new User(
-                  $result['user_id'],
-                  $classFormal,
-                  $result['user_name'],
-                  $result['pass_word'],
-                  $result['full_name'],
-                  $result['teacher_id'],
-                  $result['user_role'],
-                  $result['status'],
-                  $result['date_of_birth'],
-                  $result['gender'],
-                  $result['brithplace'],
-                  $result['current_address'],
-                  $result['avatar_image_path'],
-                  $result['link_social'],
-                  $result['description_text'],      
-                );
-                
-            } 
+              return ($result['user_role']);
+            }
+            return 0;
+            
         } 
         catch (PDOException $e) {
             // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
@@ -1073,6 +1057,42 @@ class ModelDepartment extends DAO {
            
         }
   }
+  public function getByUserName(string $uid,): Object {
+    $sql = "SELECT * FROM  users WHERE user_name = ?";
+      try {
+          $stmt = $this->link->prepare($sql);         
+          $stmt->bindParam(1, $uid, PDO::PARAM_STR);          
+          $stmt->execute(); 
+          $result = $stmt->fetch(PDO::FETCH_ASSOC);  
+          if ($result) {
+              $modelClassFormal=new ModelClassFormal();
+              
+              return new User(
+                $result['user_id'],
+                $modelClassFormal->getById($result["class_formal_id"]),
+                $result['user_name'],
+                $result['pass_word'],
+                $result['full_name'],
+                $result['teacher_id'],
+                $result['user_role'],
+                $result['status'],
+                $result['date_of_birth'],
+                $result['gender'],
+                $result['birthplace'],
+                $result['current_address'],
+                $result['avatar_image_path'],
+                $result['link_social'],
+                $result['description_text'],      
+              );
+              
+          } 
+      } 
+      catch (PDOException $e) {
+          // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+          echo "Lỗi: " . $e->getMessage();
+         
+      }
+}
     public function addObject(Object $object):bool{
         try {
         $classFormalId = $object->getClassFormalId();

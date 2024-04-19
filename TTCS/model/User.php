@@ -55,9 +55,13 @@ class User {
     $this->descriptionText = $descriptionText;
   }
 
+
   // Getter methods
   public function getUserId(): int {
     return $this->userId;
+  }
+  public function getPassWord(): string {
+    return $this->passWord;
   }
 
   

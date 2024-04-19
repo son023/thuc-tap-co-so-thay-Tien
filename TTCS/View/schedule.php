@@ -3,15 +3,15 @@ require "../inc/header.php";
 ?>
 
 <div class="section-one">
-    <div class="container-fluid">
+   
         <div class="row">
-            <div class="col-xl-2">
+            <div class="col-xl-3">
                 <?php
                 require "../inc/narbar.php";
                 ?>
             </div>
-            <div class="col-xl-10">
-            <div class="container">
+            <div class="col-xl-9">
+            
                     <h2>Responsive Table</h2>
                     <p>The .table-responsive class adds a scrollbar to the table when needed:</p>
 
@@ -170,11 +170,11 @@ require "../inc/header.php";
                             </tbody>
                         </table>
                     </div>
-                </div>
+               
             </div>
 
         </div>
-    </div>
+    
 </div>
     
 

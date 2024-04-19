@@ -1,5 +1,4 @@
 <div class="section-101">
-    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="inner-head">
@@ -11,7 +10,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>
 
 </body>
