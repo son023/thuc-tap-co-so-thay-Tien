@@ -2,9 +2,9 @@
     session_start();
     ob_start();
     require_once("../dal/ModelDAO.php");
-    if(!isset($_SESSION['login'])){
-        header('location: index.php');
-    }
+    // if(!isset($_SESSION['login'])){
+    //     header('location: login.php');
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

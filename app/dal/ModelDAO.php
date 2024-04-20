@@ -1,17 +1,18 @@
 <?php
+
 require_once("DAO.php");
-require_once("../model/Department.php");
-require_once("../model/ClassRoom.php");
-require_once("../model/ClassCredit.php");
-require_once("../model/ClassFormal.php");
-require_once("../model/Email.php");
-require_once("../model/KipStudy.php");
-require_once("../model/PhoneNumber.php");
-require_once("../model/Register.php");
-require_once("../model/Schedule.php");
-require_once("../model/Subject.php");
-require_once("../model/SubjectSemester.php");
-require_once("../model/User.php");
+require_once(_DIR_ROOT. '/app/models/Department.php');
+require_once(_DIR_ROOT. '/app/models/ClassRoom.php');
+require_once(_DIR_ROOT. '/app/models/ClassCredit.php');
+require_once(_DIR_ROOT. '/app/models/ClassFormal.php');
+require_once(_DIR_ROOT. '/app/models/Email.php');
+require_once(_DIR_ROOT. '/app/models/KipStudy.php');
+require_once(_DIR_ROOT. '/app/models/PhoneNumber.php');
+require_once(_DIR_ROOT. '/app/models/Register.php');
+require_once(_DIR_ROOT. '/app/models/Schedule.php');
+require_once(_DIR_ROOT. '/app/models/Subject.php');
+require_once(_DIR_ROOT. '/app/models/SubjectSemester.php');
+require_once(_DIR_ROOT. '/app/models/User.php');
 class ModelDepartment extends DAO {
 
     public function getById(int $uid): Object {

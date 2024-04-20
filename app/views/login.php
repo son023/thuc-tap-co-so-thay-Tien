@@ -1,7 +1,7 @@
 <?php
     session_start();
     ob_start();
-    require_once("../dal/ModelDAO.php");
+    require_once _DIR_ROOT. '/app/dal/ModelDAO.php';
     $modelUser=new ModelUser();
     $username=$password=$nameErr="";
     
@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
-                                    <a href="/TTCS/view/forgot.php" style="color:#ffffff;text-decoration:none">Quên mật khẩu</a>
+                                    <a href="/TTCS/views/forgot.php" style="color:#ffffff;text-decoration:none">Quên mật khẩu</a>
                                 </div>
                             </div>
                         </form>
