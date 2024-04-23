@@ -1,4 +1,4 @@
 <?php
-$route['default_controller']='product';
+$route['default_controller']='login';
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-require "../inc/header.php";
+require "header.php";
 ?>
 
 <div class="section-one">
@@ -7,11 +7,11 @@ require "../inc/header.php";
         <div class="row">
             <div class="col-xl-3">
                 <?php
-                require "../inc/narbar.php";
+                require "narbar.php";
                 ?>
             </div>
             <div class="col-xl-9">
-           
+               
                     <h2>Responsive Table</h2>
                     <p>The .table-responsive class adds a scrollbar to the table when needed:</p>
 
@@ -19,21 +19,13 @@ require "../inc/header.php";
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <?php
-                                   
-                                    $class=new ModelClassRoom();
-                                    $c=$class->getById(1);
-                                    $user=new ModelUser();
-                                    $u=$user->getById(2);
-
-                                    ?>
-                                    <th>o</th>
-                                    <th><?php echo($c->getBuilding())?></th>
-                                    <th><?php echo($u->getUserName())?></th>
-                                    <th><?php echo($u->getUserName())?></th>
-                                    <th><?php  echo($u->getUserName())?></th>
-                                    <th><?php  echo($u->getUserName())?></th>
-                                    <th><?php  echo($u->getUserName())?></th>
+                                    <th>#</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Age</th>
+                                    <th>City</th>
+                                    <th>Country</th>
+                                    <th>Sex</th>
                                     <th>Example</th>
                                     <th>Example</th>
                                     <th>Example</th>
@@ -177,16 +169,15 @@ require "../inc/header.php";
                                 </tr>
                             </tbody>
                         </table>
-                  
-                </div>
+                    </div>
+               
             </div>
 
-    
     </div>
 </div>
-    
+
 
 
 <?php
-require "../inc/footer.php";
+require "footer.php";
 ?>

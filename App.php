@@ -3,7 +3,7 @@ class App{
     private $__controller,$__action,$__params;
     function __construct(){
 
-        global $route;
+     global $route;
        if(!empty($route['default_controller'])){
         $this->__controller = $route['default_controller'];
        }
@@ -33,7 +33,7 @@ class App{
             $this->__controller= ucfirst($this->__controller);
 
         }
-        if(file_exists('app/controllers/'.($this->__controller).'.php')){
+        if(file_exists('controllers/'.($this->__controller).'.php')){
             require_once 'controllers/'.($this->__controller).'.php';
             if(class_exists($this->__controller)){
                 $this->__controller=new $this->__controller;
@@ -61,7 +61,7 @@ class App{
     }
 
     public function loadError($name='404'){
-        require_once 'errors/'.$name. '.php';
+        require_once 'views/'.$name. '.php';
     }
 
 }

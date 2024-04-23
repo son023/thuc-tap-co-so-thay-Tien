@@ -22,7 +22,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <div class="inner-head"><?php echo $user->getFullName() ?></div>
       </div>
     </div>
-    <a href="logout.php">
+    <a href="logout">
     <button name="dangxuat" type="submit" class="form-control btn btn-primary kanit-medium">Đăng Xuất</button></a>
   </div>
 
@@ -31,13 +31,13 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
 <nav class="navbar bg-light">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="/TTCS/view/new.php">Thông báo</a>
+      <a class="nav-link" href="news">Thông báo</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/TTCS/view/registercredit.php">Đăng ký tín chỉ</a>
+      <a class="nav-link" href="registercredit">Đăng ký tín chỉ</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/TTCS/view/schedule.php">Thời khoá biểu</a>
+      <a class="nav-link" href="schedules">Thời khoá biểu</a>
     </li>
   </ul>
 </nav>

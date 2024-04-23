@@ -1,17 +1,17 @@
 <?php
-require "../inc/header.php";
+require "header.php";
 ?>
 
 <div class="section-one">
-    
+   
         <div class="row">
             <div class="col-xl-3">
                 <?php
-                require "../inc/narbar.php";
+                require "narbar.php";
                 ?>
             </div>
             <div class="col-xl-9">
-               
+            
                     <h2>Responsive Table</h2>
                     <p>The .table-responsive class adds a scrollbar to the table when needed:</p>
 
@@ -173,11 +173,12 @@ require "../inc/header.php";
                
             </div>
 
-    </div>
+        </div>
+    
 </div>
-
+    
 
 
 <?php
-require "../inc/footer.php";
+require "footer.php";
 ?>

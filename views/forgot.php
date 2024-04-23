@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
-                                    <a href="/TTCS/views/login.php" style="color: #fff;text-decoration: none">Đăng nhập</a>
+                                    <a href="login" style="color: #fff;text-decoration: none">Đăng nhập</a>
                                 </div>
                             </div>
                            

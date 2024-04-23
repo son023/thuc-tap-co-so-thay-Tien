@@ -1,5 +1,5 @@
 <?php
-require "../inc/header.php";
+require "header.php";
 ?>
 
 <div class="section-one">
@@ -8,7 +8,7 @@ require "../inc/header.php";
             <div class="col-xl-3 ">
                 
                 <?php
-                require "../inc/narbar.php";
+                require "narbar.php";
                 ?>
             </div>
             <div class="col-xl-9">
@@ -22,5 +22,5 @@ require "../inc/header.php";
 
 
 <?php
-require "../inc/footer.php";
+require "footer.php";
 ?>

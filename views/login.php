@@ -1,10 +1,10 @@
 <?php
-    session_start();
-    ob_start();
-    require_once _DIR_ROOT. '/app/dal/ModelDAO.php';
-    $modelUser=new ModelUser();
-    $username=$password=$nameErr="";
     
+    
+    $modelUser=new ModelUser();
+    $username=$password="";
+    $_SESSION['error']="";
+
     if((isset($_POST['dangnhap']))){
         $username=test_input($_POST['username']);
         // if (!preg_match("/^[a-zA-Z-' ]*$/",$username)) {
@@ -15,24 +15,26 @@
         if($role==1){
             $_SESSION['login']['username']=$username;
             $_SESSION['login']['role']=$role;
-            header('Location: home.php');
+            header('Location: home');
+            die;
         }
         else if($role==2){
             $_SESSION['login']['username']=$username;
             $_SESSION['login']['role']=$role;
-            header('Location: admin.php');
+            header('Location: admin');
+            die;
         }
         else{
-            $nameErr = "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.";
+            $_SESSION['error'] = "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.";
         }
-        
-    }
-    function test_input($data) {
+    
+     }
+     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
-      }
+    }
 
 
 
@@ -72,7 +74,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
                         <h3 class="mb-4 text-center kanit-medium">Đăng Nhập</h3>
-                        <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" class="signin-form">
+                        <form  method="post"  class="signin-form">
                             <div class="form-group">
                                 <input name="username" type="text" class="form-control" placeholder="Username" required>
                                 
@@ -83,12 +85,12 @@
 
                             </div>
                             <div class="form-group">
-                               <span class="error" style="text-center"><?php echo $nameErr;?></span>
+                                 <p><?php check_message() ?></p>
                                 <button name="dangnhap" type="submit" class="form-control btn kanit-medium">Đăng Nhập</button>
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
-                                    <a href="/TTCS/views/forgot.php" style="color:#ffffff;text-decoration:none">Quên mật khẩu</a>
+                                    <a href="forgot" style="color:#ffffff;text-decoration:none">Quên mật khẩu</a>
                                 </div>
                             </div>
                         </form>
