@@ -1,5 +1,6 @@
 <?php
 require_once("DAO.php");
+require_once('Branch.php');
 require_once('Department.php');
 require_once('ClassRoom.php');
 require_once('ClassCredit.php');
@@ -172,6 +173,43 @@ class ModelDepartment extends DAO {
    
    
   class ModelClassCredit extends DAO {
+    public function getBySubject(int $name): array {
+      $sql = "SELECT * FROM class_credits WHERE subject_id = ?";
+      try {
+          $stmt = $this->link->prepare($sql);
+          $stmt->bindParam(1, $name, PDO::PARAM_INT);   
+         
+          $stmt->execute();   
+          $list=[];  
+          while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $modelSchedule= new ModelSchedule();
+            $schedule= $modelSchedule->getById($result["schedule_id"]);
+            $modelSubject= new ModelSubject();
+            $subject=$modelSubject->GetById($result["subject_id"]);
+            $modelClassRoom= new ModelClassRoom();
+            $classRoom=$modelClassRoom->GetById($result["class_room_id"]);
+              
+              array_push($list,   new ClassCredit(
+                $result["class_credit_id"],
+                $result["class_credit_name"],
+                $subject,
+                $result["group_class"],
+                $schedule,
+                $classRoom,
+                $result["class_credit_code"],
+              ));
+           
+              
+          } 
+          return $list;
+      } 
+      catch (PDOException $e) {
+          // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+          echo "Lỗi: " . $e->getMessage();
+         
+      }
+
+  }
 
     public function getById(int $uid): Object {
         $sql = "SELECT * FROM class_credits WHERE class_credit_id = ?";
@@ -265,7 +303,55 @@ class ModelDepartment extends DAO {
   }
   
 
+  class ModelBranch extends DAO{
+    public function getById(int $uid): Object {
+      $sql = "SELECT * FROM branchs WHERE branch_id = ?";
+      try {
+          $stmt = $this->link->prepare($sql);
+          $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+          $stmt->execute(); 
+          $result = $stmt->fetch(PDO::FETCH_ASSOC);  
+          if ($result) {
+              $modelDepartment=new ModelDepartment();
+              $department = $modelDepartment->getById($result["department_id"]);
+              return new Branch(
+                $result['branch_id'],
+                $result['branch_code'],
+                $result['branch_name'],
+                $department
+                
+              );
+              
+          } 
+      } 
+      catch (PDOException $e) {
+          echo "Lỗi: " . $e->getMessage();
+   
+         
+      }
 
+  }
+  public function addObject(Object $object):bool{
+    
+      return false;
+    
+  
+
+}
+public function deleteObject(int $objectid):bool{
+ 
+   
+    return false;
+  
+
+}
+public function updateObject($object):bool{
+  
+    return false;
+  
+}
+
+  }
 
   class ModelClassFormal extends DAO {
 
@@ -277,13 +363,13 @@ class ModelDepartment extends DAO {
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelDepartment=new ModelDepartment;
-                $department = $modelDepartment->getById($result["department_id"]);
+                $modelBranch=new ModelBranch();
+                $branch = $modelBranch->getById($result["branch_id"]);
                 return new ClassFormal(
                   $result['class_formal_id'],
                   $result['class_number'],
-                  $department,
                   $result['class_course'],
+                  $branch
                 );
                 
             } 
@@ -300,11 +386,11 @@ class ModelDepartment extends DAO {
           if ($object instanceof  ClassFormal) {
             $classFormal = $object;
           }
-          $sql = "INSERT INTO class_formals(class_number,department_id,class_course) VALUES (?, ?, ?)";
+          $sql = "INSERT INTO class_formals(class_number,class_course,branch_id) VALUES (?, ?, ?)";
           $stmt =$this->link->prepare($sql);
           $stmt->bindParam(1, $classFormal->getClassNumber() , PDO::PARAM_INT);
-          $stmt->bindParam(2, $classFormal->getDepartment()->getDepartmentId(), PDO::PARAM_INT);
-          $stmt->bindParam(3, $classFormal->getClassCourse(), PDO::PARAM_INT);
+          $stmt->bindParam(2, $classFormal->getClassCourse(), PDO::PARAM_INT);
+          $stmt->bindParam(3, $classFormal->getBranch()->getBranchId(), PDO::PARAM_INT);
           $stmt->execute();
           return true;
         } catch (PDOException $e) {
@@ -332,11 +418,12 @@ class ModelDepartment extends DAO {
             if ($object instanceof  ClassFormal) {
               $classFormal = $object;
             }
-        $sql = "UPDATE class_formals SET class_number = ?, department_id = ?, class_course = ? WHERE class_formal_id = ?";
+        $sql = "UPDATE class_formals SET class_number = ?,  class_course = ? ,branch_id = ? WHERE class_formal_id = ?";
         $stmt = $this->link->prepare($sql);
         $stmt->bindParam(1, $classFormal->getClassNumber(), PDO::PARAM_INT);
-        $stmt->bindParam(2, $classFormal->getDepartment()->getDepartmentId(), PDO::PARAM_INT);
-        $stmt->bindParam(3, $classFormal->getClassCourse(), PDO::PARAM_INT);
+       
+        $stmt->bindParam(2, $classFormal->getClassCourse(), PDO::PARAM_INT);
+        $stmt->bindParam(3, $classFormal->getBranch()->getBranchId(), PDO::PARAM_INT);
         $stmt->bindParam(4, $classFormal->getClassFormalId(), PDO::PARAM_INT);
 
         $stmt->execute();
@@ -436,9 +523,10 @@ class ModelDepartment extends DAO {
             // 5. Lấy kết quả dưới dạng mảng kết hợp
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
+                $timeStartObject = DateTime::createFromFormat('H:i:s',$result['time_start']);
                 return new KipStudy(
                   $result['kip_study_id'],
-                  $result['time_start'],
+                  $timeStartObject,
                   $result['time_study'],
                 );
                 
@@ -819,7 +907,7 @@ class ModelDepartment extends DAO {
                   $result['subject_id'],
                   $result['subject_code'],
                   $result['subject_name'],
-                  $result['credit '],
+                  $result['credit'],
                   $result['price_credit']
                 );
                 
@@ -894,15 +982,15 @@ class ModelDepartment extends DAO {
             $stmt->execute(); 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
-                $modelDepartment=new ModelDepartment();
-                $department = $modelDepartment->getById($result["department_id"]);
+                 $modelBranch=new ModelBranch();
+                $branch = $modelBranch->getById($result["branch_id"]);
                 $modelSubject= new ModelSubject();
                 $subject=$modelSubject->GetById($result["subject_id"]);
                 return new SubjectSemester(
                   $result['subject_semester_id'],
                   $result['subject_semester_name'],
                   $subject,
-                  $department
+                  $branch
                 );
                 
             } 
@@ -914,17 +1002,17 @@ class ModelDepartment extends DAO {
         }
 
     }
-    public function getByNameAndDepartment(int $name, int $departmentCode): array {
-        $sql = "SELECT * FROM subject_semesters WHERE subject_semester_name = ? and department_code=?";
+    public function getByNameAndBranch(int $name, string $departmentCode): array {
+        $sql = "SELECT * FROM subject_semesters WHERE subject_semester_name = ? and branch_id=?";
         try {
             $stmt = $this->link->prepare($sql);
             $stmt->bindParam(1, $name, PDO::PARAM_INT);   
-            $stmt->bindParam(2, $departmentCode, PDO::PARAM_INT);
+            $stmt->bindParam(2, $departmentCode, PDO::PARAM_STR);
             $stmt->execute();   
             $list=[];  
             while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $modelDepartment=new ModelDepartment();
-                $department = $modelDepartment->getById($result["department_id"]);
+                 $modelBranch=new ModelBranch();
+                $branch = $modelBranch->getById($result["branch_id"]);
                 $modelSubject= new ModelSubject();
                 $subject=$modelSubject->GetById($result["subject_id"]);
                 
@@ -932,7 +1020,7 @@ class ModelDepartment extends DAO {
                   $result['subject_semester_id'],
                   $result['subject_semester_name'],
                   $subject,
-                  $department ));
+                  $branch ));
                 
             } 
             return $list;
@@ -949,11 +1037,11 @@ class ModelDepartment extends DAO {
           if ($object instanceof SubjectSemester) {
             $subject = $object;
           }
-          $sql = "INSERT INTO subject_semesters(subject_semester_name,subject_id,department_id) VALUES (?, ?, ?)";
+          $sql = "INSERT INTO subject_semesters(subject_semester_name,subject_id,branch_id) VALUES (?, ?, ?)";
           $stmt =$this->link->prepare($sql);
           $stmt->bindParam(1, $subject->getSubjectSemesterName(), PDO::PARAM_INT);
           $stmt->bindParam(2,  $subject->getSubject()->getSubjectId(), PDO::PARAM_INT);
-          $stmt->bindParam(1, $subject->GetDepartment()->getDepartmentId() , PDO::PARAM_INT);
+          $stmt->bindParam(1, $subject->GetBranch()->getBranchId() , PDO::PARAM_INT);
           $stmt->execute();
           return true;
         } catch (PDOException $e) {
@@ -977,22 +1065,27 @@ class ModelDepartment extends DAO {
 
     }
     public function updateObject($object):bool{
-      try {
-        if ($object instanceof SubjectSemester) {
-            $subject  = $object;
-        }
-        $sql = "UPDATE subject_semesters SET subject_semester_name = ?, subject_id = ?,department_id = ? WHERE subject_semester_id = ?";
-        $stmt = $this->link->prepare($sql);
-        $stmt->bindParam(1, $subject->getSubjectSemesterName(), PDO::PARAM_INT);
-        $stmt->bindParam(2,  $subject->getSubject()->getSubjectId(), PDO::PARAM_INT);
-        $stmt->bindParam(1, $subject->GetDepartment()->getDepartmentId() , PDO::PARAM_INT);
-        $stmt->bindParam(2,  $subject->getSubjectSemesterId(), PDO::PARAM_INT);
-        $stmt->execute();
-        return true;
-      } catch (PDOException $e) {
-        return false;
-      }
-    }
+  
+      return false;
+    
+  }
+    // public function updateObject($object):bool{
+    //   try {
+    //     if ($object instanceof SubjectSemester) {
+    //         $subject  = $object;
+    //     }
+    //     $sql = "UPDATE subject_semesters SET subject_semester_name = ?, subject_id = ?,department_id = ? WHERE subject_semester_id = ?";
+    //     $stmt = $this->link->prepare($sql);
+    //     $stmt->bindParam(1, $subject->getSubjectSemesterName(), PDO::PARAM_INT);
+    //     $stmt->bindParam(2,  $subject->getSubject()->getSubjectId(), PDO::PARAM_INT);
+    //     $stmt->bindParam(1, $subject->GetDepartment()->getDepartmentId() , PDO::PARAM_INT);
+    //     $stmt->bindParam(2,  $subject->getSubjectSemesterId(), PDO::PARAM_INT);
+    //     $stmt->execute();
+    //     return true;
+    //   } catch (PDOException $e) {
+    //     return false;
+    //   }
+    // }
   }
 
   class ModelUser extends DAO {

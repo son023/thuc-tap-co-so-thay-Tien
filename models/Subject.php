@@ -6,7 +6,8 @@ class Subject {
   private int $credit;
   private int $priceCredit;
 
-  public function __construct($subjectCode, $subjectName, $credit, $priceCredit) {
+  public function __construct($subjectId,$subjectCode, $subjectName, $credit, $priceCredit) {
+    $this->subjectId = $subjectId;
     $this->subjectCode = $subjectCode;
     $this->subjectName = $subjectName;
     $this->credit = $credit;

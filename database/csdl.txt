@@ -9,8 +9,8 @@ create table class_formals(
 class_formal_id int auto_increment,
 primary key(class_formal_id),
 class_number int  not null
-department_id int not null,
-FOREIGN KEY (department_id) REFERENCES departments(department_id),
+branch_id int not null,
+FOREIGN KEY (branch_id) REFERENCES branchs(branch_id),
 class_course int  not null
 );
 
@@ -131,6 +131,14 @@ FOREIGN KEY (class_credit_id) REFERENCES class_credits(class_credit_id),
 user_id int not null,
 FOREIGN KEY (user_id) REFERENCES users(user_id),
 register_time datetime not null
+)
+create table branchs(
+branch_id int auto_increment,
+primary key(branch_id),
+branch_code varchar(50) not null,
+branch_name varchar(50) not null
+department_id int not null,
+FOREIGN KEY (department_id) REFERENCES departments(department_id),
 )
 
 

@@ -1,15 +1,16 @@
 <?php
 
 require_once("Subject.php");
-require_once("Department.php");
+require_once("Branch.php");
 
 class SubjectSemester {
   private int $subjectSemesterId;     // Unique identifier for the subject semester
   private string $subjectSemesterName; // Name of the semester (e.g., Spring 2024)
   private Subject $subject;           // The associated subject
-  private Department $department;     // The department offering the subject
+  private Branch $department;     // The department offering the subject
 
-  public function __construct(string $subjectSemesterName, Subject $subject, Department $department) {
+  public function __construct(int $subjectSemesterId,string $subjectSemesterName, Subject $subject, Branch $department) {
+    $this->subjectSemesterId = $subjectSemesterId;
     $this->subjectSemesterName = $subjectSemesterName;
     $this->subject = $subject;
     $this->department = $department;
@@ -27,7 +28,7 @@ class SubjectSemester {
     return $this->subject;
   }
 
-  public function getDepartment(): Department {
+  public function getBranch(): Branch {
     return $this->department;
   }
 
@@ -44,9 +45,7 @@ class SubjectSemester {
     $this->subject = $subject;
   }
 
-  public function setDepartment(Department $department): void {
-    $this->department = $department;
-  }
+ 
 }
 
 ?>

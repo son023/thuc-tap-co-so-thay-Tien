@@ -1,16 +1,17 @@
 <?php
-require_once("Department.php");
+require_once("Branch.php");
 class ClassFormal {
   private int $classFormalId;
   private int $classNumber;  // Đã sửa tên biến thành classNumber
-  private Department $department;
+  private Branch $department;
   private int $classCourse;
 
   public function __construct(
       int $classFormalId, 
       int $classNumber, 
-      Department $department, 
-      int $classCourse
+      
+      int $classCourse,
+      Branch $department
   ) {
     $this->classFormalId = $classFormalId;
     $this->classNumber = $classNumber;
@@ -26,7 +27,7 @@ class ClassFormal {
     return $this->classNumber;
   }
 
-  public function getDepartment(): Department {
+  public function getBranch(): Branch{
     return $this->department;
   }
 
