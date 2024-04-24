@@ -74,7 +74,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
                         <h3 class="mb-4 text-center kanit-medium">Đăng Nhập</h3>
-                        <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> class="signin-form">
+                        <form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="signin-form">
                             <div class="form-group">
                                 <input name="username" type="text" class="form-control" placeholder="Username" required>
                                 

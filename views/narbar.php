@@ -28,6 +28,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
 
 
 </div>
+<div class="container">
 <nav class="navbar bg-light">
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -41,3 +42,4 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
     </li>
   </ul>
 </nav>
+</div>

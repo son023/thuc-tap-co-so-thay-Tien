@@ -79,17 +79,17 @@
                         '</td>';
                     echo '</tr>';
                 }
-                foreach ($list as $key => $li) {
-                    if (isset($_POST[(string)$li->getClassCreditId()])) {
-                        $_SESSION['register'] [(string)$li->getClassCreditId()]= $_POST[(string)$li->getClassCreditId()];
-                    } else {
+                // foreach ($list as $key => $li) {
+                //     if (isset($_POST[(string)$li->getClassCreditId()])) {
+                //         $_SESSION['register'] [(string)$li->getClassCreditId()]= $_POST[(string)$li->getClassCreditId()];
+                //     } else {
                         
-                        echo "Checkbox không được chọn";
-                    }
-                }
-                foreach ($_SESSION['register'] as $key => $value) {
-                    echo "Key: " . $key . " - Value: " . $value . "<br>";
-                  }
+                //         echo "Checkbox không được chọn";
+                //     }
+                // }
+                // foreach ($_SESSION['register'] as $key => $value) {
+                //     echo "Key: " . $key . " - Value: " . $value . "<br>";
+                //   }
                 ?>
 
                 </tbody>
