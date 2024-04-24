@@ -232,7 +232,7 @@ class ModelDepartment extends DAO {
                     $result["group_class"],
                     $schedule,
                     $classRoom,
-                    $result["class_credit_code"],
+                    $result["class_credit_code"]
                    
                 );
                 

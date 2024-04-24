@@ -1,20 +1,20 @@
 <?php
-    require_once "header.php";
-    $modeluser=new ModelUser();
-    $modelsemester=new ModelSubjectSemester();
-    $listsubject=$modelsemester->getByNameAndBranch(1,$modeluser->getByUserName($_SESSION['login']['username'])->getClassFormal()->getBranch()->getBranchId());
-    $list=[];
-    $modelcredit=new ModelClassCredit();
-    foreach ($listsubject as $value) {
-        $creditlist=$modelcredit->getBySubject($value->getSubject()->getSubjectId());
-        $list = array_merge($list, $creditlist);
-    }
-    $number=70;
-    
-    
+require_once "header.php";
+$modeluser = new ModelUser();
+$modelsemester = new ModelSubjectSemester();
+$listsubject = $modelsemester->getByNameAndBranch(1, $modeluser->getByUserName($_SESSION['login']['username'])->getClassFormal()->getBranch()->getBranchId());
+$list = [];
+$modelcredit = new ModelClassCredit();
+foreach ($listsubject as $value) {
+    $creditlist = $modelcredit->getBySubject($value->getSubject()->getSubjectId());
+    $list = array_merge($list, $creditlist);
+}
+$number = 70;
 
-    
-    
+
+
+
+
 ?>
 
 <div class="section-one">
@@ -54,56 +54,54 @@
                     </tr>
                 </thead>
                 <tbody>
-               <?php foreach ($list as $key => $li) {
-                    echo '<tr>';
-                    echo '<td>'  .'
-                    <form method="post"action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> <input type="checkbox" id="'. $li->getClassCreditId().'" name="checkbox_'. $li->getClassCreditId().'" value="1"> </form>
-                    
-                    '. '</td>';
-                    echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
-                    echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
-                    echo '<td>' . $li->getGroupClass() . '</td>';
-                    echo '<td>' . $li->getSubject()->getCredit() . '</td>';
-                    echo '<td>' . $li->getGroupClass() . '</td>';
-                    echo '<td>' . $number . '</td>';
-                    echo '<td>' . $number . '</td>';
-                    $timeStart=$li->getSchedule()->getKipStudy()->getTimeStart();
-                    $timeEnd=addDate($timeStart,$li->getSchedule()->getKipStudy()->getTimeStudy());
-                    echo 
-                        '<td>' .'Thứ '. $li->getSchedule()->getDayStudy() . ' Từ '. toStr($timeStart) .' đến ' .toStr($timeEnd) .
+                    <?php foreach ($list as $key => $li) {
+                        echo '<tr>';
+                       
+                        echo '<td><input type="checkbox" id="'  .$li->getClassCreditId(). '" data-credit-id="'  .$li->getClassCreditId(). '"></td>';
+                        echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
+                        echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
+                        echo '<td>' . $li->getGroupClass() . '</td>';
+                        echo '<td>' . $li->getSubject()->getCredit() . '</td>';
+                        echo '<td>' . $li->getGroupClass() . '</td>';
+                        echo '<td>' . $number . '</td>';
+                        echo '<td>' . $number . '</td>';
+                        $timeStart = $li->getSchedule()->getKipStudy()->getTimeStart();
+                        $timeEnd = addDate($timeStart, $li->getSchedule()->getKipStudy()->getTimeStudy());
+                        echo
+                            '<td>' . 'Thứ ' . $li->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
 
-                    
-                    
-                    
-                    
-                        '</td>';
-                    echo '</tr>';
-                }
-                // foreach ($list as $key => $li) {
-                //     if (isset($_POST[(string)$li->getClassCreditId()])) {
-                //         $_SESSION['register'] [(string)$li->getClassCreditId()]= $_POST[(string)$li->getClassCreditId()];
-                //     } else {
-                        
-                //         echo "Checkbox không được chọn";
-                //     }
-                // }
-                // foreach ($_SESSION['register'] as $key => $value) {
-                //     echo "Key: " . $key . " - Value: " . $value . "<br>";
-                //   }
-                ?>
+
+
+
+
+                            '</td>';
+                        echo '</tr>';
+                    }
+
+                    ?>
 
                 </tbody>
             </table>
-
+            <h1 class="text-center"> DANH SÁCH MÔN ĐĂNG KÝ</h1>
+            <div id="cart-container"></div>
+                        
         </div>
     </div>
 
 
 </div>
-</div>
 
 
+<script>
+    $(document).ready(function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (const checkbox of checkboxes) {
+            checkbox.addEventListener('click', handleCheckboxClick);
+        }
+    });
+</script>
 
 <?php
+
 require "footer.php";
 ?>

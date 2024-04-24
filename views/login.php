@@ -1,6 +1,5 @@
 <?php
     
-    
     $modelUser=new ModelUser();
     $username=$password="";
     $_SESSION['error']="";
