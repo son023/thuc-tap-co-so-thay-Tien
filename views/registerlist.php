@@ -8,10 +8,6 @@ if (isset($_POST['credit_id'])) {
     $creditId = $_POST['credit_id'];
     $_SESSION['credit'][$creditId] = 1;
     $modelcredit = new ModelClassCredit();
-   
-   
-
-
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +37,8 @@ if (isset($_POST['credit_id'])) {
         <tbody>
             
             <?php $ok=1;foreach ($_SESSION['credit']  as $key => $li) {
-                if(!is_null($li)){
+                if(!is_null($key)){
+                   
                     $creditlist = $modelcredit->getById($key);
                     echo '<tr>';
                     echo '<td>' .$ok.'</td>';
@@ -71,15 +68,7 @@ if (isset($_POST['credit_id'])) {
 
         </tbody>
     </table>
-    <script>
-        $(document).ready(function () {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            for (const checkbox of checkboxes) {
-                checkbox.addEventListener('click', handleCheckboxClick);
-            }
-        });
-    </script>
-    <script src="public/js/main.js"></script>
+   
 </body>
 
 </html>

@@ -33,7 +33,7 @@
    
         <div class="row">
             <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-12 img">
-            <img src="../public/image/2.png">
+            <img src="../public/image/4.png">
             </div>
         </div>
     </div>

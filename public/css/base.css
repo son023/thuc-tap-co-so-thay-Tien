@@ -11,7 +11,7 @@ img {
     margin:0;
 }
 .section-101 .inner-head {
-    background-color:#82A6FB;
+    background-color:#3ec1d5;
 }
 .section-one .user-container .inner-head{
    
@@ -29,13 +29,13 @@ img {
     padding: 5px;
 }
 .section-one .user-container .inner-title{
-    background-color: #82A6FB;
+    background-color: #3ec1d5;
     padding: 5px;
     color:#fff;
    
 }
 .section-one .user-container  .btn-primary{
-    background-color: #82A6FB;
+    background-color: #3ec1d5;
     border: 0;
    
 }
@@ -330,20 +330,24 @@ img {
   list-style-type: none;
 }
 
-#hero .btn-get-started {
+
+.btn-get-started {
+ 
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
-  display: inline-block;
+  display: block;
   padding: 8px 32px;
   border-radius: 50px;
   transition: 0.5s;
   margin: 10px;
   color: #fff;
   background: #3ec1d5;
+  left:1000px;
+  
 }
 
-#hero .btn-get-started:hover {
+.btn-get-started:hover {
   background: #fff;
   color: #3ec1d5;
 }

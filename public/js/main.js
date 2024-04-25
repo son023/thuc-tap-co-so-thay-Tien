@@ -1,6 +1,8 @@
 function handleCheckboxClick(event) {
   const creditId = event.target.getAttribute('data-credit-id'); 
   const isChecked = event.target.checked; 
+  
+  myElement.style.display = "none";
 
   if (isChecked) {
       $.ajax({

@@ -38,7 +38,7 @@ if (isset($_POST['credit_id'])) {
             
             <?php $ok=1;
             foreach ($_SESSION['credit']  as $key => $li) {
-                if(!is_null($li)){
+                if(!is_null($key)){
                     $creditlist = $modelcredit->getById($key);
                     echo '<tr>';
                     echo '<td>' .$ok.'</td>';
