@@ -762,8 +762,9 @@ public function updateObject($object):bool{
               return new Week(
                   $result["week_id"],
                   $result["week_name"],
-                  $result["start_time"],
-                $result['end_time']
+                  DateTime::createFromFormat('Y-m-d',$result["start_time"]),
+                  DateTime::createFromFormat('Y-m-d',$result["end_time"])
+                
               );
               
           } 
@@ -823,12 +824,15 @@ public function updateObject($object):bool{
             $result = $stmt->fetch(PDO::FETCH_ASSOC);  
             if ($result) {
                 $modelKipstudy= new ModelKipStudy();
+                $modelWeek=new ModelWeek();
+                $week=$modelWeek->getById($result['week_id']);
                 $kipStudy= $modelKipstudy->getById($result["kip_study_id"]);
                 return new Schedule(
-                  $result["schedule_id"],
+                  $result['schedule_id'],
                   $kipStudy,
                   $result['day_study'],
-                  $result['category']
+                 
+                  $week
                 );
                 
             } 
@@ -844,11 +848,12 @@ public function updateObject($object):bool{
           if ($object instanceof Schedule) {
             $schedule = $object;
           }
-          $sql = "INSERT INTO schedules(kip_study_id,day_study,category) VALUES (?, ?, ?)";
+          $sql = "INSERT INTO schedules(kip_study_id,day_study,category,week_id) VALUES (?, ?, ?, ?)";
           $stmt =$this->link->prepare($sql);
           $stmt->bindParam(1, $schedule->getKipStudy()->getKipStudyId(), PDO::PARAM_INT);
           $stmt->bindParam(2, $schedule->getDayStudy(), PDO::PARAM_INT);
           $stmt->bindParam(3, $schedule->getCategory(), PDO::PARAM_STR);
+          $stmt->bindParam(4, $schedule->getWeek()->getWeekId(), PDO::PARAM_INT);
           $stmt->execute();
           return true;
         } catch (PDOException $e) {
@@ -876,12 +881,14 @@ public function updateObject($object):bool{
             if ($object instanceof Schedule) {
               $schedule = $object;
             }
-        $sql = "UPDATE schedules SET kip_study_id = ?, day_study = ?, category= ? WHERE schedule_id = ?";
+        $sql = "UPDATE schedules SET kip_study_id = ?, day_study = ?, category= ?, week_id= ? WHERE schedule_id = ?";
         $stmt = $this->link->prepare($sql);
         $stmt->bindParam(1, $schedule->getKipStudy()->getKipStudyId(), PDO::PARAM_INT);
         $stmt->bindParam(2, $schedule->getDayStudy(), PDO::PARAM_INT);
         $stmt->bindParam(3, $schedule->getCategory(), PDO::PARAM_STR);
-        $stmt->bindParam(4,$schedule->getScheduleId(),PDO::PARAM_INT);
+        $stmt->bindParam(4, $schedule->getWeek()->getWeekId(), PDO::PARAM_INT);
+        $stmt->bindParam(5,$schedule->getScheduleId(),PDO::PARAM_INT);
+
         $stmt->execute();
         return true;
       } catch (PDOException $e) {

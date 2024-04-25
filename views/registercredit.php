@@ -15,6 +15,7 @@ $number = 70;
 
 
 
+
 ?>
 
 <div class="section-one">
@@ -57,33 +58,35 @@ $number = 70;
                     <?php 
                         
                         foreach ($list as $key => $li) {
-                        $check=1;
-                        echo '<tr>';
-                        foreach ($_SESSION['credit'] as $key1 => $li1) {
-                            if (!is_null($key1)) {
-                                if((int)$key1== $li->getClassCreditId()) $check=0;
+                            $check=1;
+                            echo '<tr>';
+                            if(isset($_SESSION['credit'])){
+                                foreach ($_SESSION['credit'] as $key1 => $li1) {
+                                    if (!is_null($key1)) {
+                                        if((int)$key1== $li->getClassCreditId()) $check=0;
+                                    }
+                                }
                             }
-                        }
-                        if($check==1)  echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
-                        else echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
-                        echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
-                        echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
-                        echo '<td>' . $li->getGroupClass() . '</td>';
-                        echo '<td>' . $li->getSubject()->getCredit() . '</td>';
-                        echo '<td>' . $li->getGroupClass() . '</td>';
-                        echo '<td>' . $number . '</td>';
-                        echo '<td>' . $number . '</td>';
-                        $timeStart = $li->getSchedule()->getKipStudy()->getTimeStart();
-                        $timeEnd = addDate($timeStart, $li->getSchedule()->getKipStudy()->getTimeStudy());
-                        echo
-                            '<td>' . 'Thứ ' . $li->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
+                            if($check==1)  echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
+                            else echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
+                            echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
+                            echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
+                            echo '<td>' . $li->getGroupClass() . '</td>';
+                            echo '<td>' . $li->getSubject()->getCredit() . '</td>';
+                            echo '<td>' . $li->getGroupClass() . '</td>';
+                            echo '<td>' . $number . '</td>';
+                            echo '<td>' . $number . '</td>';
+                            $timeStart = $li->getSchedule()->getKipStudy()->getTimeStart();
+                            $timeEnd = addDate($timeStart, $li->getSchedule()->getKipStudy()->getTimeStudy());
+                            echo
+                                '<td>' . 'Thứ ' . $li->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
 
 
 
 
 
-                            '</td>';
-                        echo '</tr>';
+                                '</td>';
+                            echo '</tr>';
                     }
 
                     ?>
@@ -107,8 +110,9 @@ $number = 70;
                         </tr>
                     </thead>
                     <tbody>
-
-                        <?php $ok = 1;
+                        <?php
+                        if(isset($_SESSION['credit'])){
+                             $ok = 1;
                         foreach ($_SESSION['credit'] as $key => $li) {
                             if (!is_null($key)) {
 
@@ -135,6 +139,7 @@ $number = 70;
                                     '</td>';
                                 echo '</tr>';
                             }
+                        }
                         }
 
                         ?>

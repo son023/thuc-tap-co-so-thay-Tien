@@ -36,7 +36,8 @@ if (isset($_POST['credit_id'])) {
         </thead>
         <tbody>
             
-            <?php $ok=1;
+            <?php 
+            if(isset($_SESSION['credit'])){$ok=1;
             foreach ($_SESSION['credit']  as $key => $li) {
                 if(!is_null($key)){
                     $creditlist = $modelcredit->getById($key);
@@ -62,7 +63,7 @@ if (isset($_POST['credit_id'])) {
                         '</td>';
                     echo '</tr>';
                 }
-            }
+            }}
 
             ?>
 

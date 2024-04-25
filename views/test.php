@@ -1,4 +1,4 @@
-
+<!-- 
     
 
 <!DOCTYPE html>
@@ -72,4 +72,10 @@
     </script>
 
 </body>
-</html>
+</html> -->
+<?php 
+    require_once '../configs/functions.php';
+    require_once '../models/ModelDAO.php';
+    $modelWeek=new ModelSubject();
+    $week=$modelWeek->getById(38);
+    show($week);

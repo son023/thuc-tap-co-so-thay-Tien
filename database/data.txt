@@ -82,9 +82,19 @@ VALUES ('G01', 'A2'),
 
 INSERT INTO subjects (subject_code, subject_name, credit, price_credit)
 VALUES
-  ('INT121001', 'Đại Số ', 3, 500000),
-  ('INT102', 'Thực Tập Cơ Sở', 4, 500000),
-  ('BAS123', 'Tiếng Anh Course 1', 4, 500000);
+  ('BAS1106', 'Giáo dục thể chất 1 ', 2, 500000),
+  ('BAS1150', '	Triết học Mác - Lênin', 3, 500000),
+  ('BAS1203', 'Giải tích 1', 4, 500000),
+	('INT1201', 'Đại Số ', 3, 500000),
+  ('INT1154', 'Tin học cơ sở 1', 2, 500000),
+  ('BAS1157', 'Tiếng Anh Course 1', 4, 500000),
+('BAS1107', 'Giáo dục thể chất 2 ', 2, 500000),
+  ('BAS1151', 'Kinh tế chính trị Mác- Lênin', 2, 500000),
+  ('BAS1204', 'Giải tích 2', 3, 500000),
+('BAS1224', 'Vật lý 1 và thí nghiệm', 4, 500000),
+  ('INT102', 'Xác suất thống kê', 2, 500000),
+  ('ELE1433', 'Kỹ thuật số', 2, 500000),
+('INT1155', 'Tin học cơ sở 2', 2, 500000);
 INSERT INTO subject_semesters (subject_semester_name, subject_id, department_id)
 VALUES
   (1, 1, 1), -- Subject 1 offered in Semester 1, Department 1

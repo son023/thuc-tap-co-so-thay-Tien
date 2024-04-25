@@ -2,13 +2,13 @@
 
 class Week {
 
-    private $weekId;
-    private $weekName;
-    private $startTime;
-    private $endTime;
+    private int $weekId;
+    private int $weekName;
+    private Datetime $startTime;
+    private Datetime $endTime;
 
     // Constructor (optional for flexibility)
-    public function __construct($weekId = null, $weekName = null, $startTime = null, $endTime = null) {
+    public function __construct(int $weekId ,int  $weekName ,Datetime $startTime ,Datetime $endTime) {
         $this->weekId = $weekId;
         $this->weekName = $weekName;
         $this->startTime = $startTime;
@@ -20,9 +20,7 @@ class Week {
         return $this->weekId;
     }
 
-    public function setWeekId($weekId) {
-        $this->weekId = $intVal($weekId); // Ensure integer for auto-increment compatibility
-    }
+ 
 
     public function getWeekName() {
         return $this->weekName;
