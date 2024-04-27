@@ -1,14 +1,14 @@
 <?php
 require_once("Subject.php");
 require_once("User.php");
-require_once("ListSchedule.php");
+require_once("Schedule.php");
 
 class ClassCredit {
   private int $classCreditId;
   private string $classCreditName;
   private Subject $subject;
   private int $groupClass;
-  private  ListSchedule $listSchedule;
+  private   $listSchedule;
 
   
 

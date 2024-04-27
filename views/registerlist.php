@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 ob_start();
 require_once '../configs/functions.php';
@@ -11,6 +10,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 $userId = $_SESSION['login']['username'];
 $user = $modelUser->getByUserName($userId);
 $listSchedule = $modelRegister->getByUserId($user->getUserId());
+$listKq=[];
 $tmp=null;
 if (isset($_POST['credit_id'])) {
     $creditId = $_POST['credit_id'];
@@ -37,9 +37,12 @@ if (isset($_POST['credit_id'])) {
             $modelRegister->deleteByUserAndClassCredit($user->getUserId(),$tmp->getClassCreditId());
             $regiter = new Register(1, $classCredit, $user, new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh')));
             $modelRegister->addObject($regiter);
+            $listKq[0]['status']=1;
+            $listKq[0]['error'] = $tmp->getClassCreditId();
         }
         else{
-            echo 'Trùng lịch học môn '.$credittmp->getClassCreditId();
+            $listKq[0]['status']=2;
+            $listKq[0]['error'] = getSchedule($credittmp,'Trùng lịch học với môn');
         }
     }
     else{
@@ -53,58 +56,35 @@ if (isset($_POST['credit_id'])) {
             }
         }
         if(is_null($credittmp)){
-          
+            $listKq[0]['status']=0;
             $regiter = new Register(1, $classCredit, $user, new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh')));
             $modelRegister->addObject($regiter);
         }
         else{
-            echo 'Trùng lịch học môn '.$credittmp->getClassCreditId();
+            $listKq[0]['status']=2;
+            $listKq[0]['error'] = getSchedule($credittmp,'Trùng lịch học với môn');
         }
 
     }
    
 
-
-
-   
-
+    $list = $modelRegister->getByUserId($user->getUserId());
+	$ok = 1;
+	foreach ($list as $key => $li) {
+		if (!is_null($key)) {
+			$creditlist = $li->getClassCredit();
+            $listKq[$ok]['STT']=$ok;
+			$listKq[$ok]['subjectCode'] =  $creditlist->getSubject()->getSubjectCode() ;
+			$listKq[$ok]['subjectName'] =  $creditlist->getSubject()->getSubjectName() ;
+			$listKq[$ok]['groupClass'] =  $creditlist->getGroupClass();
+            $listKq[$ok]['credit'] = $creditlist->getSubject()->getCredit();
+            $listKq[$ok]['class'] = $creditlist->getClassCreditName();
+            $listKq[$ok]['time'] = toStrRegister($li->getRegisterTime());
+            $listKq[$ok]['schedule'] = getSchedule($creditlist,'TKB');
+			$ok+=1;
+		}
+	}
+    echo json_encode($listKq,JSON_UNESCAPED_UNICODE) ;
 }
-$list = $modelRegister->getByUserId($user->getUserId());
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
-<body>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Mã MH</th>
-                <th>Tên môn học</th>
-                <th>Nhóm</th>
-                <th>Số TC</th>
-                <th>Lớp</th>
-                <th>Ngày đăng ký</th>
-               
-                <th>Thời khóa biểu</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <?php
-            showRegister($list);
-                
-            ?>
-
-        </tbody>
-    </table>
-
-</body>
-
-</html>

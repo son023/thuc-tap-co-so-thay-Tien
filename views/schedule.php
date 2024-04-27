@@ -12,10 +12,8 @@ require "header.php";
             </div>
             <div class="col-xl-9">
             
-                    <h2>Responsive Table</h2>
-                    <p>The .table-responsive class adds a scrollbar to the table when needed:</p>
-
-                    <div class="table-responsive">
+                    
+                    <div class=" table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

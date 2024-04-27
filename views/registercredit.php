@@ -51,8 +51,8 @@ $number = 70;
                 </div>
             </div><!-- End Suscribe Section -->
 
-            <table class="table table-hover">
-                <thead>
+            <table class="table table-hover table-responsive">
+                <thead class="thead-light">
                     <tr>
                         <th> </th>
                         <th>Mã MH</th>
@@ -71,13 +71,13 @@ $number = 70;
                     foreach ($list as $key => $li) {
                         $check = 1;
                         echo '<tr>';
-                            foreach ($list1 as $key1 => $li1) {
-                                if (!is_null($key1)) {
-                                    if ((int) $li->getClassCreditId() == $li1->getClassCredit()->getClassCreditId())
-                                        $check = 0;
-                                }
+                        foreach ($list1 as $key1 => $li1) {
+                            if (!is_null($key1)) {
+                                if ((int) $li->getClassCreditId() == $li1->getClassCredit()->getClassCreditId())
+                                    $check = 0;
                             }
-                      
+                        }
+
                         if ($check == 1)
                             echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
                         else
@@ -92,12 +92,12 @@ $number = 70;
 
                         echo
                             '<td>';
-                        foreach ($li->getListSchedule()->getSchedule() as $key => $schedule) {
+                        foreach ($li->getListSchedule() as $key => $schedule) {
                             if (!is_null($schedule)) {
                                 $timeStart = $schedule->getKipStudy()->getTimeStart();
-                                echo 'Thứ ' . $schedule->getDayStudy() . ' Kíp '.$schedule->getKipStudy()->getKipStudyId() .' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) . 
-                                ', Phòng ' .$schedule->getClassRoom()->getClassRoomName(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()). ' đến '.formatYear($schedule->getWeekEnd()->getEndTime()) .
-                                '<br/>';
+                                echo 'Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+                                    ', Phòng ' . $schedule->getClassRoom()->getClassRoomName() . '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+                                    '<br/>';
                             }
                         }
 
@@ -111,7 +111,7 @@ $number = 70;
             </table>
             <h1 class="text-center"> DANH SÁCH MÔN ĐĂNG KÝ</h1>
             <div id="credit-container">
-                <table class="table table-hover">
+                <table class="table table-hover  table-responsive">
                     <thead>
                         <tr>
                             <th>STT</th>
@@ -121,14 +121,14 @@ $number = 70;
                             <th>Số TC</th>
                             <th>Lớp</th>
                             <th>Ngày đăng ký</th>
-                            
+
                             <th>Thời khóa biểu</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                     
-                         showRegister($list1);
+
+                        showRegister($list1);
                         ?>
 
                     </tbody>
@@ -137,7 +137,7 @@ $number = 70;
             </div>
             <div id="cart-container"></div>
             <div>
-                <button class="btn-get-started animate__animated animate__fadeInUp">Lưu đăng ký</button>
+                <button class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá biểu</button>
             </div>
 
         </div>
@@ -161,9 +161,57 @@ $number = 70;
                     method: "POST",
                     data: { credit_id: creditId },
                     url: "http://localhost:3000/views/registerlist.php",
-                    success: function (data) {
-                        $("#cart-container").html(data);
-                        //   alert("Đã thêm sản phẩm vào giỏ hàng!");
+                    success: function (data) {                      
+                        data = JSON.parse(data);
+                        if (data[0].status == 1) {
+                            checkbox = document.getElementById(data[0].error);
+                            checkbox.checked = false;
+                        }
+                        else if (data[0].status == 2) {
+                            event.target.checked = false;
+                            alert(data[0].error);
+                        }
+                        else {
+                            console.log(data[0].status);
+                        }
+                        const cartContainer = document.getElementById('cart-container');
+                        const table = document.createElement('table');
+                        table.className='table table-hover  table-responsive '
+                        const tableHeader = document.createElement('thead');
+                        const tableBody = document.createElement('tbody');
+                        const headerRow = document.createElement('tr');
+                        const headers = ['STT', 'Mã MH', 'Tên môn học', 'Nhóm', 'Số TC','Lớp','Ngày đăng ký','Thời khoá biểu'];
+                        for (const header of headers) {
+                            const headerCell = document.createElement('th');
+                            headerCell.textContent = header;
+                            headerRow.appendChild(headerCell);
+                        }
+                        tableHeader.appendChild(headerRow);
+
+                        for (const key of data) {
+                            if (key !== '0') {
+                                const dataRow = document.createElement('tr');
+                                const dataCells = [
+                                    key.STT,
+                                    key.subjectCode,
+                                    key.subjectName,
+                                    key.groupClass,
+                                    key.credit,
+                                    key.class,
+                                    key.time,
+                                    key.schedule
+                                ];
+                                for (const data of dataCells) {
+                                    const dataCell = document.createElement('td');
+                                    dataCell.textContent = data;
+                                    dataRow.appendChild(dataCell);
+                                }
+                                tableBody.appendChild(dataRow);
+                            }
+                        }              
+                        table.appendChild(tableHeader);
+                        table.appendChild(tableBody);
+                        $("#cart-container").html(table);
                     }
                 });
             } else {
@@ -172,7 +220,45 @@ $number = 70;
                     data: { credit_id: creditId },
                     url: "http://localhost:3000/views/removecredit.php",
                     success: function (data) {
-                        $("#cart-container").html(data);
+                        data = JSON.parse(data);
+                        const cartContainer = document.getElementById('cart-container');
+                        const table = document.createElement('table');
+                        table.className='table table-hover  table-responsive '
+                        const tableHeader = document.createElement('thead');
+                        const tableBody = document.createElement('tbody');
+                        const headerRow = document.createElement('tr');
+                        const headers = ['STT', 'Mã MH', 'Tên môn học', 'Nhóm', 'Số TC','Lớp','Ngày đăng ký','Thời khoá biểu'];
+                        for (const header of headers) {
+                            const headerCell = document.createElement('th');
+                            headerCell.textContent = header;
+                            headerRow.appendChild(headerCell);
+                        }
+                        tableHeader.appendChild(headerRow);
+
+                        for (const key of data) {
+                            if (key !== '0') {
+                                const dataRow = document.createElement('tr');
+                                const dataCells = [
+                                    key.STT,
+                                    key.subjectCode,
+                                    key.subjectName,
+                                    key.groupClass,
+                                    key.credit,
+                                    key.class,
+                                    key.time,
+                                    key.schedule
+                                ];
+                                for (const data of dataCells) {
+                                    const dataCell = document.createElement('td');
+                                    dataCell.textContent = data;
+                                    dataRow.appendChild(dataCell);
+                                }
+                                tableBody.appendChild(dataRow);
+                            }
+                        }              
+                        table.appendChild(tableHeader);
+                        table.appendChild(tableBody);
+                        $("#cart-container").html(table);
                     }
                 });
             }

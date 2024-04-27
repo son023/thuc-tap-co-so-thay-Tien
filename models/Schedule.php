@@ -4,7 +4,8 @@ require_once("KipStudy.php");
 require_once("Week.php");
 require_once("ClassRoom.php");
 class Schedule {
-  private int $scheduleId;  // Unique identifier for the schedule entry
+  private int $scheduleId; 
+  private int $scheduleCode; // Unique identifier for the schedule entry
   private KipStudy $kipStudy;  // The associated study session
   private int $dayStudy; 
   private string $category; 
@@ -13,8 +14,9 @@ class Schedule {
   private ClassRoom $classRoom;
      // Day of the week for the study session (consider using an enum for weekdays)
 
-  public function __construct(int $scheduleId, KipStudy $kipStudy, int $dayStudy,Week $week, Week $weekEnd,$classRoom) {
+  public function __construct(int $scheduleId,int $scheduleCode, KipStudy $kipStudy, int $dayStudy,Week $week, Week $weekEnd,$classRoom) {
     $this->scheduleId = $scheduleId;
+    $this->scheduleCode = $scheduleCode;
     $this->kipStudy = $kipStudy;
     $this->dayStudy = $dayStudy;
    
@@ -25,6 +27,9 @@ class Schedule {
 
   public function getScheduleId(): int {
     return $this->scheduleId;
+  }
+  public function getScheduleCode(): int {
+    return $this->scheduleCode;
   }
 
   public function getKipStudy(): KipStudy {
