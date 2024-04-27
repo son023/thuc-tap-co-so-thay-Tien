@@ -1,36 +1,34 @@
 <?php
 require_once("Subject.php");
 require_once("User.php");
-require_once("Schedule.php");
-require_once("ClassRoom.php");
+require_once("ListSchedule.php");
+
 class ClassCredit {
   private int $classCreditId;
   private string $classCreditName;
   private Subject $subject;
   private int $groupClass;
-  private Schedule $schedule;
-  private ClassRoom $classRoom;
-  private int $classCreditCode;
+  private  ListSchedule $listSchedule;
+
+  
 
 
   public function __construct(int $classCreditId,
-      $classCreditName, $subject, $groupClass, $schedule, $classRoom,$classCreditCode
+      $classCreditName, $subject, $groupClass, $listSchedule
   ) {
     $this->classCreditId = $classCreditId;
     $this->classCreditName = $classCreditName;
     $this->subject = $subject;
     $this->groupClass = $groupClass;
-    $this->schedule = $schedule;
-    $this->classRoom = $classRoom;
-    $this->$classCreditCode=$classCreditCode;
+  
+    $this->listSchedule = $listSchedule;
+    
   }
 
   public function getClassCreditId() {
     return $this->classCreditId;
   }
-  public function getClassCreditCode(){
-    return $this->classCreditCode;
-  }
+ 
 
   public function getClassCreditName() {
     return $this->classCreditName;
@@ -43,12 +41,10 @@ class ClassCredit {
     return $this->groupClass;
   }
 
-  public function getSchedule() {
-    return $this->schedule;
+  public function getListSchedule() {
+    return $this->listSchedule;
   }
 
-  public function getClassRoom() {
-    return $this->classRoom;
-  }
+  
 }
 ?>

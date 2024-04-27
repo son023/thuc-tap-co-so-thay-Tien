@@ -74,8 +74,56 @@
 </body>
 </html> -->
 <?php 
-    require_once '../configs/functions.php';
-    require_once '../models/ModelDAO.php';
-    $modelWeek=new ModelSubject();
-    $week=$modelWeek->getById(38);
-    show($week);
+    // require_once '../configs/functions.php';
+    // require_once '../models/ModelDAO.php';
+    // $modelWeek=new ModelKipStudy();
+    // $week=$modelWeek->getById(1);
+    // echo toStr($week->getTimeStart());
+    // echo toStr(addDate($week->getTimeStart(),$week->getTimeStudy())); -->
+    // $modelweek=new ModelSchedule();
+    // $week=$modelweek->getById(2);
+    // show($week);
+
+session_start();
+ob_start();
+require_once '../configs/functions.php';
+require_once '../models/ModelDAO.php';
+$modelUser=new ModelUser();
+$modelRegister=new ModelRegister();
+$modelcredit=new ModelClassCredit();
+$userId=$_SESSION['login']['username'];
+$user = $modelUser->getByUserName($userId);
+
+     $classCredit=$modelcredit->getById(5);
+     $classCredit1=$modelcredit->getById(21);
+     
+     if(checkClassCredit($classCredit, $classCredit1)){
+        echo 'trung';
+     }
+     else{
+        echo 'ko';
+     }
+    //  $user=$modelUser->getByUserName($userId);
+//     // show($modelRegister->getByUserId($user->getUserId()));
+//     if($modelRegister->deleteByUserAndClassCredit($user->getUserId(), 7)){
+//         echo  $user->getUserId();
+//         echo 'ok';
+//     }
+// else echo 'loi';
+// $user = $modelUser->getByUserName($userId);
+
+// $list1 = $modelRegister->getByUserId($user->getUserId());
+// foreach ($list1 as $key1 => $li1) {
+//     if (!is_null($key1)) {
+//         show($key1);
+//     }
+// }
+    // $regiter=new Register(1,$classCredit,$user,new DateTime());
+    // if($modelRegister->addObject($regiter)){
+    //     show($regiter);
+    // }
+    // else{
+    //     echo "looi";
+    // }
+
+    

@@ -4,11 +4,72 @@ session_start();
 ob_start();
 require_once '../configs/functions.php';
 require_once '../models/ModelDAO.php';
+$modelUser = new ModelUser();
+$modelRegister = new ModelRegister();
+$modelcredit = new ModelClassCredit();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+$userId = $_SESSION['login']['username'];
+$user = $modelUser->getByUserName($userId);
+$listSchedule = $modelRegister->getByUserId($user->getUserId());
+$tmp=null;
 if (isset($_POST['credit_id'])) {
     $creditId = $_POST['credit_id'];
-    $_SESSION['credit'][$creditId] = 1;
-    $modelcredit = new ModelClassCredit();
+    $classCredit = $modelcredit->getById($creditId);
+    foreach ($listSchedule as $key => $li){
+        if(!is_null($key)){
+            if($li->getClassCredit()->getSubject()->getSubjectId() == $classCredit->getSubject()->getSubjectId()) {
+                $tmp=$li->getClassCredit();
+            }
+        }
+    }
+    
+    if(!is_null($tmp)){
+        $credittmp=null;
+        foreach ($listSchedule as $key => $li){
+            if(!is_null($key)){
+                if(checkClassCredit($li->getClassCredit(),$classCredit)){
+                    $credittmp=$li->getClassCredit();
+                }
+                
+            }
+        }
+        if(is_null($credittmp)){
+            $modelRegister->deleteByUserAndClassCredit($user->getUserId(),$tmp->getClassCreditId());
+            $regiter = new Register(1, $classCredit, $user, new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh')));
+            $modelRegister->addObject($regiter);
+        }
+        else{
+            echo 'Trùng lịch học môn '.$credittmp->getClassCreditId();
+        }
+    }
+    else{
+        $credittmp=null;
+        foreach ($listSchedule as $key => $li){
+            if(!is_null($key)){
+                if(checkClassCredit($li->getClassCredit(),$classCredit)){
+                    $credittmp=$li->getClassCredit();
+                }
+                
+            }
+        }
+        if(is_null($credittmp)){
+          
+            $regiter = new Register(1, $classCredit, $user, new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh')));
+            $modelRegister->addObject($regiter);
+        }
+        else{
+            echo 'Trùng lịch học môn '.$credittmp->getClassCreditId();
+        }
+
+    }
+   
+
+
+
+   
+
 }
+$list = $modelRegister->getByUserId($user->getUserId());
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,54 +84,27 @@ if (isset($_POST['credit_id'])) {
     <table class="table table-hover">
         <thead>
             <tr>
-            <th>STT</th>
+                <th>STT</th>
                 <th>Mã MH</th>
                 <th>Tên môn học</th>
                 <th>Nhóm</th>
                 <th>Số TC</th>
                 <th>Lớp</th>
                 <th>Ngày đăng ký</th>
-                <th>Còn lại</th>
+               
                 <th>Thời khóa biểu</th>
             </tr>
         </thead>
         <tbody>
-            
-            <?php 
-            if(isset($_SESSION['credit'])){
-            $ok=1;foreach ($_SESSION['credit']  as $key => $li) {
-                if(!is_null($key)){
-                   
-                    $creditlist = $modelcredit->getById($key);
-                    echo '<tr>';
-                    echo '<td>' .$ok.'</td>';
-                    $ok+=1;
-                    echo '<td>' .$creditlist->getSubject()->getSubjectCode() . '</td>';
-                    echo '<td>' .$creditlist->getSubject()->getSubjectName() . '</td>';
-                    echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                    echo '<td>' . $creditlist->getSubject()->getCredit() . '</td>';
-                    echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                    echo '<td>' .$creditlist->getGroupClass(). '</td>';
-                    echo '<td>' .$creditlist->getGroupClass(). '</td>';
-                    $timeStart = $creditlist->getSchedule()->getKipStudy()->getTimeStart();
-                    $timeEnd = addDate($timeStart, $creditlist->getSchedule()->getKipStudy()->getTimeStudy());
-                    echo
-                        '<td>' . 'Thứ ' . $creditlist->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
 
-
-
-
-
-                        '</td>';
-                    echo '</tr>';
-                }
-            }}
-
+            <?php
+            showRegister($list);
+                
             ?>
 
         </tbody>
     </table>
-   
+
 </body>
 
 </html>

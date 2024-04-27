@@ -1,14 +1,25 @@
 <?php
 require_once "header.php";
-$modeluser = new ModelUser();
+$modelUser = new ModelUser();
 $modelsemester = new ModelSubjectSemester();
-$listsubject = $modelsemester->getByNameAndBranch(1, $modeluser->getByUserName($_SESSION['login']['username'])->getClassFormal()->getBranch()->getBranchId());
+$listsubject = $modelsemester->getByNameAndBranch(1, $modelUser->getByUserName($_SESSION['login']['username'])->getClassFormal()->getBranch()->getBranchId());
 $list = [];
 $modelcredit = new ModelClassCredit();
+$modelRegister = new ModelRegister();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+$userId = $_SESSION['login']['username'];
+$user = $modelUser->getByUserName($userId);
+
+$list1 = $modelRegister->getByUserId($user->getUserId());
 foreach ($listsubject as $value) {
     $creditlist = $modelcredit->getBySubject($value->getSubject()->getSubjectId());
-    $list = array_merge($list, $creditlist);
+    if (!is_null($creditlist)) {
+        $list = array_merge($list, $creditlist);
+
+    }
+
 }
+
 $number = 70;
 
 
@@ -55,38 +66,43 @@ $number = 70;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                        
-                        foreach ($list as $key => $li) {
-                            $check=1;
-                            echo '<tr>';
-                            if(isset($_SESSION['credit'])){
-                                foreach ($_SESSION['credit'] as $key1 => $li1) {
-                                    if (!is_null($key1)) {
-                                        if((int)$key1== $li->getClassCreditId()) $check=0;
-                                    }
+                    <?php
+
+                    foreach ($list as $key => $li) {
+                        $check = 1;
+                        echo '<tr>';
+                            foreach ($list1 as $key1 => $li1) {
+                                if (!is_null($key1)) {
+                                    if ((int) $li->getClassCreditId() == $li1->getClassCredit()->getClassCreditId())
+                                        $check = 0;
                                 }
                             }
-                            if($check==1)  echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
-                            else echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
-                            echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
-                            echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
-                            echo '<td>' . $li->getGroupClass() . '</td>';
-                            echo '<td>' . $li->getSubject()->getCredit() . '</td>';
-                            echo '<td>' . $li->getGroupClass() . '</td>';
-                            echo '<td>' . $number . '</td>';
-                            echo '<td>' . $number . '</td>';
-                            $timeStart = $li->getSchedule()->getKipStudy()->getTimeStart();
-                            $timeEnd = addDate($timeStart, $li->getSchedule()->getKipStudy()->getTimeStudy());
-                            echo
-                                '<td>' . 'Thứ ' . $li->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
+                      
+                        if ($check == 1)
+                            echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
+                        else
+                            echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
+                        echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
+                        echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
+                        echo '<td>' . $li->getGroupClass() . '</td>';
+                        echo '<td>' . $li->getSubject()->getCredit() . '</td>';
+                        echo '<td>' . $li->getGroupClass() . '</td>';
+                        echo '<td>' . $number . '</td>';
+                        echo '<td>' . $number . '</td>';
 
+                        echo
+                            '<td>';
+                        foreach ($li->getListSchedule()->getSchedule() as $key => $schedule) {
+                            if (!is_null($schedule)) {
+                                $timeStart = $schedule->getKipStudy()->getTimeStart();
+                                echo 'Thứ ' . $schedule->getDayStudy() . ' Kíp '.$schedule->getKipStudy()->getKipStudyId() .' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) . 
+                                ', Phòng ' .$schedule->getClassRoom()->getClassRoomName(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()). ' đến '.formatYear($schedule->getWeekEnd()->getEndTime()) .
+                                '<br/>';
+                            }
+                        }
 
-
-
-
-                                '</td>';
-                            echo '</tr>';
+                        echo '</td>';
+                        echo '</tr>';
                     }
 
                     ?>
@@ -105,52 +121,23 @@ $number = 70;
                             <th>Số TC</th>
                             <th>Lớp</th>
                             <th>Ngày đăng ký</th>
-                            <th>Còn lại</th>
+                            
                             <th>Thời khóa biểu</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        if(isset($_SESSION['credit'])){
-                             $ok = 1;
-                        foreach ($_SESSION['credit'] as $key => $li) {
-                            if (!is_null($key)) {
-
-                                $creditlist = $modelcredit->getById($key);
-                                echo '<tr>';
-                                echo '<td>' . $ok . '</td>';
-                                $ok += 1;
-                                echo '<td>' . $creditlist->getSubject()->getSubjectCode() . '</td>';
-                                echo '<td>' . $creditlist->getSubject()->getSubjectName() . '</td>';
-                                echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                                echo '<td>' . $creditlist->getSubject()->getCredit() . '</td>';
-                                echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                                echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                                echo '<td>' . $creditlist->getGroupClass() . '</td>';
-                                $timeStart = $creditlist->getSchedule()->getKipStudy()->getTimeStart();
-                                $timeEnd = addDate($timeStart, $creditlist->getSchedule()->getKipStudy()->getTimeStudy());
-                                echo
-                                    '<td>' . 'Thứ ' . $creditlist->getSchedule()->getDayStudy() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr($timeEnd) .
-
-
-
-
-
-                                    '</td>';
-                                echo '</tr>';
-                            }
-                        }
-                        }
-
+                     
+                         showRegister($list1);
                         ?>
 
                     </tbody>
                 </table>
-                
+
             </div>
             <div id="cart-container"></div>
             <div>
-            <button class="btn-get-started animate__animated animate__fadeInUp">Lưu đăng ký</button>
+                <button class="btn-get-started animate__animated animate__fadeInUp">Lưu đăng ký</button>
             </div>
 
         </div>
@@ -183,7 +170,7 @@ $number = 70;
                 $.ajax({
                     method: "POST",
                     data: { credit_id: creditId },
-                    url: "http://localhost:3000/views/removeproduct.php",
+                    url: "http://localhost:3000/views/removecredit.php",
                     success: function (data) {
                         $("#cart-container").html(data);
                     }
