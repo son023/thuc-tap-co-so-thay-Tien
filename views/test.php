@@ -1,45 +1,28 @@
-<?php session_start();
-ob_start();
-ini_set('default_charset', 'UTF-8');
-require_once '../configs/functions.php';
-require_once '../models/ModelDAO.php';
-$modelUser=new ModelUser();
-$modelRegister=new ModelRegister();
-$modelcredit=new ModelClassCredit();
-$userId=$_SESSION['login']['username'];
-$user = $modelUser->getByUserName($userId);
+<?php
+ require_once '../models/ModelDAO.php';
+ require_once '../configs/functions.php';
+$currentDate = getdate();
 
-     $classCredit=$modelcredit->getById(5);
-     $classCredit1=$modelcredit->getById(21);
-     
-     $list=[];
-     $list['error']=getSchedule($classCredit,'trung');
-     $list[1]['oke']='2';
+// Gán giá trị cho các biến
+$month = $currentDate['mon'];
+$year = $currentDate['year'];
+// echo $month . $year;
+$model=new ModelClassCredit();
+$modelRegister = new ModelRegister();
+$list=$modelRegister->getGvByClassCreditId(19);
+$listtg=$modelRegister->getTgByClassCreditId(19);
+$creditId = 19;
+$listGv=$modelRegister->getGvByClassCreditId($creditId);
+$listTg=$modelRegister->getTgByClassCreditId($creditId);
+$listSv=$modelRegister->getSvByClassCreditId($creditId);
+$classCredit = $model->getById($creditId);
+$gvMax=$classCredit->getGvMax();
+$tgMax=$classCredit->getTgMax();
+$svMax=$classCredit->getSvMax();
+if(checkRegister($listGv,$listTg,$listSv,$gvMax,$tgMax,$svMax,2)){
+    echo 'ok';
 
-     echo json_encode($list,JSON_UNESCAPED_UNICODE) ;
-    ?>
+}
+else echo 'ko ok';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-</head>
-<body>
-    <input type="checkbox" id="add-to-cart" data-product-id="20">
-    <input type="checkbox" id="add" data-product-id="30">
-    <input type="checkbox" id="add-" data-product-id="40">
-    <input type="checkbox" id="add-t" data-product-id="50">
-    <input type="checkbox" id="add-to" data-product-id="60">
-    <div id="cart-container"></div>
-    
-
-  
-
- 
-
-</body>
-</html> 
-    
+?>

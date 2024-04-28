@@ -258,7 +258,10 @@ class ModelClassCredit extends DAO
           $result["class_credit_name"],
           $subject,
           $result["group_class"],
-          $listSchedule
+          $listSchedule,
+          $result["teacher_max"],
+          $result["tutors_max"],
+          $result["student_max"]
          
         )
         );
@@ -291,11 +294,10 @@ class ModelClassCredit extends DAO
           $result["class_credit_name"],
           $subject,
           $result["group_class"],
-          
-         
-          $schedule
-          
-
+          $schedule,
+          $result["teacher_max"],
+          $result["tutors_max"],
+          $result["student_max"]
         );
 
       }
@@ -318,7 +320,6 @@ class ModelClassCredit extends DAO
       $stmt->bindParam(1, $classCredit->getClassCreditName(), PDO::PARAM_STR);
       $stmt->bindParam(2, $classCredit->getSubject()->getSubjectId(), PDO::PARAM_INT);
       $stmt->bindParam(3, $classCredit->getGroupClass(), PDO::PARAM_INT);
-     
       $stmt->bindParam(4, $classCredit->getListSchedule()[0]->getScheduleCode(), PDO::PARAM_INT);
 
       $stmt->execute();
@@ -756,13 +757,9 @@ class ModelRegister extends DAO
   {
     $sql = "SELECT * FROM registers WHERE register_id = ?";
     try {
-      // 2. Chuẩn bị câu lệnh sử dụng PDO
       $stmt = $this->link->prepare($sql);
-      // 3. Gắn tham số một cách an toàn (ngăn chặn SQL injection)
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
-      // 4. Thực thi câu lệnh
       $stmt->execute();
-      // 5. Lấy kết quả dưới dạng mảng kết hợp
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       $modelUser = new ModelUser();
       $modelClassCredit = new ModelClassCredit();
@@ -778,24 +775,20 @@ class ModelRegister extends DAO
 
       }
     } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
 
 
     }
 
   }
+
   public function getByUserId(int $uid): array
   {
     $sql = "SELECT * FROM registers WHERE user_id = ?";
     try {
-      // 2. Chuẩn bị câu lệnh sử dụng PDO
       $stmt = $this->link->prepare($sql);
-      // 3. Gắn tham số một cách an toàn (ngăn chặn SQL injection)
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
-      // 4. Thực thi câu lệnh
       $stmt->execute();
-      // 5. Lấy kết quả dưới dạng mảng kết hợp
       $list=[];
       $modelUser = new ModelUser();
       $modelClassCredit = new ModelClassCredit();
@@ -812,28 +805,90 @@ class ModelRegister extends DAO
       }
       return $list;
     } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
 
 
     }
+  }
+  public function getSvByClassCreditId(int $uid): array
+  {
+    $sql = "SELECT * FROM registers WHERE class_credit_id = ?";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $list=[];
+      $modelUser = new ModelUser();
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $user = $modelUser->getById($result["user_id"]);
+        if($user->getUserRole()==1){
+          array_push($list, $user);
+        }
 
+      }
+      return $list;
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+    }
+
+  }
+
+  public function getGvByClassCreditId(int $uid): array
+  {
+    $sql = "SELECT * FROM registers WHERE class_credit_id = ?";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $list=[];
+      $modelUser = new ModelUser();
+      
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $user = $modelUser->getById($result["user_id"]);
+        if($user->getUserRole()==3){
+          array_push($list, $user);
+        }
+
+      }
+      return $list;
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+    }
+
+  }
+  public function getTgByClassCreditId(int $uid): array
+  {
+    $sql = "SELECT * FROM registers WHERE class_credit_id = ?";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $list=[];
+      $modelUser = new ModelUser();
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $user = $modelUser->getById($result["user_id"]);
+        if($user->getUserRole()==2){
+          array_push($list,$user);
+        }
+
+      }
+      return $list;
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+
+
+    }
   }
   public function getByUserIdAndClassCreditId(int $uid,int $classCreditId): object
   {
     $sql = "SELECT * FROM registers WHERE user_id = ? and class_credit_id = ? ";
     try {
-      // 2. Chuẩn bị câu lệnh sử dụng PDO
       $stmt = $this->link->prepare($sql);
-      // 3. Gắn tham số một cách an toàn (ngăn chặn SQL injection)
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->bindParam(2, $classCreditId, PDO::PARAM_INT);
-      // 4. Thực thi câu lệnh
       $stmt->execute();
-      // 5. Lấy kết quả dưới dạng mảng kết hợp
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       $modelUser = new ModelUser();
-      $modelClassCredit = new ModelClassCredit();
       if($result ) {
         $user = $modelUser->getById($result["user_id"]);
         $classCredit = $modelClassCredit->getById($result["class_credit_id"]);
@@ -847,7 +902,6 @@ class ModelRegister extends DAO
       }
      
     } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
 
 

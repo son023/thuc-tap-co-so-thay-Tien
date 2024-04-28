@@ -1,31 +1,39 @@
 <?php
-require_once "header.php";
-$modelUser = new ModelUser();
-$modelsemester = new ModelSubjectSemester();
-$listsubject = $modelsemester->getByNameAndBranch(1, $modelUser->getByUserName($_SESSION['login']['username'])->getClassFormal()->getBranch()->getBranchId());
-$list = [];
-$modelcredit = new ModelClassCredit();
-$modelRegister = new ModelRegister();
-date_default_timezone_set('Asia/Ho_Chi_Minh');
-$userId = $_SESSION['login']['username'];
-$user = $modelUser->getByUserName($userId);
-
-$list1 = $modelRegister->getByUserId($user->getUserId());
-foreach ($listsubject as $value) {
-    $creditlist = $modelcredit->getBySubject($value->getSubject()->getSubjectId());
-    if (!is_null($creditlist)) {
-        $list = array_merge($list, $creditlist);
+    require_once "header.php";
+    $modelUser = new ModelUser();
+    $userId = $_SESSION['login']['username'];
+    $user = $modelUser->getByUserName($userId);
+    $modelsemester = new ModelSubjectSemester();
+    $currentDate = getdate();
+    $month = $currentDate['mon'];
+    $year = $currentDate['year'];
+    $classCourse=$user->getClassFormal()->getClassCourse();
+    if($classCourse==1){
+        $listsubject = $modelsemester->getByNameAndBranch(0, $user->getClassFormal()->getBranch()->getBranchId());
+        // show($listsubject);
+    }
+    else{
+        $ki=-1;
+        if($month>7) $ki=2*($year-2000-$classCourse)+1;
+        else $ki=2*($year-2000-$classCourse);
+        $listsubject = $modelsemester->getByNameAndBranch($ki, $user->getClassFormal()->getBranch()->getBranchId());
+    }
+    
+    $list = [];
+    $modelcredit = new ModelClassCredit();
+    $modelRegister = new ModelRegister();
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    $list1 = $modelRegister->getByUserId($user->getUserId());
+    foreach ($listsubject as $value) {
+        $creditlist = $modelcredit->getBySubject($value->getSubject()->getSubjectId());
+        if (!is_null($creditlist)) {
+            $list = array_merge($list, $creditlist);         
+        }
 
     }
 
-}
 
-$number = 70;
-
-
-
-
-
+    $number = 70;
 
 ?>
 
@@ -77,7 +85,9 @@ $number = 70;
                                     $check = 0;
                             }
                         }
-
+                        $listSv=$modelRegister->getSvByClassCreditId($li->getClassCreditId());
+                        $listGv=$modelRegister->getGvByClassCreditId($li->getClassCreditId());
+                        $listTg=$modelRegister->getTgByClassCreditId($li->getClassCreditId());
                         if ($check == 1)
                             echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
                         else
@@ -87,17 +97,49 @@ $number = 70;
                         echo '<td>' . $li->getGroupClass() . '</td>';
                         echo '<td>' . $li->getSubject()->getCredit() . '</td>';
                         echo '<td>' . $li->getGroupClass() . '</td>';
-                        echo '<td>' . $number . '</td>';
-                        echo '<td>' . $number . '</td>';
+                        if($_SESSION['login']['role']==1){
+                            echo '<td>' . $li->getSvMax() . '</td>';
+                            echo '<td>' . $li->getSvMax()-sizeof($listSv) . '</td>';
+                        }
+                        else if($_SESSION['login']['role']==2){
+                            echo '<td>' . $li->getTgMax() . '</td>';
+                            echo '<td>' . $li->getTgMax()-sizeof($listTg) . '</td>';
+                        }
+                        else
+                        {
+                            echo '<td>' . $li->getGvMax() . '</td>';
+                             echo '<td>' . $li->getGvMax()-sizeof($listGv) . '</td>';
+                        }
 
                         echo
                             '<td>';
+                   
                         foreach ($li->getListSchedule() as $key => $schedule) {
                             if (!is_null($schedule)) {
                                 $timeStart = $schedule->getKipStudy()->getTimeStart();
                                 echo 'Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
                                     ', Phòng ' . $schedule->getClassRoom()->getClassRoomName() . '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
                                     '<br/>';
+                            }
+                        }
+                        if(sizeof($listGv)!=0){
+                            
+                            echo 'Giảng viên: ';
+                            foreach($listGv as $ok=>$gv){
+                                if(!is_null($gv)){
+                                    echo $gv->getFullName().' ';
+                                }
+
+                            }
+                            echo '<br/>';
+                        }
+                        if(sizeof($listTg)!=0){
+                            echo 'Trợ giảng: ';
+                            foreach($listTg as $ok=>$gv){
+                                if(!is_null($gv)){
+                                    echo $gv->getFullName().' ';
+                                }
+
                             }
                         }
 
@@ -168,6 +210,10 @@ $number = 70;
                             checkbox.checked = false;
                         }
                         else if (data[0].status == 2) {
+                            event.target.checked = false;
+                            alert(data[0].error);
+                        }
+                        else if (data[0].status == 3) {
                             event.target.checked = false;
                             alert(data[0].error);
                         }

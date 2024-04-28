@@ -9,20 +9,34 @@ class ClassCredit {
   private Subject $subject;
   private int $groupClass;
   private   $listSchedule;
+  private $gvMax;
+  private $tgMax;
+  private $svMax;
 
   
 
 
   public function __construct(int $classCreditId,
-      $classCreditName, $subject, $groupClass, $listSchedule
-  ) {
+      $classCreditName, $subject, $groupClass, $listSchedule,$gvMax,
+      $tgMax, $svMax) {
     $this->classCreditId = $classCreditId;
     $this->classCreditName = $classCreditName;
     $this->subject = $subject;
     $this->groupClass = $groupClass;
-  
     $this->listSchedule = $listSchedule;
+    $this->gvMax = $gvMax;
+    $this->tgMax = $tgMax;
+    $this->svMax = $svMax;
     
+  }
+  public function getGvMax() {
+    return $this->gvMax;
+  }
+  public function getTgMax() {
+    return $this->tgMax;
+  }
+  public function getSvMax() {
+    return $this->svMax;
   }
 
   public function getClassCreditId() {

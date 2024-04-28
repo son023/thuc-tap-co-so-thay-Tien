@@ -11,13 +11,13 @@
         // }
         $password=test_input($_POST['password']);
         $role=$modelUser->getRole($username,$password);
-        if($role==1){
+        if($role==1 || $role==2 || $role==3){
             $_SESSION['login']['username']=$username;
             $_SESSION['login']['role']=$role;
             header('Location: home');
             die;
         }
-        else if($role==2){
+        else if($role==4){
             $_SESSION['login']['username']=$username;
             $_SESSION['login']['role']=$role;
             header('Location: admin');

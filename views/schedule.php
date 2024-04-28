@@ -13,52 +13,30 @@ require "header.php";
             <div class="col-xl-9">
             
                     
-                    <div class=" table-responsive">
+                    
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Age</th>
-                                    <th>City</th>
-                                    <th>Country</th>
-                                    <th>Sex</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
+                                    <th>Thứ 2</th>
+                                    <th>Thứ 3</th>
+                                    <th>Thứ 4</th>
+                                    <th>Thứ 5</th>
+                                    <th>Thứ 6</th>
+                                    <th>Thứ 7</th>
+                                    <th>Chủ nhật</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
+                                    <td>9</td>
                                     <td>Anna</td>
                                     <td>Pitt</td>
                                     <td>35</td>
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -68,18 +46,7 @@ require "header.php";
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -89,18 +56,7 @@ require "header.php";
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -110,18 +66,7 @@ require "header.php";
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -131,18 +76,7 @@ require "header.php";
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                    
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -152,18 +86,7 @@ require "header.php";
                                     <td>New York</td>
                                     <td>USA</td>
                                     <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
+                                   
                                 </tr>
                             </tbody>
                         </table>

@@ -1,5 +1,4 @@
 <?php
-
 function show($stuff)
 {
 	echo "<pre>";
@@ -45,13 +44,37 @@ function formatYear($date)
 	return toStrYear($date);
 }
 function getSchedule($creditlist,$ok1){
+	$modelRegister=new ModelRegister();
+	$listGv=$modelRegister->getGvByClassCreditId($creditlist->getClassCreditId());
+	$listTg=$modelRegister->getTgByClassCreditId($creditlist->getClassCreditId());
 	$ok=$ok1.' '. $creditlist->getSubject()->getSubjectName();
 	foreach ($creditlist->getListSchedule() as $key => $schedule) {
 		if (!is_null($schedule)) {
 			$timeStart = $schedule->getKipStudy()->getTimeStart();
-			$ok.= ': Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+			$ok.= ' Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
 				', Phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
 				'. ';
+		}
+	}
+	if(sizeof($listGv)!=0){                   
+		$ok.= 'Giảng viên: ';
+		foreach($listGv as $x=>$gv){
+			if(!is_null($gv)){
+				$ok.= '' .$gv->getFullName().' ';
+			}
+			
+
+		}
+		$ok.=', ';
+	
+	}
+	if(sizeof($listTg)!=0){
+		$ok.= 'Trợ giảng: ';
+		foreach($listTg as $x=>$gv){
+			if(!is_null($gv)){
+				$ok.=''. $gv->getFullName().' ';
+			}
+
 		}
 	}
 	return $ok;
@@ -59,10 +82,15 @@ function getSchedule($creditlist,$ok1){
 
 function showRegister($list)
 {
+	
 	$ok = 1;
 	foreach ($list as $key => $li) {
 		if (!is_null($key)) {
 			$creditlist = $li->getClassCredit();
+
+			$modelRegister=new ModelRegister();
+			$listGv=$modelRegister->getGvByClassCreditId($creditlist ->getClassCreditId());
+			$listTg=$modelRegister->getTgByClassCreditId($creditlist ->getClassCreditId());
 			echo '<tr>';
 			echo '<td>' . $ok . '</td>';
 			$ok += 1;
@@ -83,7 +111,26 @@ function showRegister($list)
 						'<br/>';
 				}
 			}
+			if(sizeof($listGv)!=0){
+                            
+				echo 'Giảng viên: ';
+				foreach($listGv as $ok=>$gv){
+					if(!is_null($gv)){
+						echo $gv->getFullName().' ';
+					}
 
+				}
+				echo '<br/>';
+			}
+			if(sizeof($listTg)!=0){
+				echo 'Trợ giảng: ';
+				foreach($listTg as $ok=>$gv){
+					if(!is_null($gv)){
+						echo $gv->getFullName().' ';
+					}
+
+				}
+			}
 			echo '</td>';
 			echo '</tr>';
 		}
@@ -108,5 +155,19 @@ function checkClassCredit($classCredit1,$classCredit2){
 		}
 	}
 	return false;
+}
+
+function checkRegister($listGv,$listTg,$listSv,$gvMax,$tgMax,$svMax,$role){
+	if($role==1){
+		if(sizeof($listSv)<$svMax) return true;
+		return false;
+	}
+	else if($role==2){
+		if(sizeof($listTg)<$tgMax) return true;
+		return false;
+	}
+	if(sizeof($listGv)<$gvMax) return true;
+	return false;
+	
 }
 
