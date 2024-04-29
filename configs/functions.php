@@ -114,7 +114,7 @@ function showRegister($list)
 			if(sizeof($listGv)!=0){
                             
 				echo 'Giảng viên: ';
-				foreach($listGv as $ok=>$gv){
+				foreach($listGv as $x=>$gv){
 					if(!is_null($gv)){
 						echo $gv->getFullName().' ';
 					}
@@ -124,7 +124,7 @@ function showRegister($list)
 			}
 			if(sizeof($listTg)!=0){
 				echo 'Trợ giảng: ';
-				foreach($listTg as $ok=>$gv){
+				foreach($listTg as $x=>$gv){
 					if(!is_null($gv)){
 						echo $gv->getFullName().' ';
 					}

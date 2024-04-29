@@ -21,13 +21,14 @@
  require_once '../models/ModelDAO.php';
  require_once '../configs/functions.php';
  $currentDate = getdate();
+ show($currentDate);
 
- if (is_array($currentDate)) {
-   $month = $currentDate['mon'];
-   $year = $currentDate['year'];
-   $day = $currentDate['day'];
-   echo $day;
- } 
+//  if (is_array($currentDate)) {
+//    $month = $currentDate['mon'];
+//    $year = $currentDate['year'];
+//    $day = $currentDate['day'];
+//    echo $day;
+//  } 
 ?>
  </body>
  </html>

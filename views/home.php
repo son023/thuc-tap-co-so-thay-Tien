@@ -10,6 +10,7 @@ require "header.php";
                 <?php
                 require "narbar.php";
                 ?>
+                
             </div>
             <div class="col-xl-9">
                 <h1>test</h1>

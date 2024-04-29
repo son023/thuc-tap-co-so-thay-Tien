@@ -169,7 +169,6 @@
                     </thead>
                     <tbody>
                         <?php
-
                         showRegister($list1);
                         ?>
 

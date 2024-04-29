@@ -32,8 +32,6 @@ require "header.php";
                     for($ok=8;$ok<=31;$ok++){
                         if($ok==$schedule){
                         $week_id=$schedule;
-                        $week=$modelWeek->getById($ok); 
-                        echo 'Tuần '.$week->getWeekName().' bắt đầu từ '.toStrYear($week->getStartTime()).' đến '.toStrYear($week->getEndTime());
                         break; 
                         }
                     }
@@ -43,7 +41,38 @@ require "header.php";
                 $user = $modelUser->getByUserName($_SESSION['login']['username']);
                 $listRegister = $modelRegister->getByUserId($user->getUserId());
                 $modelKipStudy=new ModelKipStudy();
-                if($week_id==0) $week_id=8;
+                $modelWeek=new ModelWeek();
+                if($week_id==0) {
+                    $currentDate = getdate();
+                    $month =(int) $currentDate['mon'];
+                    $year =(int) $currentDate['year'];
+                    $day = (int) $currentDate['mday'];
+                    for($ok=8;$ok<=32;$ok++){
+                        $week=$modelWeek->getById($ok);
+                        $time=$week->getStartTime();
+                        $m=(int)$time->format('m');
+                        $d=(int)$time->format('d');
+                        $y=(int)$time->format('Y');
+                    
+                        if($y==$year && $m==$month ){
+
+                            if($d==$day){
+                                $week_id=$ok;
+                                break;
+                            }
+                            else if($d>$day){
+                                // echo $m.$y.$d;
+                                $week_id=$ok-1;
+                                break;
+                            }
+                            else continue;
+                        }
+                        
+                    }
+                    
+                }
+                $week=$modelWeek->getById($week_id); 
+                echo 'Tuần '.$week->getWeekName().' bắt đầu từ '.toStrYear($week->getStartTime()).' đến '.toStrYear($week->getEndTime());
                 echo '<h1> Lịch học</h1>
                 <table class="table table-bordered">
                     <thead>
