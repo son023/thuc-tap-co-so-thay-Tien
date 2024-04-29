@@ -179,7 +179,7 @@
             </div>
             <div id="cart-container"></div>
             <div>
-                <button class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá biểu</button>
+                <a href='/schedules'  class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá biểu</a>
             </div>
 
         </div>
