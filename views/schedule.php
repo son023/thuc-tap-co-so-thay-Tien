@@ -43,38 +43,23 @@ require "header.php";
                 $modelKipStudy=new ModelKipStudy();
                 $modelWeek=new ModelWeek();
                 if($week_id==0) {
-                    $currentDate = getdate();
-                    $month =(int) $currentDate['mon'];
-                    $year =(int) $currentDate['year'];
-                    $day = (int) $currentDate['mday'];
+                    $now = new DateTime();
+                    $dateStr= $now->format('Y-m-d');
+                    $dateObject = DateTime::createFromFormat('Y-m-d', $dateStr);
                     for($ok=8;$ok<=32;$ok++){
                         $week=$modelWeek->getById($ok);
                         $time=$week->getStartTime();
-                        $m=(int)$time->format('m');
-                        $d=(int)$time->format('d');
-                        $y=(int)$time->format('Y');
-                    
-                        if($y==$year && $m==$month ){
-
-                            if($d==$day){
-                                $week_id=$ok;
-                                break;
-                            }
-                            else if($d>$day){
-                                // echo $m.$y.$d;
-                                $week_id=$ok-1;
-                                break;
-                            }
-                            else continue;
-                        }
-                        
+                        if(getDaysDiffBetweenDates($dateObject,$time)<7){
+                            $week_id=$ok;
+                            break;
+                        }                     
                     }
                     
                 }
                 $week=$modelWeek->getById($week_id); 
                 echo 'Tuần '.$week->getWeekName().' bắt đầu từ '.toStrYear($week->getStartTime()).' đến '.toStrYear($week->getEndTime());
                 echo '<h1> Lịch học</h1>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th></th>

@@ -32,7 +32,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
 <nav class="navbar bg-light">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="news">Thông báo</a>
+      <a class="nav-link" href="profile">Thông tin</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="registercredit">Đăng ký tín chỉ</a>

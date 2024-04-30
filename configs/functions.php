@@ -170,4 +170,12 @@ function checkRegister($listGv,$listTg,$listSv,$gvMax,$tgMax,$svMax,$role){
 	return false;
 	
 }
+function getDaysDiffBetweenDates($date1, $date2) {
+	
+  
+	$diff = date_diff($date1, $date2);
+	$days = $diff->days;
+  
+	return $days;
+  }
 
