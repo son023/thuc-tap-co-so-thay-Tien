@@ -151,6 +151,12 @@ branch_name varchar(50) not null
 department_id int not null,
 FOREIGN KEY (department_id) REFERENCES departments(department_id),
 )
+create table news(
+new_id int auto_increment,
+primary key (new_id),
+new_title varchar(250) not null,
+new_body text not null,
+time datetime not null)
 
 
 

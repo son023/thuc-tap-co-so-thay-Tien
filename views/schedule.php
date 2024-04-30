@@ -3,7 +3,7 @@ require "header.php";
 ?>
 
 <div class="section-one">
-   
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xl-3">
                 <?php
@@ -153,7 +153,7 @@ require "header.php";
             </div>
 
         </div>
-    
+</div>
 </div>
     
 

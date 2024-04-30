@@ -24,11 +24,11 @@ img {
     box-shadow: 0 0 20px #E1E1E1;
     border-radius: 10px;
 }
-.section-one .user-container .inner-box{
+.inner-box{
     
     padding: 5px;
 }
-.section-one .user-container .inner-title{
+.inner-title{
     background-color: #3ec1d5;
     padding: 5px;
     color:#fff;
@@ -39,6 +39,11 @@ img {
     border: 0;
    
 }
+.section-one .user-container  .btn-primary:hover {
+  background: #fff;
+  color: #3ec1d5;
+}
+
 .suscribe-area {
   background: #3EC1D5 none repeat scroll 0 0;
   padding: 30px 0;
@@ -344,12 +349,62 @@ img {
   color: #fff;
   background: #3ec1d5;
   left:1000px;
-  
 }
 
 .btn-get-started:hover {
   background: #fff;
   color: #3ec1d5;
 }
+
+.setting-container {
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  
+}
+.navbar {
+  padding: 0;
+  border: none;
+  background-color: #ffff;
+   
+}
+
+.navbar-nav .nav-link {
+  color: #333; 
+  text-decoration: none; 
+  padding: 1rem 1.5rem;
+  font-weight: 500; 
+  transition: color 0.3s ease-in-out; 
+}
+
+
+.navbar-nav .nav-link:hover {
+  color: #3EC1D5; 
+}
+.section-one>h2 {
+  color: #333;
+}
+.section-one h2{
+  
+  display: inline-block;
+  font-size: 35px;
+  font-weight: 600;
+  margin-bottom: 70px;
+  position: relative;
+  text-transform: capitalize;
+}
+.section-one h2::after {
+  border: 1px solid #333;
+  bottom: -20px;
+  content: "";
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 40%;
+}
+
+
 
 

@@ -20,8 +20,11 @@
 <?php
  require_once '../models/ModelDAO.php';
  require_once '../configs/functions.php';
- $currentDate = getdate();
- show($currentDate);
+//  $currentDate = getdate();
+//  show($currentDate);
+$model=new ModelNews();
+$list=$model->getById(1);
+show($list);
 
 //  if (is_array($currentDate)) {
 //    $month = $currentDate['mon'];

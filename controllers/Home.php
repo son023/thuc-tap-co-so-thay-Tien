@@ -1,8 +1,12 @@
 <?php
 
 class Home extends Controller{
-    public function index($id='',$slug=''){
-        $this->view('home');
+   
+    public function index($id=''){
+        $modelNews=new ModelNews();
+        $list=$modelNews->getAll();
+        $this->view('home',$list);
     }
 }
+
 ?>

@@ -167,7 +167,18 @@ values (1,6),
 (3,8),
 (4,2);
 
+INSERT INTO news (new_title, new_body, time)
+VALUES ("Thông báo V/v: Yêu cầu sinh viên kiểm tra điểm học kỳ I năm học 2023-2024 được cập nhật trên QLĐT", "Kính gửi:  Sinh viên các lớp đại học chính quy khóa  2020, 2021, 2022, 2023  và các khóa khác còn thời hạn đào tạo – cơ sở Hà Nội
 
+Thực hiện kế hoạch đào tạo năm học 2023-2024, Trung tâm Khảo thí & ĐBCLGD và Phòng Giáo vụ đã hoàn thành việc cập nhật điểm học kỳ I năm học 2023-2024 các khóa 2020, 2021, 2022, 2023 và các khóa khác còn hạn đào tạo trên hệ thống Quản lý đào tạo (https://qldt.ptit.edu.vn).
+
+Phòng Giáo vụ yêu cầu các sinh viên đăng nhập vào hệ thống QLĐT kiểm tra, rà soát điểm của mình.
+
+Các trường hợp sai lệch thông tin về điểm đề nghị sinh viên gửi email (phải gửi từ email được Học viện cấp) đến cô Hoàng Kim Cúc – phòng Giáo vụ – hkcuc@ptit.edu.vn trước 17h00 ngày 05/04/2024 để được xem xét giải quyết.
+
+Lưu ý: Nội dung email sinh viên phải ghi rõ các thông tin thắc mắc, kèm số điện thoại liên lạc.
+
+Trân trọng ./.", NOW());
 INSERT INTO registers (class_credit_id, user_id, register_time)
 VALUES
   (7, 2, '2024-03-28 12:00:00'),  -- Replace with actual registration details

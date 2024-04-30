@@ -10,7 +10,7 @@ require_once ('KipStudy.php');
 require_once ('PhoneNumber.php');
 require_once ('Register.php');
 require_once ('Schedule.php');
-
+require_once ('News.php');
 require_once ('Subject.php');
 require_once ('SubjectSemester.php');
 require_once ('User.php');
@@ -21,13 +21,9 @@ class ModelDepartment extends DAO
   {
     $sql = "SELECT * FROM departments WHERE department_id = ?";
     try {
-      // 2. Chuẩn bị câu lệnh sử dụng PDO
       $stmt = $this->link->prepare($sql);
-      // 3. Gắn tham số một cách an toàn (ngăn chặn SQL injection)
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
-      // 4. Thực thi câu lệnh
       $stmt->execute();
-      // 5. Lấy kết quả dưới dạng mảng kết hợp
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       if ($result) {
         return new Department(
@@ -38,7 +34,6 @@ class ModelDepartment extends DAO
 
       }
     } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
       return new Department(0, '1', '2');
     }
@@ -1656,5 +1651,81 @@ class ModelUser extends DAO
       return false;
     }
   }
+}
+class ModelNews extends DAO{
+  public function getById(int $uid): object
+  {
+    $sql = "SELECT * FROM news WHERE new_id = ?";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($result) {
+        return new News (
+          $result['new_id'],
+          $result['new_title'],
+          $result['new_body'],
+          DateTime::createFromFormat('Y-m-d H:i:s', $result['new_time'])
+        );
+
+      }
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+     
+    }
+
+  }
+  public function getAll(): array
+  {
+    $sql = "SELECT * FROM news";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list=[];
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        array_push($list, new News(
+          $result['new_id'],
+          $result['new_title'],
+          $result['new_body'],
+          DateTime::createFromFormat('Y-m-d H:i:s', $result['new_time'])
+        ));
+
+      }
+      return $list;
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+     
+    }
+
+  }
+
+  public function addObject(object $object): bool
+  {
+    try {
+      $sql = "INSERT INTO news(new_id,new_title,new_body,new_time) VALUES (?, ?, ?, ?)";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $object->getNewId(), PDO::PARAM_INT);
+      $stmt->bindParam(2, $object->getNewTitle(), PDO::PARAM_STR);
+      $stmt->bindParam(3, $object->getNewBody(), PDO::PARAM_STR);
+      $stmt->bindParam(4, $object->getNewTime(), PDO::PARAM_STR);
+      $stmt->execute();
+      return true;
+    } catch (PDOException $e) {
+      return false;
+    }
+
+
+  }
+  public function deleteObject(int $objectid): bool
+  {
+      return false;
+  }
+  public function updateObject($object): bool
+  {
+
+      return false;
+  }
+
 }
 ?>

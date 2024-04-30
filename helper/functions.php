@@ -29,6 +29,7 @@ function toStrRegister($date)
 {
 	return $date->format('d-m-Y H:i:s');
 }
+
 // function addDate($date,$time){
 // 	$str = 'PT' . sprintf('%02dM', $time);
 // 	return $date->add(new DateInterval($str));
@@ -105,8 +106,11 @@ function showRegister($list)
 				'<td>';
 			foreach ($creditlist->getListSchedule() as $key => $schedule) {
 				if (!is_null($schedule)) {
+					$day='';
+                    if($schedule->getDayStudy()==8) $day='Chủ nhật';
+                    else $day='Thứ '.$schedule->getDayStudy();
 					$timeStart = $schedule->getKipStudy()->getTimeStart();
-					echo 'Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+					echo $day . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
 						', Phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
 						'<br/>';
 				}

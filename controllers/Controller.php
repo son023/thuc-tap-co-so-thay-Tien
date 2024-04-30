@@ -2,10 +2,9 @@
 
 Class Controller
 {
-
 	protected function view($view,$data = [])
 	{
-        extract(($data));
+        
 		if(file_exists(_DIR_ROOT. "/views/". $view .".php"))
  		{
  			include _DIR_ROOT.  "/views/". $view .".php";
