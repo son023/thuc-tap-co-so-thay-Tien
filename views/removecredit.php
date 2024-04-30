@@ -1,7 +1,7 @@
 <?php
 session_start();
 ob_start();
-require_once '../configs/functions.php';
+require_once '../helper/functions.php';
 require_once '../models/ModelDAO.php';
 $modelUser = new ModelUser();
 $modelRegister = new ModelRegister();
