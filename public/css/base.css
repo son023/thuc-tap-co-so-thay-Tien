@@ -394,6 +394,7 @@ img {
   position: relative;
   text-transform: capitalize;
 }
+
 .section-one h2::after {
   border: 1px solid #333;
   bottom: -20px;
@@ -403,6 +404,34 @@ img {
   position: absolute;
   right: 0;
   width: 40%;
+}
+.section-one img{
+
+  float:right;
+}
+.section-one h3{
+  left:200px;
+  top:10px;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 70px;
+  position: relative;
+  text-transform: capitalize;
+}
+.section-one h3::after {
+  border: 1px solid #333;
+  bottom: -20px;
+  content: "";
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 40%;
+}
+.section-one .inner-profile p {
+  
+  font-size: 18px;
 }
 
 

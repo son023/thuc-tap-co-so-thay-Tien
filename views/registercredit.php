@@ -30,10 +30,7 @@ foreach ($listsubject as $value) {
     if (!is_null($creditlist)) {
         $list = array_merge($list, $creditlist);
     }
-
 }
-
-
 $number = 70;
 
 ?>
@@ -188,8 +185,6 @@ $number = 70;
     </div>
 
 </div>
-
-
 <script>
 
     $(document).ready(function () {

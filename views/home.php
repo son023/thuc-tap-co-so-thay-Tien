@@ -90,13 +90,7 @@ require_once _DIR_ROOT . '\views\header.php';
 
                                 }
                             }
-                        echo '</div>';
-
-
-
-
-
-                   
+                        echo '</div>';  
                     ?>
                 </div>
             </div>
