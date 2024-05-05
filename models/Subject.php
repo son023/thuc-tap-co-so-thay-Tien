@@ -34,7 +34,6 @@ class Subject {
     return $this->priceCredit;
   }
 
-  // ... (Thêm setter methods nếu cần)
 }
 
 ?>

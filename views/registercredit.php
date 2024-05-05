@@ -7,7 +7,20 @@ $modelsemester = new ModelSubjectSemester();
 $currentDate = getdate();
 $month = $currentDate['mon'];
 $year = $currentDate['year'];
+//ki hoc
+$kihoc='';
+if($month>5){
+    $kihoc.='1 - NĂM HỌC '.$year.' - '.($year+1);
+}
+else{
+    $kihoc.='2 - NĂM HỌC '.($year-1).' - '.($year);
+}
+$text='';
+if($user->getUserRole()>1)  $text='Giảng Dạy';
+else $text='Học';
+//
 $classCourse = $user->getClassFormal()->getClassCourse();
+
 if ($classCourse == 1) {
     $listsubject = $modelsemester->getByNameAndBranch(0, $user->getClassFormal()->getBranch()->getBranchId());
     // show($listsubject);
@@ -44,31 +57,32 @@ $number = 70;
                 ?>
             </div>
             <div class="col-xl-9">
+                
 
-                <div class="suscribe-area">
+                <div class="suscribe-area animate__animated animate__fadeInDown " style="display:block;margin: 5px 0px; border-radius: 10px;  ">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="suscribe-text text-center">
-                                    <h3>Đăng Ký Môn Học Học Kỳ 2 - Năm Học 2023 - 2024</h3>
+                                    <h4>Đăng Ký Lịch <?php echo  $text.' Học Kỳ '.$kihoc?></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div><!-- End Suscribe Section -->
 
-                <table class="table table-hover table-responsive">
+                <table class="table table-hover table-bordered table-responsive animate__animated animate__fadeInUp">
                     <thead class="thead-light">
                         <tr>
-                            <th> </th>
-                            <th>Mã MH</th>
-                            <th>Tên môn học</th>
-                            <th>Nhóm</th>
-                            <th>Số TC</th>
-                            <th>Lớp</th>
-                            <th>Số lượng</th>
-                            <th>Còn lại</th>
-                            <th>Thời khóa biểu</th>
+                            <th style="width: 2%;"> </th>
+                            <th   class="text-center align-middle" style="width: 5%;">Mã MH</th>
+                            <th  class="text-center align-middle" style="width: 10%;">Tên môn học</th>
+                            <th  class="text-center align-middle"  style="width: 3%;">Nhóm</th>
+                            <th   class="text-center align-middle" style="width: 5%;">Số TC</th>
+                            <th    class="text-center align-middle" style="width: 3%;">Lớp</th>
+                            <th   class="text-center align-middle"  style="width: 5%;">Số lượng</th>
+                            <th  class="text-center align-middle"  style="width: 5%;">Còn lại</th>
+                            <th  class="text-center align-middle" style="width: 20%;">Thời khóa biểu</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,27 +101,27 @@ $number = 70;
                             $listGv = $modelRegister->getGvByClassCreditId($li->getClassCreditId());
                             $listTg = $modelRegister->getTgByClassCreditId($li->getClassCreditId());
                             if ($check == 1)
-                                echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
+                                echo '<td  class="text-center align-middle" ><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '"></td>';
                             else
-                                echo '<td><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
-                            echo '<td>' . $li->getSubject()->getSubjectCode() . '</td>';
-                            echo '<td>' . $li->getSubject()->getSubjectName() . '</td>';
-                            echo '<td>' . $li->getGroupClass() . '</td>';
-                            echo '<td>' . $li->getSubject()->getCredit() . '</td>';
-                            echo '<td>' . $li->getGroupClass() . '</td>';
+                                echo '<td  class="text-center align-middle"><input type="checkbox" id="' . $li->getClassCreditId() . '" data-credit-id="' . $li->getClassCreditId() . '" checked ></td>';
+                            echo '<td class="text-center align-middle">' . $li->getSubject()->getSubjectCode() . '</td>';
+                            echo '<td class="align-middle">' . $li->getSubject()->getSubjectName() . '</td>';
+                            echo '<td class="text-center align-middle">' . $li->getGroupClass() . '</td>';
+                            echo '<td class="text-center align-middle">' . $li->getSubject()->getCredit() . '</td>';
+                            echo '<td class="text-center align-middle">' . $li->getGroupClass() . '</td>';
                             if ($_SESSION['login']['role'] == 1) {
-                                echo '<td>' . $li->getSvMax() . '</td>';
-                                echo '<td>' . $li->getSvMax() - sizeof($listSv) . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getSvMax() . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getSvMax() - sizeof($listSv) . '</td>';
                             } else if ($_SESSION['login']['role'] == 2) {
-                                echo '<td>' . $li->getTgMax() . '</td>';
-                                echo '<td>' . $li->getTgMax() - sizeof($listTg) . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getTgMax() . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getTgMax() - sizeof($listTg) . '</td>';
                             } else {
-                                echo '<td>' . $li->getGvMax() . '</td>';
-                                echo '<td>' . $li->getGvMax() - sizeof($listGv) . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getGvMax() . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getGvMax() - sizeof($listGv) . '</td>';
                             }
 
                             echo
-                                '<td>';
+                                '<td class="text-justify">';
 
                             foreach ($li->getListSchedule() as $key => $schedule) {
                                 if (!is_null($schedule)) {
@@ -115,8 +129,8 @@ $number = 70;
                                     if($schedule->getDayStudy()==8) $day='Chủ nhật';
                                     else $day='Thứ '.$schedule->getDayStudy();
                                     $timeStart = $schedule->getKipStudy()->getTimeStart();
-                                    echo $day . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
-                                        ', Phòng ' . $schedule->getClassRoom()->getClassRoomName() . '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+                                    echo $day . ' kíp ' . $schedule->getKipStudy()->getKipStudyId() . ', từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+                                        ', phòng ' . $schedule->getClassRoom()->getClassRoomName() . '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
                                         '<br/>';
                                 }
                             }
@@ -149,20 +163,30 @@ $number = 70;
 
                     </tbody>
                 </table>
-                <h1 class="text-center"> DANH SÁCH MÔN ĐĂNG KÝ</h1>
+                <div class="suscribe-area " style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="suscribe-text text-center">
+                                    <h4>DANH SÁCH ĐĂNG KÝ</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Suscribe Section -->
                 <div id="credit-container">
-                    <table class="table table-hover  table-responsive">
+                    <table class="table table-hover table-responsive">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Mã MH</th>
-                                <th>Tên môn học</th>
-                                <th>Nhóm</th>
-                                <th>Số TC</th>
-                                <th>Lớp</th>
-                                <th>Ngày đăng ký</th>
+                                <th  class="text-center align-middle" style="width: 3%;">STT</th>
+                                <th  class="text-center align-middle" style="width: 5%;">Mã MH</th>
+                                <th  class="text-center align-middle" style="width: 10%;">Tên môn học</th>
+                                <th  class="text-center align-middle" style="width: 3%;">Nhóm</th>
+                                <th  class="text-center align-middle" style="width: 5%;">Số TC</th>
+                                <th  class="text-center align-middle" style="width: 3%;">Lớp</th>
+                                <th  class="text-center align-middle" style="width: 10%;">Ngày đăng ký</th>
 
-                                <th>Thời khóa biểu</th>
+                                <th  class="text-center align-middle" style="width: 20%;">Thời khóa biểu</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -176,8 +200,7 @@ $number = 70;
                 </div>
                 <div id="cart-container"></div>
                 <div>
-                    <a href='/schedules' class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá
-                        biểu</a>
+                    <a href='/schedules' class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá biểu</a>
                 </div>
 
             </div>
@@ -186,7 +209,6 @@ $number = 70;
 
 </div>
 <script>
-
     $(document).ready(function () {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         myElement = document.getElementById('credit-container');
@@ -223,15 +245,46 @@ $number = 70;
                         const tableBody = document.createElement('tbody');
                         const headerRow = document.createElement('tr');
                         const headers = ['STT', 'Mã MH', 'Tên môn học', 'Nhóm', 'Số TC', 'Lớp', 'Ngày đăng ký', 'Thời khoá biểu'];
+                        var ok=1;
                         for (const header of headers) {
                             const headerCell = document.createElement('th');
                             headerCell.textContent = header;
+                            switch (ok) {
+                                    case 1:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 2:
+                                        headerCell.className=" text-center align-middle r-5";
+                                        break;
+                                    case 3:
+                                        headerCell.className=" text-center align-middle r-10";
+                                        break;
+                                    case 4:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 5:
+                                        headerCell.className=" text-center align-middle r-5";
+                                        break;
+                                    case 6:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 7:
+                                        headerCell.className=" text-center align-middle r-10";
+                                        break;
+                                    case 8:
+                                        headerCell.className=" text-center align-middle r-20";
+                                        break;
+                                    
+                                    }
+                           
+                            
                             headerRow.appendChild(headerCell);
+                            ok+=1;
                         }
                         tableHeader.appendChild(headerRow);
 
                         for (const key of data) {
-                            if (key !== '0') {
+                            if (key != '0') {
                                 const dataRow = document.createElement('tr');
                                 const dataCells = [
                                     key.STT,
@@ -243,10 +296,14 @@ $number = 70;
                                     key.time,
                                     key.schedule
                                 ];
+                                var check=1;
                                 for (const data of dataCells) {
                                     const dataCell = document.createElement('td');
                                     dataCell.textContent = data;
+                                    dataCell.className ="text-center align-middle";
+                                    if(check==8) dataCell.className ="text-justify";
                                     dataRow.appendChild(dataCell);
+                                    check+=1;
                                 }
                                 tableBody.appendChild(dataRow);
                             }
@@ -270,15 +327,46 @@ $number = 70;
                         const tableBody = document.createElement('tbody');
                         const headerRow = document.createElement('tr');
                         const headers = ['STT', 'Mã MH', 'Tên môn học', 'Nhóm', 'Số TC', 'Lớp', 'Ngày đăng ký', 'Thời khoá biểu'];
+                        var ok=1;
                         for (const header of headers) {
                             const headerCell = document.createElement('th');
                             headerCell.textContent = header;
+                            switch (ok) {
+                                    case 1:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 2:
+                                        headerCell.className=" text-center align-middle r-5";
+                                        break;
+                                    case 3:
+                                        headerCell.className=" text-center align-middle r-10";
+                                        break;
+                                    case 4:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 5:
+                                        headerCell.className=" text-center align-middle r-5";
+                                        break;
+                                    case 6:
+                                        headerCell.className=" text-center align-middle r-3";
+                                        break;
+                                    case 7:
+                                        headerCell.className=" text-center align-middle r-10";
+                                        break;
+                                    case 8:
+                                        headerCell.className=" text-center align-middle r-20";
+                                        break;
+                                    
+                                    }
+                           
+                            
                             headerRow.appendChild(headerCell);
+                            ok+=1;
                         }
                         tableHeader.appendChild(headerRow);
 
                         for (const key of data) {
-                            if (key !== '0') {
+                            if (key != '0') {
                                 const dataRow = document.createElement('tr');
                                 const dataCells = [
                                     key.STT,
@@ -290,10 +378,15 @@ $number = 70;
                                     key.time,
                                     key.schedule
                                 ];
+                                var check=1;
                                 for (const data of dataCells) {
                                     const dataCell = document.createElement('td');
                                     dataCell.textContent = data;
+                                    dataCell.className ="text-center align-middle";
+                                    if(check==3) dataCell.className ="text-left";
+                                    if(check==8) dataCell.className ="text-justify";
                                     dataRow.appendChild(dataCell);
+                                    check+=1;
                                 }
                                 tableBody.appendChild(dataRow);
                             }

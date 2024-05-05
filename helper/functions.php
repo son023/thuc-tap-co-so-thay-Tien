@@ -93,17 +93,17 @@ function showRegister($list)
 			$listGv=$modelRegister->getGvByClassCreditId($creditlist ->getClassCreditId());
 			$listTg=$modelRegister->getTgByClassCreditId($creditlist ->getClassCreditId());
 			echo '<tr>';
-			echo '<td>' . $ok . '</td>';
+			echo '<td class="text-center align-middle">' . $ok . '</td>';
 			$ok += 1;
-			echo '<td>' . $creditlist->getSubject()->getSubjectCode() . '</td>';
-			echo '<td>' . $creditlist->getSubject()->getSubjectName() . '</td>';
-			echo '<td>' . $creditlist->getGroupClass() . '</td>';
-			echo '<td>' . $creditlist->getSubject()->getCredit() . '</td>';
-			echo '<td>' . $creditlist->getGroupClass() . '</td>';
+			echo '<td class="text-center align-middle">' . $creditlist->getSubject()->getSubjectCode() . '</td>';
+			echo '<td class="text-center align-middle">' . $creditlist->getSubject()->getSubjectName() . '</td>';
+			echo '<td class="text-center align-middle">' . $creditlist->getGroupClass() . '</td>';
+			echo '<td class="text-center align-middle">' . $creditlist->getSubject()->getCredit() . '</td>';
+			echo '<td class="text-center align-middle">' . $creditlist->getGroupClass() . '</td>';
 
-			echo '<td>' . toStrRegister($li->getRegisterTime()) . '</td>';
+			echo '<td class="text-center align-middle">' . toStrRegister($li->getRegisterTime()) . '</td>';
 			echo
-				'<td>';
+				'<td class="text-justify">';
 			foreach ($creditlist->getListSchedule() as $key => $schedule) {
 				if (!is_null($schedule)) {
 					$day='';

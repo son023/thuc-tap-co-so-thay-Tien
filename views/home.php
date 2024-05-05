@@ -4,52 +4,45 @@ require_once _DIR_ROOT . '\views\header.php';
 ?>
 <style>
   
-/* Overall accordion styling */
 #accordion {
-    /* justify-content:between; */
  
-  margin-bottom: 0; /* Remove default bottom margin */
-  list-style: none; /* Remove default list styling */
-  padding: 0; /* Reset padding */
-  border: 1px solid #ddd; /* Add a thin border */
-  border-radius: 5px; /* Add rounded corners */
+  margin-bottom: 0; 
+  list-style: none; 
+  padding: 0; 
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
 }
 
-/* Individual card styling */
 #accordion .card {
    
-  margin-bottom: 15px; /* Add spacing between cards */
-  border: none; /* Remove default card border */
-  border-radius: 5px; /* Add rounded corners */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle box-shadow for depth */
-  transition: all 0.3s ease-in-out; /* Smooth transition on hover */
+  margin-bottom: 15px; 
+  border: none; 
+  border-radius: 5px; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease-in-out; 
 }
 
-/* Card header styling */
 #accordion .card-header {
-  padding: 10px 15px; /* Adjust padding for content */
-  cursor: pointer; /* Indicate clickability */
-  background-color: #f5f5f5; /* Light background color */
-  transition: all 0.3s ease-in-out; /* Smooth transition on hover */
+  padding: 10px 15px;
+  cursor: pointer; 
+  background-color: #f5f5f5; 
+  transition: all 0.3s ease-in-out; 
 }
 
-/* Card header hover effect */
 #accordion .card-header:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
+  background-color: #e0e0e0;
 }
 
-/* Active card header styling */
 #accordion .card-header.active {
-  background-color: #ddd; /* Distinguish active header */
-  border-bottom: 1px solid #ddd; /* Add bottom border for active state */
+  background-color: #ddd; 
+  border-bottom: 1px solid #ddd; 
 }
 
-/* Card content styling */
 #accordion .card-body {
     margin: 0 auto;
-  padding: 15px; /* Adjust padding for content */
-  font-size: 17px; /* Set font size */
-  line-height: 1.5; /* Adjust line spacing for readability */
+  padding: 15px;
+  font-size: 17px;
+  line-height: 1.5;
 }
 </style>
 <div class="section-one">
@@ -64,10 +57,10 @@ require_once _DIR_ROOT . '\views\header.php';
             </div>
             <div class="col-xl-9 ">
                 <div class="inner-body text-center pt-3">
-                    <h2>Thông báo từ phòng giáo vụ</h2>
+                    <h2 class="animate__animated animate__fadeInDown">Thông báo từ phòng giáo vụ</h2>
                     <?php
                     echo '
-                        <div class="accordion" id="accordion">';
+                        <div class="accordion table-responsive animate__animated animate__fadeInUp" id="accordion">';
                             foreach($data as $key => $value){
                                 if(!is_null($value)){
                                     $check='';

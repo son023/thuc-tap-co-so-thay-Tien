@@ -3,7 +3,7 @@ $modelUser = new ModelUser();
 $user = $modelUser->getByUserName($_SESSION['login']['username']);
 
 ?>
-<div class="user-container">
+<div class="user-container ">
   <div class="inner-box">
     <div class="inner-title kanit-medium">
       <i class="fa-solid fa-user"></i> TÀI KHOẢN
@@ -28,7 +28,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
 
 
 </div>
-<div class="setting-container">
+<div class="setting-container ">
   <div class="inner-box">
     <div class="inner-title kanit-medium">
     <i class="fa-solid fa-gears"></i> TÍNH NĂNG

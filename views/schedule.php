@@ -11,7 +11,7 @@ require "header.php";
                 ?>
             </div>
             <div class="col-xl-9">
-            
+    
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                 <select name="schedule">
                 <?php
@@ -57,8 +57,8 @@ require "header.php";
                     
                 }
                 $week=$modelWeek->getById($week_id); 
-                echo 'Tuần '.$week->getWeekName().' bắt đầu từ '.toStrYear($week->getStartTime()).' đến '.toStrYear($week->getEndTime());
-                echo '<h1> Lịch học</h1>
+               
+                echo '<h3> Lịch học tuần '.$week->getWeekName().' bắt đầu từ '.toStrYear($week->getStartTime()).' đến '.toStrYear($week->getEndTime()). '</h3>
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
