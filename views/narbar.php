@@ -3,7 +3,7 @@ $modelUser = new ModelUser();
 $user = $modelUser->getByUserName($_SESSION['login']['username']);
 
 ?>
-<div class="user-container ">
+<div class="user-container mr-0">
   <div class="inner-box">
     <div class="inner-title kanit-medium">
       <i class="fa-solid fa-user"></i> TÀI KHOẢN
@@ -22,7 +22,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <div class="inner-head"><?php echo $user->getFullName() ?></div>
       </div>
     </div>
-    <a href="logout">
+    <a href="http://localhost:3000/logout">
       <button name="dangxuat" type="submit" class="form-control btn btn-primary kanit-medium">Đăng Xuất</button></a>
   </div>
 
@@ -47,6 +47,10 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <li class="nav-item">
           <a class="nav-link" href="http://localhost:3000/schedules">Thời khoá biểu</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/classcre">Lớp tín chỉ</a>
+        </li>
+   
       </ul>
     </nav>
   </div>

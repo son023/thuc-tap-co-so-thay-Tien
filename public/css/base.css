@@ -1,45 +1,56 @@
 img {
-    vertical-align: middle;
-    border-style: none;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    max-width: 100%;
-    height: auto;
+  vertical-align: middle;
+  border-style: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  max-width: 100%;
+  height: auto;
 }
-.section-101 .inner-head p{
-    margin:0;
+
+.section-101 .inner-head p {
+  margin: 0;
 }
+
 .section-101 .inner-head {
-    background-color:#3ec1d5;
+  background-color: #3ec1d5;
 }
-.section-one .user-container .inner-head{
-   
-    padding-top: 10px;  
-    padding-bottom: 3px;
+
+.section-one .user-container .inner-head {
+
+  padding-top: 10px;
+  padding-bottom: 3px;
 
 }
-.section-one .user-container{
-    margin-top: 5px;
-    box-shadow: 0 0 20px #E1E1E1;
-    border-radius: 10px;
+
+.section-one .user-container {
+  margin-top: 5px;
+  box-shadow: 0 0 20px #E1E1E1;
+  border-radius: 10px;
 }
-.inner-box{
-    
-    padding: 5px;
+
+.inner-box {
+
+  padding: 5px;
 }
-.inner-title{
-    background-color: #3ec1d5;
-    padding: 5px;
-    color:#fff;
-   
+
+.inner-title {
+  background-color: #3ec1d5;
+  padding: 5px;
+  color: #fff;
+
 }
-.section-one .user-container  .btn-primary{
-    background-color: #3ec1d5;
-    border: 0;
-   
+
+.section-one .user-container .btn-primary {
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  background: #3ec1d5;
+  border: 0;
+
 }
-.section-one .user-container  .btn-primary:hover {
+
+.section-one .user-container .btn-primary:hover {
   background: #fff;
   color: #3ec1d5;
 }
@@ -86,258 +97,118 @@ img {
 
 
 .kanit-thin {
-    font-family: "Kanit", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
-  
-  .kanit-extralight {
-    font-family: "Kanit", sans-serif;
-    font-weight: 200;
-    font-style: normal;
-  }
-  
-  .kanit-light {
-    font-family: "Kanit", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  .kanit-regular {
-    font-family: "Kanit", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .kanit-medium {
-    font-family: "Kanit", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .kanit-semibold {
-    font-family: "Kanit", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-  }
-  
-  .kanit-bold {
-    font-family: "Kanit", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .kanit-extrabold {
-    font-family: "Kanit", sans-serif;
-    font-weight: 800;
-    font-style: normal;
-  }
-  
-  .kanit-black {
-    font-family: "Kanit", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .kanit-thin-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .kanit-extralight-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 200;
-    font-style: italic;
-  }
-  
-  .kanit-light-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .kanit-regular-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .kanit-medium-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-  
-  .kanit-semibold-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 600;
-    font-style: italic;
-  }
-  
-  .kanit-bold-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .kanit-extrabold-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 800;
-    font-style: italic;
-  }
-  
-  .kanit-black-italic {
-    font-family: "Kanit", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-/*end font family*/  
-
-
-#hero {
-  width: 100%;
-  height: 100vh;
-  background: #000;
-  overflow: hidden;
-  position: relative;
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
-@media (max-height: 500px) {
-  #hero {
-    height: 150vh;
-  }
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
-#hero .carousel,
-#hero .carousel-inner,
-#hero .carousel-item,
-#hero .carousel-item::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
-#hero .carousel-item {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-#hero .carousel-item::before {
-  content: "";
-  background-color: rgba(0, 0, 0, 0.7);
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
-#hero .carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  top: 70px;
-  left: 50px;
-  right: 50px;
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
-#hero .container {
-  text-align: center;
-}
-
-#hero h2 {
-  color: #fff;
-  margin-bottom: 20px;
-  font-size: 24px;
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
   font-weight: 700;
+  font-style: normal;
 }
 
-@media (max-width: 768px) {
-  #hero h2 {
-    font-size: 20px;
-    line-height: 1.2;
-  }
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
 }
 
-#hero p {
-  width: 80%;
-  font-size: 38px;
-  line-height: 1.2;
-  margin: 0 auto 30px auto;
-  color: #fff;
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
-@media (min-width: 1024px) {
-  #hero p {
-    width: 60%;
-  }
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
 }
 
-@media (max-width: 768px) {
-  #hero p {
-    font-size: 28px;
-    line-height: 1.2;
-  }
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
 }
 
-#hero .carousel-fade {
-  overflow: hidden;
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
 }
 
-#hero .carousel-fade .carousel-inner .carousel-item {
-  transition-property: opacity;
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
-#hero .carousel-fade .carousel-inner .carousel-item,
-#hero .carousel-fade .carousel-inner .active.carousel-item-start,
-#hero .carousel-fade .carousel-inner .active.carousel-item-end {
-  opacity: 0;
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
 }
 
-#hero .carousel-fade .carousel-inner .active,
-#hero .carousel-fade .carousel-inner .carousel-item-next.carousel-item-start,
-#hero .carousel-fade .carousel-inner .carousel-item-prev.carousel-item-end {
-  opacity: 1;
-  transition: 0.5s;
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
 }
 
-#hero .carousel-fade .carousel-inner .carousel-item-next,
-#hero .carousel-fade .carousel-inner .carousel-item-prev,
-#hero .carousel-fade .carousel-inner .active.carousel-item-start,
-#hero .carousel-fade .carousel-inner .active.carousel-item-end {
-  left: 0;
-  transform: translate3d(0, 0, 0);
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
-#hero .carousel-control-prev,
-#hero .carousel-control-next {
-  width: 10%;
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
 }
 
-@media (min-width: 1024px) {
-
-  #hero .carousel-control-prev,
-  #hero .carousel-control-next {
-    width: 5%;
-  }
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }
 
-#hero .carousel-control-next-icon,
-#hero .carousel-control-prev-icon {
-  background: none;
-  font-size: 32px;
-  line-height: 1;
-}
-
-#hero .carousel-indicators li {
-  cursor: pointer;
-  list-style-type: none;
-}
+/*end font family*/
 
 
 .btn-get-started {
- 
+
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
@@ -351,7 +222,7 @@ img {
   margin: 10px;
   color: #fff;
   background: #3ec1d5;
-  float:right;
+  float: right;
 
 }
 
@@ -366,32 +237,35 @@ img {
   border-radius: 10px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  
+
 }
+
 .navbar {
   padding: 0;
   border: none;
   background-color: #ffff;
-   
+
 }
 
 .navbar-nav .nav-link {
-  color: #333; 
-  text-decoration: none; 
+  color: #333;
+  text-decoration: none;
   padding: 1rem 1.5rem;
-  font-weight: 500; 
-  transition: color 0.3s ease-in-out; 
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
 }
 
 
 .navbar-nav .nav-link:hover {
-  color: #3EC1D5; 
+  color: #3EC1D5;
 }
+
 .section-one>h2 {
   color: #333;
 }
-.section-one h2{
-  
+
+.section-one h2 {
+
   display: inline-block;
   font-size: 35px;
   font-weight: 600;
@@ -410,20 +284,21 @@ img {
   right: 0;
   width: 40%;
 }
-.section-one img{
 
-  float:right;
-}
-.section-one h3{
-  left:200px;
-  top:10px;
+
+
+.section-one h3 {
+  left: 80px;
+  top: 10px;
   display: inline-block;
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 70px;
   position: relative;
   text-transform: capitalize;
+  
 }
+
 .section-one h3::after {
   border: 1px solid #333;
   bottom: -20px;
@@ -434,23 +309,55 @@ img {
   right: 0;
   width: 40%;
 }
-.section-one .inner-profile p {
+.section-one .schedule-body h3 {
+  left: 240px;
+  top: 10px;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 70px;
+  position: relative;
+  text-transform: capitalize;
   
+}
+
+.section-one .schedule-body h3::after {
+  border: 1px solid #333;
+  bottom: -20px;
+  content: "";
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 40%;
+}
+
+.section-one .inner-profile p {
+
   font-size: 18px;
 }
-.r-3{
+
+.r-3 {
   width: 3%;
+
 }
-.r-5{
+
+.r-5 {
   width: 5%;
+
 }
-.r-10{
+
+.r-10 {
   width: 10%;
+ 
 }
-.r-20{
+
+.r-20 {
   width: 20%;
+
+
 }
-
-
-
-
+.table thead th {
+  background: #3ec1d5;
+  color: #fff
+}

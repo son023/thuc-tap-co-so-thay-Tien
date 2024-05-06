@@ -4,7 +4,7 @@ class User {
   private int $userId;
   private ClassFormal $classFormal;
   private string $userName;
-  private int $passWord; // Consider using a hashed password for security
+  private string $passWord; // Consider using a hashed password for security
   private string  $fullName;
   private int $teacherId;
   private int $userRole;
@@ -24,7 +24,7 @@ class User {
      int $userId,
       ClassFormal $classFormal,
       string $userName,
-      int $passWord,
+      string $passWord,
       string $fullName,
       int $teacherId,
       int $userRole,
@@ -83,7 +83,7 @@ class User {
     return $this->teacherId;
   }
 
-  public function getUserRole(): string {
+  public function getUserRole(): int {
     return $this->userRole;
   }
 
@@ -129,6 +129,12 @@ class User {
 
   public function getLoginFailed(): int {
     return $this->loginFailed;
+  }
+  public function setPassWord($newpassword){
+    $this->passWord=$newpassword;
+  }
+  public function setUserName($newpassword){
+    $this->userName=$newpassword;
   }
 
  

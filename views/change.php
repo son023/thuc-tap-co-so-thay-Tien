@@ -1,44 +1,50 @@
 <?php
     
     $modelUser=new ModelUser();
-    $username=$password="";
+    $username=$password= $newpassword= $enternewpassword="";
     $_SESSION['error']="";
 
-    if((isset($_POST['dangnhap']))){
+    if((isset($_POST['doimaukhau']))){
         $username=test_input($_POST['username']);
-        // if (!preg_match("/^[a-zA-Z-' ]*$/",$username)) {
-        //     $nameErr = "Only letters and white space allowed";
-        // }
         $password=test_input($_POST['password']);
+        $newpassword=test_input($_POST['newpassword']);
+        $enternewpassword=test_input($_POST['enternewpassword']);
         $user=$modelUser->getByUserName($username);
         if($user instanceof User){
             if(password_verify($password,$user->getPassword())){
-                $role=$user->getUserRole();
-                if($role==1 || $role==2 || $role==3){
-                    $_SESSION['login']['username']=$username;
-                    $_SESSION['login']['role']=$role;
-                    header('Location: home');
-                    die;
+                if($newpassword!=$enternewpassword){
+                    $_SESSION['error'] ="Xác thực mật khẩu không chính xác";
                 }
-                else if($role==4){
-                    $_SESSION['login']['username']=$username;
-                    $_SESSION['login']['role']=$role;
-                    header('Location: admin');
-                    die;
+                else{
+                    $hashpassword=password_hash($newpassword, PASSWORD_DEFAULT);
+                    $user->setPassword($hashpassword);
+                    if($modelUser->updateObject($user))
+                        $_SESSION['error'] ="Đổi mật khẩu thành công";
+                    else{
+                        $_SESSION['error'] ="Lỗi CSDL";
+                    }
+    
                 }
+                
             }
             else{
-                $_SESSION['error'] = "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.";
+                $_SESSION['error'] = "Thông tin tài khoản hoặc mật khẩu không chính xác";
                 
             }
         
         }
         
         else{
-            $_SESSION['error'] = "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.";
+            $_SESSION['error'] = "Thông tin tài khoản hoặc mật khẩu không chính xác";
         }
+    }
     
-     }
+     
+        
+     
+   
+
+
 
 
 ?>
@@ -67,31 +73,41 @@
                 <div class="col-md-12 text-center mb-5">
                     <div class="inner-head">
                         <h1 class="inner-title kanit-bold">HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG</h1>
-                        <h2 class="inner-desc kanit-medium">CỔNG THÔNG TIN ĐĂNG KÝ TIN CHỈ</h2>
+                        <h2 class="inner-desc kanit-medium">CỔNG THÔNG TIN ĐĂNG KÝ TÍN CHỈ</h2>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <h3 class="mb-4 text-center kanit-medium">Đăng Nhập</h3>
-                        <form  method="post" action="/login" class="signin-form">
-                        <div class="form-group">
+                        <h3 class="mb-4 text-center kanit-medium">Đổi Mật Khẩu</h3>
+                        <form  method="post" action="/change" class="signin-form">
+                            <div class="form-group mb-2">
                                 <input name="username" type="text" class="form-control" placeholder="Tên đăng nhập" required>
                                 
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <input name="password" id="password-field" type="password" class="form-control" placeholder="Mật khẩu"
+                                    required>
+
+                            </div>
+                            <div class="form-group mb-2">
+                                <input name="newpassword" id="password-field" type="password" class="form-control" placeholder="Mật khẩu mới"
+                                    required>
+
+                            </div>
+                            <div class="form-group mb-2">
+                                <input name="enternewpassword" id="password-field" type="password" class="form-control" placeholder="Nhập lại mật khẩu mới"
                                     required>
 
                             </div>
                             <div class="form-group">
                                  <p><?php check_message() ?></p>
-                                <button name="dangnhap" type="submit" class="form-control btn kanit-medium">Đăng Nhập</button>
+                                <button name="doimaukhau" type="submit" class="form-control btn kanit-medium">Đổi mật khẩu</button>
                             </div>
                             <div class="form-group ">
                                 <div class="inner-pass">
-                                    <a href="change" style="color:#ffffff;text-decoration:none;float:left">Đổi mật khẩu</a>
+                                    <a href="login" style="color:#ffffff;text-decoration:none;float:left">Đăng nhập</a>
                                     <a href="forgot" style="color:#ffffff;text-decoration:none">Quên mật khẩu</a>
                                 </div>
                             </div>

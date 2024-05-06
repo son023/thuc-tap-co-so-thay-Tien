@@ -33,7 +33,7 @@
                         <h3 class="mb-4 text-center kanit-medium">Quên Mật Khẩu</h3>
                         <form action="#" class="signin-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" required>
+                                <input type="text" class="form-control" placeholder="Tên đăng nhập" required>
                             </div>
                             <div class="form-group">
                                 <input id="password-field"  class="form-control" placeholder="Email"

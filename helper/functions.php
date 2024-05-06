@@ -52,8 +52,8 @@ function getSchedule($creditlist,$ok1){
 	foreach ($creditlist->getListSchedule() as $key => $schedule) {
 		if (!is_null($schedule)) {
 			$timeStart = $schedule->getKipStudy()->getTimeStart();
-			$ok.= ' Thứ ' . $schedule->getDayStudy() . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
-				', Phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+			$ok.= ' Thứ ' . $schedule->getDayStudy() . ' kíp ' . $schedule->getKipStudy()->getKipStudyId() . ', từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+				', phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
 				'. ';
 		}
 	}
@@ -110,8 +110,8 @@ function showRegister($list)
                     if($schedule->getDayStudy()==8) $day='Chủ nhật';
                     else $day='Thứ '.$schedule->getDayStudy();
 					$timeStart = $schedule->getKipStudy()->getTimeStart();
-					echo $day . ' Kíp ' . $schedule->getKipStudy()->getKipStudyId() . ' Từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
-						', Phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+					echo $day . ' kíp ' . $schedule->getKipStudy()->getKipStudyId() . ', từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+						', phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
 						'<br/>';
 				}
 			}
@@ -182,4 +182,11 @@ function getDaysDiffBetweenDates($date1, $date2) {
   
 	return $days;
   }
+  function test_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
 

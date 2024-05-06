@@ -5,7 +5,7 @@ require_once _DIR_ROOT . '\views\header.php';
 <style>
   
 #accordion {
- 
+  
   margin-bottom: 0; 
   list-style: none; 
   padding: 0; 
@@ -14,7 +14,7 @@ require_once _DIR_ROOT . '\views\header.php';
 }
 
 #accordion .card {
-   
+ 
   margin-bottom: 15px; 
   border: none; 
   border-radius: 5px; 
@@ -23,6 +23,7 @@ require_once _DIR_ROOT . '\views\header.php';
 }
 
 #accordion .card-header {
+ 
   padding: 10px 15px;
   cursor: pointer; 
   background-color: #f5f5f5; 
@@ -30,7 +31,7 @@ require_once _DIR_ROOT . '\views\header.php';
 }
 
 #accordion .card-header:hover {
-  background-color: #e0e0e0;
+  background-color: #CAEEF3;
 }
 
 #accordion .card-header.active {
