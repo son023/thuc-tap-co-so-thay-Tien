@@ -184,23 +184,23 @@ class ModelListSchedule extends DAO
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
       $list = [];
-    
+
       $modelSchedule = new ModelSchedule();
-      $listScheduleId  = 0;
-      $ok="22";
+      $listScheduleId = 0;
+      $ok = "22";
       while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $schedule = $modelSchedule->getById($result["schedule_id"]);
         $listScheduleId = $result["list_schedule_id"];
         array_push($list, $schedule);
-  
+
       }
-      
+
       return new ListSchedule(
         $listScheduleId,
         $uid,
         $list
       );
-      
+
     } catch (PDOException $e) {
       // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
@@ -210,13 +210,14 @@ class ModelListSchedule extends DAO
   {
     return null;
   }
-  public function addObject(object $object): bool{
-      return false;
+  public function addObject(object $object): bool
+  {
+    return false;
 
   }
   public function deleteObject(int $objectid): bool
   {
-   
+
     return false;
   }
   public function updateObject($object): bool
@@ -242,23 +243,25 @@ class ModelClassCredit extends DAO
       $list = [];
       $modelListSchedule = new ModelSchedule();
       $modelSubject = new ModelSubject();
-      
-      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $listSchedule =$modelListSchedule->getByCode($result["schedule_code"]);
-        $subject = $modelSubject->GetById($result["subject_id"]);
-        
 
-        array_push($list, new ClassCredit(
-          $result["class_credit_id"],
-          $result["class_credit_name"],
-          $subject,
-          $result["group_class"],
-          $listSchedule,
-          $result["teacher_max"],
-          $result["tutors_max"],
-          $result["student_max"]
-         
-        )
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $listSchedule = $modelListSchedule->getByCode($result["schedule_code"]);
+        $subject = $modelSubject->GetById($result["subject_id"]);
+
+
+        array_push(
+          $list,
+          new ClassCredit(
+            $result["class_credit_id"],
+            $result["class_credit_name"],
+            $subject,
+            $result["group_class"],
+            $listSchedule,
+            $result["teacher_max"],
+            $result["tutors_max"],
+            $result["student_max"]
+
+          )
         );
       }
       return $list;
@@ -283,7 +286,7 @@ class ModelClassCredit extends DAO
         $schedule = $modelSchedule->getByCode($result["schedule_code"]);
         $modelSubject = new ModelSubject();
         $subject = $modelSubject->GetById($result["subject_id"]);
-        
+
         return new ClassCredit(
           $result["class_credit_id"],
           $result["class_credit_name"],
@@ -302,8 +305,8 @@ class ModelClassCredit extends DAO
     }
 
   }
-  
-  
+
+
   public function addObject(object $object): bool
   {
     try {
@@ -358,7 +361,7 @@ class ModelClassCredit extends DAO
     //   $stmt->execute();
     //   return true;
     // } catch (PDOException $e) {
-      return false;
+    return false;
     // }
   }
 }
@@ -436,10 +439,39 @@ class ModelClassFormal extends DAO
           $result['class_formal_id'],
           $result['class_number'],
           $result['class_course'],
-          $branch
+          $branch,
+          $result['teacher_id']
         );
 
       }
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+
+
+    }
+
+  }
+  public function getAll(): array
+  {
+    $sql = "SELECT * FROM class_formals ";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list = [];
+      $modelBranch = new ModelBranch();
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $branch = $modelBranch->getById($result["branch_id"]);
+        array_push($list, new ClassFormal(
+          $result['class_formal_id'],
+          $result['class_number'],
+          $result['class_course'],
+          $branch,
+          $result['teacher_id']
+        )
+        );
+
+      }
+      return $list;
     } catch (PDOException $e) {
       echo "Lỗi: " . $e->getMessage();
 
@@ -453,11 +485,12 @@ class ModelClassFormal extends DAO
       if ($object instanceof ClassFormal) {
         $classFormal = $object;
       }
-      $sql = "INSERT INTO class_formals(class_number,class_course,branch_id) VALUES (?, ?, ?)";
+      $sql = "INSERT INTO class_formals(class_number,class_course,branch_id, teacher_id) VALUES (?, ?, ?, ?)";
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $classFormal->getClassNumber(), PDO::PARAM_INT);
       $stmt->bindParam(2, $classFormal->getClassCourse(), PDO::PARAM_INT);
       $stmt->bindParam(3, $classFormal->getBranch()->getBranchId(), PDO::PARAM_INT);
+      $stmt->bindParam(4, $classFormal->getTeacherId(), PDO::PARAM_INT);
       $stmt->execute();
       return true;
     } catch (PDOException $e) {
@@ -487,13 +520,14 @@ class ModelClassFormal extends DAO
       if ($object instanceof ClassFormal) {
         $classFormal = $object;
       }
-      $sql = "UPDATE class_formals SET class_number = ?,  class_course = ? ,branch_id = ? WHERE class_formal_id = ?";
+      $sql = "UPDATE class_formals SET class_number = ?,  class_course = ? ,branch_id = ?, teacher_id= ? WHERE class_formal_id = ?";
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $classFormal->getClassNumber(), PDO::PARAM_INT);
 
       $stmt->bindParam(2, $classFormal->getClassCourse(), PDO::PARAM_INT);
       $stmt->bindParam(3, $classFormal->getBranch()->getBranchId(), PDO::PARAM_INT);
-      $stmt->bindParam(4, $classFormal->getClassFormalId(), PDO::PARAM_INT);
+      $stmt->bindParam(4, $classFormal->getTeacherId(), PDO::PARAM_INT);
+      $stmt->bindParam(5, $classFormal->getClassFormalId(), PDO::PARAM_INT);
 
       $stmt->execute();
       return true;
@@ -784,18 +818,19 @@ class ModelRegister extends DAO
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
-      $list=[];
+      $list = [];
       $modelUser = new ModelUser();
       $modelClassCredit = new ModelClassCredit();
-      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $user = $modelUser->getById($result["user_id"]);
         $classCredit = $modelClassCredit->getById($result["class_credit_id"]);
-        array_push($list,new Register(
+        array_push($list, new Register(
           $result['register_id'],
           $classCredit,
           $user,
           DateTime::createFromFormat('Y-m-d H:i:s', $result['register_time'])
-        ));
+        )
+        );
 
       }
       return $list;
@@ -812,11 +847,11 @@ class ModelRegister extends DAO
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
-      $list=[];
+      $list = [];
       $modelUser = new ModelUser();
-      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $user = $modelUser->getById($result["user_id"]);
-        if($user->getUserRole()==1){
+        if ($user->getUserRole() == 1) {
           array_push($list, $user);
         }
 
@@ -835,12 +870,12 @@ class ModelRegister extends DAO
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
-      $list=[];
+      $list = [];
       $modelUser = new ModelUser();
-      
-      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $user = $modelUser->getById($result["user_id"]);
-        if($user->getUserRole()==3){
+        if ($user->getUserRole() == 3) {
           array_push($list, $user);
         }
 
@@ -858,12 +893,12 @@ class ModelRegister extends DAO
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
-      $list=[];
+      $list = [];
       $modelUser = new ModelUser();
-      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $user = $modelUser->getById($result["user_id"]);
-        if($user->getUserRole()==2){
-          array_push($list,$user);
+        if ($user->getUserRole() == 2) {
+          array_push($list, $user);
         }
 
       }
@@ -874,7 +909,7 @@ class ModelRegister extends DAO
 
     }
   }
-  public function getByUserIdAndClassCreditId(int $uid,int $classCreditId): object
+  public function getByUserIdAndClassCreditId(int $uid, int $classCreditId): object
   {
     $sql = "SELECT * FROM registers WHERE user_id = ? and class_credit_id = ? ";
     try {
@@ -884,7 +919,7 @@ class ModelRegister extends DAO
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       $modelUser = new ModelUser();
-      if($result ) {
+      if ($result) {
         $user = $modelUser->getById($result["user_id"]);
         $classCredit = $modelClassCredit->getById($result["class_credit_id"]);
         return new Register(
@@ -895,7 +930,7 @@ class ModelRegister extends DAO
         );
 
       }
-     
+
     } catch (PDOException $e) {
       echo "Lỗi: " . $e->getMessage();
 
@@ -903,7 +938,7 @@ class ModelRegister extends DAO
     }
 
   }
-    public function addObject(object $object): bool
+  public function addObject(object $object): bool
   {
     try {
       if ($object instanceof Register) {
@@ -911,12 +946,12 @@ class ModelRegister extends DAO
       }
       $sql = "INSERT INTO registers (class_credit_id, user_id, register_time) VALUES (?, ?, ?)";
       $stmt = $this->link->prepare($sql);
-      $creditId=$object->getClassCredit()->getClassCreditId();
-      $userId=$object->getUser()->getUserId();
-      $time=$object->getRegisterTime()->format('Y-m-d H:i:s') ;
-      $stmt->bindParam(1,$creditId , PDO::PARAM_INT);
+      $creditId = $object->getClassCredit()->getClassCreditId();
+      $userId = $object->getUser()->getUserId();
+      $time = $object->getRegisterTime()->format('Y-m-d H:i:s');
+      $stmt->bindParam(1, $creditId, PDO::PARAM_INT);
       $stmt->bindParam(2, $userId, PDO::PARAM_INT);
-      $stmt->bindParam(3,$time, PDO::PARAM_STR);
+      $stmt->bindParam(3, $time, PDO::PARAM_STR);
       $stmt->execute();
       return true;
     } catch (PDOException $e) {
@@ -940,7 +975,7 @@ class ModelRegister extends DAO
     }
 
   }
-  public function deleteByUserAndClassCredit(int $objectid,int $classCreditId): bool
+  public function deleteByUserAndClassCredit(int $objectid, int $classCreditId): bool
   {
     try {
       $sql = "DELETE FROM registers WHERE user_id = ? and class_credit_id = ?";
@@ -956,7 +991,7 @@ class ModelRegister extends DAO
     }
 
   }
-  
+
   public function updateObject($object): bool
   {
     try {
@@ -1087,32 +1122,33 @@ class ModelSchedule extends DAO
       $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
       $list = [];
-    
+
       $modelKipstudy = new ModelKipStudy();
       $modelWeek = new ModelWeek();
       $modelClassRoom = new ModelClassRoom();
-     
+
       while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $week = $modelWeek->getById($result['week_id']);
         $weekEnd = $modelWeek->getById($result['week_id_end']);
         $kipStudy = $modelKipstudy->getById($result["kip_study_id"]);
         $classRoom = $modelClassRoom->GetById($result["class_room_id"]);
-  
+
         array_push($list, new Schedule(
-                                              $result['schedule_id'],
-                                              $result['schedule_code'],
-                                              $kipStudy,
-                                              $result['day_study'],
-                                              $week,
-                                              $weekEnd,
-                                              $classRoom
-                                            ));
-  
+          $result['schedule_id'],
+          $result['schedule_code'],
+          $kipStudy,
+          $result['day_study'],
+          $week,
+          $weekEnd,
+          $classRoom
+        )
+        );
+
       }
       return $list;
-      
-      
-      
+
+
+
     } catch (PDOException $e) {
       // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
@@ -1313,12 +1349,14 @@ class ModelSubjectSemester extends DAO
         $modelSubject = new ModelSubject();
         $subject = $modelSubject->GetById($result["subject_id"]);
 
-        array_push($list, new SubjectSemester(
-          $result['subject_semester_id'],
-          $result['subject_semester_name'],
-          $subject,
-          $branch
-        )
+        array_push(
+          $list,
+          new SubjectSemester(
+            $result['subject_semester_id'],
+            $result['subject_semester_name'],
+            $subject,
+            $branch
+          )
         );
 
       }
@@ -1433,44 +1471,6 @@ class ModelUser extends DAO
           $result['user_name'],
           $result['pass_word'],
           $result['full_name'],
-          $result['teacher_id'],
-          $result['user_role'],
-          $result['status'],
-          $result['date_of_birth'],
-          $result['gender'],
-          $result['birthplace'],
-          $result['current_address'],
-          $result['avatar_image_path'],
-          $result['link_social'],
-          $result['description_text'],
-        );
-
-      }
-    } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
-      echo "Lỗi: " . $e->getMessage();
-
-    }
-  }
-  public function getAll():array
-  {
-    $sql = "SELECT * FROM  users WHERE user_id = ?";
-    try {
-
-      $stmt = $this->link->prepare($sql);
-      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
-      $stmt->execute();
-      $list=[];
-      $modelClassFormal = new ModelClassFormal();
-      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        
-        array_push($list, new User(
-          $result['user_id'],
-          $modelClassFormal->getById($result["class_formal_id"]),
-          $result['user_name'],
-          $result['pass_word'],
-          $result['full_name'],
-          $result['teacher_id'],
           $result['user_role'],
           $result['status'],
           $result['date_of_birth'],
@@ -1480,7 +1480,45 @@ class ModelUser extends DAO
           $result['avatar_image_path'],
           $result['link_social'],
           $result['description_text']
-        ));
+        );
+
+      }
+    } catch (PDOException $e) {
+      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+
+    }
+  }
+  public function getAll(): array
+  {
+    $sql = "SELECT * FROM  users";
+    try {
+
+      $stmt = $this->link->prepare($sql);
+
+      $stmt->execute();
+      $list = [];
+      $modelClassFormal = new ModelClassFormal();
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+        array_push($list, new User(
+          $result['user_id'],
+          $modelClassFormal->getById($result["class_formal_id"]),
+          $result['user_name'],
+          $result['pass_word'],
+          $result['full_name'],
+
+          $result['user_role'],
+          $result['status'],
+          $result['date_of_birth'],
+          $result['gender'],
+          $result['birthplace'],
+          $result['current_address'],
+          $result['avatar_image_path'],
+          $result['link_social'],
+          $result['description_text']
+        )
+        );
 
       }
       return $list;
@@ -1490,7 +1528,7 @@ class ModelUser extends DAO
 
     }
   }
-  public function getByUserName(string $uid, )
+  public function getByUserName(string $uid)
   {
     $sql = "SELECT * FROM  users WHERE user_name = ?";
     try {
@@ -1507,7 +1545,7 @@ class ModelUser extends DAO
           $result['user_name'],
           $result['pass_word'],
           $result['full_name'],
-          $result['teacher_id'],
+
           $result['user_role'],
           $result['status'],
           $result['date_of_birth'],
@@ -1534,7 +1572,7 @@ class ModelUser extends DAO
       $userName = $object->getUserName();
       $password = $object->getPassword();
       $fullName = $object->getFullName();
-      $teacherId = $object->getTeacherId(); // Optional, can be null if not applicable
+
       $userRole = $object->getUserRole();  // Assuming valid role values are defined
       $status = $object->getStatus();      // Assuming valid status values are defined
       $dateOfBirth = $object->getDateOfBirth(); // Assuming date format is appropriate for storage
@@ -1544,13 +1582,13 @@ class ModelUser extends DAO
       $avatarImagePath = $object->getAvatarImagePath(); // Optional
       $linkSocial = $object->getLinkSocial();          // Optional
       $descriptionText = $object->getDescriptionText(); // Optional
-      $ok=0;
+      $ok = 0;
       $sql = "INSERT INTO users (
             class_formal_id,
             user_name,
             pass_word,
             full_name,
-            teacher_id,
+           
             user_role,
             status,
             date_of_birth,
@@ -1561,7 +1599,7 @@ class ModelUser extends DAO
             link_social,
             description_text,
             password_latest
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       $stmt = $this->link->prepare($sql);
 
@@ -1569,22 +1607,22 @@ class ModelUser extends DAO
       $stmt->bindParam(2, $userName, PDO::PARAM_STR);
       $stmt->bindParam(3, $password, PDO::PARAM_STR); // Assuming password is hashed
       $stmt->bindParam(4, $fullName, PDO::PARAM_STR);
-      $stmt->bindParam(5, $teacherId, PDO::PARAM_INT); // Optional, can be null if not applicable
-      $stmt->bindParam(6, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
-      $stmt->bindParam(7, $status, PDO::PARAM_INT);    // Assuming valid status values are defined
-      $stmt->bindParam(8, $dateOfBirth, PDO::PARAM_STR); // Assuming date format is appropriate for storage
-      $stmt->bindParam(9, $gender, PDO::PARAM_STR);     // Assuming valid gender values are defined
-      $stmt->bindParam(10, $birthplace, PDO::PARAM_STR);
-      $stmt->bindParam(11, $currentAddress, PDO::PARAM_STR);
-      $stmt->bindParam(12, $avatarImagePath, PDO::PARAM_STR); // Optional
-      $stmt->bindParam(13, $linkSocial, PDO::PARAM_STR);     // Optional
-      $stmt->bindParam(14, $descriptionText, PDO::PARAM_STR); // Optional
-      $stmt->bindParam(15, $ok, PDO::PARAM_INT); // Optional
+
+      $stmt->bindParam(5, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
+      $stmt->bindParam(6, $status, PDO::PARAM_INT);    // Assuming valid status values are defined
+      $stmt->bindParam(7, $dateOfBirth, PDO::PARAM_STR); // Assuming date format is appropriate for storage
+      $stmt->bindParam(8, $gender, PDO::PARAM_STR);     // Assuming valid gender values are defined
+      $stmt->bindParam(9, $birthplace, PDO::PARAM_STR);
+      $stmt->bindParam(10, $currentAddress, PDO::PARAM_STR);
+      $stmt->bindParam(11, $avatarImagePath, PDO::PARAM_STR); // Optional
+      $stmt->bindParam(12, $linkSocial, PDO::PARAM_STR);     // Optional
+      $stmt->bindParam(13, $descriptionText, PDO::PARAM_STR); // Optional
+      $stmt->bindParam(14, $ok, PDO::PARAM_INT); // Optional
       $stmt->execute();
 
       return true;
     } catch (PDOException $e) {
-      echo $e->getMessage();
+      return false;
     }
 
 
@@ -1625,22 +1663,27 @@ class ModelUser extends DAO
   public function updateObject($object): bool
   {
     try {
-     
+
       $sql = "UPDATE users SET
        class_formal_id= ?,
         user_name  = ?,
         pass_word  = ?,
         full_name  = ?,
-        teacher_id  = ?,
         user_role  = ?,
-        status  = ?
-        WHERE user_name = ?";
+        status  = ?,
+        date_of_birth = ?,
+        gender= ?, 
+        birthplace= ?,
+        current_address= ?, 
+        avatar_image_path= ?,
+        link_social=?
+        WHERE user_id = ?";
       $stmt = $this->link->prepare($sql);
+      $userId=$object->getUserId();
       $classFormalId = $object->getClassFormal()->getClassFormalId();
       $userName = $object->getUserName();
       $password = $object->getPassword();
       $fullName = $object->getFullName();
-      $teacherId = $object->getTeacherId(); // Optional, can be null if not applicable
       $userRole = $object->getUserRole();  // Assuming valid role values are defined
       $status = $object->getStatus();      // Assuming valid status values are defined
       $dateOfBirth = $object->getDateOfBirth(); // Assuming date format is appropriate for storage
@@ -1649,26 +1692,33 @@ class ModelUser extends DAO
       $currentAddress = $object->getCurrentAddress();
       $avatarImagePath = $object->getAvatarImagePath(); // Optional
       $linkSocial = $object->getLinkSocial();          // Optional
-    
+
 
       $stmt->bindParam(1, $classFormalId, PDO::PARAM_INT);
       $stmt->bindParam(2, $userName, PDO::PARAM_STR);
       $stmt->bindParam(3, $password, PDO::PARAM_STR); // Assuming password is hashed
       $stmt->bindParam(4, $fullName, PDO::PARAM_STR);
-      $stmt->bindParam(5, $teacherId, PDO::PARAM_INT); // Optional, can be null if not applicable
-      $stmt->bindParam(6, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
-      $stmt->bindParam(7, $status, PDO::PARAM_INT);    // Assuming valid status values are defined
 
+      $stmt->bindParam(5, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
+      $stmt->bindParam(6, $status, PDO::PARAM_INT);    // Assuming valid status values are defined
+      $stmt->bindParam(7, $dateOfBirth, PDO::PARAM_STR);
+      $stmt->bindParam(8, $gender, PDO::PARAM_INT);
+      $stmt->bindParam(9, $birthplace, PDO::PARAM_STR);
+      $stmt->bindParam(10, $currentAddress, PDO::PARAM_STR);
+      $stmt->bindParam(11, $avatarImagePath, PDO::PARAM_STR);
+      $stmt->bindParam(12,$linkSocial, PDO::PARAM_STR);
 
-      $stmt->bindParam(8, $userName, PDO::PARAM_STR);
+      $stmt->bindParam(13, $userId, PDO::PARAM_INT);
       $stmt->execute();
       return true;
     } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
       return false;
     }
   }
 }
-class ModelNews extends DAO{
+class ModelNews extends DAO
+{
   public function getById(int $uid): object
   {
     $sql = "SELECT * FROM news WHERE new_id = ?";
@@ -1678,7 +1728,7 @@ class ModelNews extends DAO{
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       if ($result) {
-        return new News (
+        return new News(
           $result['new_id'],
           $result['new_title'],
           $result['new_body'],
@@ -1688,7 +1738,7 @@ class ModelNews extends DAO{
       }
     } catch (PDOException $e) {
       echo "Lỗi: " . $e->getMessage();
-     
+
     }
 
   }
@@ -1698,20 +1748,21 @@ class ModelNews extends DAO{
     try {
       $stmt = $this->link->prepare($sql);
       $stmt->execute();
-      $list=[];
-      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      $list = [];
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         array_push($list, new News(
           $result['new_id'],
           $result['new_title'],
           $result['new_body'],
           DateTime::createFromFormat('Y-m-d H:i:s', $result['new_time'])
-        ));
+        )
+        );
 
       }
       return $list;
     } catch (PDOException $e) {
       echo "Lỗi: " . $e->getMessage();
-     
+
     }
 
   }
@@ -1735,12 +1786,12 @@ class ModelNews extends DAO{
   }
   public function deleteObject(int $objectid): bool
   {
-      return false;
+    return false;
   }
   public function updateObject($object): bool
   {
 
-      return false;
+    return false;
   }
 
 }

@@ -1,16 +1,15 @@
 <?php
 require_once '../models/ModelDAO.php';
-$pass='123456';
-$hash=password_hash($pass, PASSWORD_DEFAULT);
-
-$modelUser=new ModelUser();
-$user=$modelUser->getById(2);
-$user->setPassword($hash);
-echo $user->getPassword();
-$user->setUserName('admin');
-$user->setUserRole(4);
-
-if($modelUser->updateObject($user))
-    echo 'ok';
-
+$model=new ModelClassFormal();
+$list=$model->getAll();
+foreach ($list as $key=>$li) {
+	if (!is_null($li)) {
+		$classCourse = $li->getClassCourse();
+		$classNumber = $li->getClassNumber();
+		$brand = $li->getBranch()->getBrandName();
+		$id = $li->getClassFormalId();
+		$classFormal = 'D' . $classCourse . $brand . $classNumber;
+		echo '<option value="' . $id . '">' . $classFormal . '</option>';
+	}
+}
 ?>

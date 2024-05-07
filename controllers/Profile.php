@@ -8,7 +8,7 @@ class Profile extends Controller{
         $role=$_SESSION['login']['role'];
         array_push($list,$user);
         array_push($list,$role);
-        $teacher=$modelUser->getById($user->getTeacherId());
+        $teacher=$modelUser->getById($user->getClassFormal()->getTeacherId());
         array_push($list,$teacher);
         $this->view('profile',$list);
     }

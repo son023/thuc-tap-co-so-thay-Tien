@@ -5,18 +5,20 @@ class ClassFormal {
   private int $classNumber;  // Đã sửa tên biến thành classNumber
   private Branch $department;
   private int $classCourse;
+  private int $teacherId;
 
   public function __construct(
       int $classFormalId, 
       int $classNumber, 
-      
       int $classCourse,
-      Branch $department
+      Branch $department,
+      int $teacherId
   ) {
     $this->classFormalId = $classFormalId;
     $this->classNumber = $classNumber;
     $this->department = $department;
     $this->classCourse = $classCourse;
+    $this->teacherId = $teacherId;
   }
 
   public function getClassFormalId(): int {
@@ -34,6 +36,10 @@ class ClassFormal {
   public function getClassCourse(): int {
     return $this->classCourse;
   }
+  public function getTeacherId(): int {
+    return $this->teacherId;
+  }
+
 }
 
 ?>
