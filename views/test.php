@@ -6,8 +6,11 @@ $hash=password_hash($pass, PASSWORD_DEFAULT);
 $modelUser=new ModelUser();
 $user=$modelUser->getById(2);
 $user->setPassword($hash);
-$user->setUserName('B21DCCN6532');
-if($modelUser->addObject($user))
- echo 'ok';
+echo $user->getPassword();
+$user->setUserName('admin');
+$user->setUserRole(4);
+
+if($modelUser->updateObject($user))
+    echo 'ok';
 
 ?>

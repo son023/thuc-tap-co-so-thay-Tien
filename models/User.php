@@ -136,6 +136,9 @@ class User {
   public function setUserName($newpassword){
     $this->userName=$newpassword;
   }
+  public function setUserRole($newpassword){
+    $this->userRole=$newpassword;
+  }
 
  
 }

@@ -31,12 +31,12 @@ require "header.php";
 <div class="section-one">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-xl-2">
                 <?php
                 require "narbar.php";
                 ?>
             </div>
-            <div class="col-xl-9 justify-content-center">
+            <div class="col-xl-10 justify-content-center">
 
                 <form action="<?php echo htmlspecialchars("/schedules"); ?>" method="post">
                     <select name="schedule" class="animate__animated animate__fadeInLeft">
@@ -86,7 +86,7 @@ require "header.php";
                     }
                     $week = $modelWeek->getById($week_id);
 
-                    echo '<h3 > Lịch học tuần ' . $week->getWeekName() . ' bắt đầu từ ' . toStrYear($week->getStartTime()) . ' đến ' . toStrYear($week->getEndTime()) . '</h3>
+                    echo '<h3 style="left:320px"> Lịch học tuần ' . $week->getWeekName() . ' bắt đầu từ ' . toStrYear($week->getStartTime()) . ' đến ' . toStrYear($week->getEndTime()) . '</h3>
                 <table class="table table-bordered ">
                     <thead>
                         <tr>
@@ -113,12 +113,15 @@ require "header.php";
                         </tr>
                     </thead>
                     <tbody>';
+                    //duyet kip 1-6
                     for ($tmp = 1; $tmp <= 6; $tmp++) {
                         echo '<tr>
                             <td class="text-center align-middle"  style="background-color: #3ec1d5; 
                             color:#fff">Kíp ' . $tmp . '</td>';
+                        //duyet thu 2-cn
                         for ($i = 2; $i <= 8; $i++) {
                             $ok = 1;
+                            //duyet lish dki kiem tra
                             foreach ($listRegister as $key => $value) {
                                 if (!is_null($value)) {
                                     $classCredit = $value->getClassCredit();
@@ -127,6 +130,7 @@ require "header.php";
                                         if (!is_null($value1)) {
                                             $week = $value1->getWeek()->getWeekId();
                                             $week_end = $value1->getWeekEnd()->getWeekId();
+                                            //neu tuan bang tuan dang tim + thu = thu + kip =kip => in r
                                             if ($week_id >= $week && $week_end >= $week_id) {
                                                 if ($value1->getDayStudy() == $i && $value1->getKipStudy()->getKipStudyId() == $tmp) {
                                                     echo '<td class="text-left align-middle " style="background-color:#CAEEF3;" ><strong>'

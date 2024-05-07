@@ -13,6 +13,17 @@ Class Controller
  			include  _DIR_ROOT. "/views/404.php";
  		}
 	}
+	protected function viewAdmin($view,$data = [])
+	{
+        
+		if(file_exists(_DIR_ROOT. "/views/admin/". $view .".php"))
+ 		{
+ 			include _DIR_ROOT.  "/views/admin/". $view .".php";
+ 		}
+        else{
+ 			include  _DIR_ROOT. "/views/404.php";
+ 		}
+	}
 	
    
 

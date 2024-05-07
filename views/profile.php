@@ -18,13 +18,13 @@ if ($data[1] == 1) {
 <div class="section-one">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xl-3">
+      <div class="col-xl-2">
         <?php
         require "narbar.php";
         ?>
       </div>
 
-      <div class="col-xl-7">
+      <div class="col-xl-8">
         <div class="inner-profile">
 
           <?php

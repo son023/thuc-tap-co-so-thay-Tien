@@ -1452,6 +1452,44 @@ class ModelUser extends DAO
 
     }
   }
+  public function getAll():array
+  {
+    $sql = "SELECT * FROM  users WHERE user_id = ?";
+    try {
+
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $list=[];
+      $modelClassFormal = new ModelClassFormal();
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        
+        array_push($list, new User(
+          $result['user_id'],
+          $modelClassFormal->getById($result["class_formal_id"]),
+          $result['user_name'],
+          $result['pass_word'],
+          $result['full_name'],
+          $result['teacher_id'],
+          $result['user_role'],
+          $result['status'],
+          $result['date_of_birth'],
+          $result['gender'],
+          $result['birthplace'],
+          $result['current_address'],
+          $result['avatar_image_path'],
+          $result['link_social'],
+          $result['description_text']
+        ));
+
+      }
+      return $list;
+    } catch (PDOException $e) {
+      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+
+    }
+  }
   public function getByUserName(string $uid, )
   {
     $sql = "SELECT * FROM  users WHERE user_name = ?";
@@ -1587,9 +1625,7 @@ class ModelUser extends DAO
   public function updateObject($object): bool
   {
     try {
-      if ($object instanceof User) {
-        $user = $object;
-      }
+     
       $sql = "UPDATE users SET
        class_formal_id= ?,
         user_name  = ?,
@@ -1598,7 +1634,7 @@ class ModelUser extends DAO
         teacher_id  = ?,
         user_role  = ?,
         status  = ?
-         WHERE user_name = ?";
+        WHERE user_name = ?";
       $stmt = $this->link->prepare($sql);
       $classFormalId = $object->getClassFormal()->getClassFormalId();
       $userName = $object->getUserName();
@@ -1617,7 +1653,7 @@ class ModelUser extends DAO
 
       $stmt->bindParam(1, $classFormalId, PDO::PARAM_INT);
       $stmt->bindParam(2, $userName, PDO::PARAM_STR);
-      $stmt->bindParam(3, $password, PDO::PARAM_INT); // Assuming password is hashed
+      $stmt->bindParam(3, $password, PDO::PARAM_STR); // Assuming password is hashed
       $stmt->bindParam(4, $fullName, PDO::PARAM_STR);
       $stmt->bindParam(5, $teacherId, PDO::PARAM_INT); // Optional, can be null if not applicable
       $stmt->bindParam(6, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
