@@ -50,7 +50,7 @@ if (isset($_POST['updateuser']) ) {
             </div>
 
             <div class="col-xl-10">
-                <?php echo ' <h3 class="animate__animated animate__fadeInDown"> Thêm người dùng</h3>' ?>
+                <?php echo ' <h3   style="left:490px  "class="animate__animated animate__fadeInDown"> Sửa thông người dùng</h3>' ?>
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">

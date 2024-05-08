@@ -6,14 +6,18 @@ require_once 'header.php';
 <div class="section-one">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xl-3 ">
+            <div class="col-xl-2 ">
 
                 <?php
-                require "narbar.php";
+                if($_SESSION['login']['role'] =='4'){
+                    require "admin/narbaradmin.php";
+
+                }
+                else require "narbar.php";
                 ?>
 
             </div>
-            <div class="col-xl-9 ">
+            <div class="col-xl-10 ">
                 <div class="inner-body text-center pt-3">
                     <h2 class="animate__animated animate__fadeInDown">Danh sách thành viên lớp tín chỉ</h2>
 

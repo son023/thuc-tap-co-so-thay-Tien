@@ -49,6 +49,18 @@ img {
   border: 0;
 
 }
+.btn-primary {
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  background: #3ec1d5;
+  border: 0;
+
+}
+.btn-primary:hover {
+  background: #fff;
+  color: #3ec1d5;
+}
 
 .section-one .user-container .btn-primary:hover {
   background: #fff;
@@ -242,6 +254,11 @@ img {
   background: #3ec1d5;
   
 
+}
+.btn-crud:hover {
+  background: #fff;
+  color: #3ec1d5;
+  text-decoration: none;
 }
 
 .btn-get-started:hover {

@@ -17,8 +17,8 @@ class ClassCredit {
 
 
   public function __construct(int $classCreditId,
-      $classCreditName, $subject, $groupClass, $listSchedule,$gvMax,
-      $tgMax, $svMax) {
+      $classCreditName, $subject, $groupClass, $listSchedule,$gvMax=0,
+      $tgMax=0, $svMax=0) {
     $this->classCreditId = $classCreditId;
     $this->classCreditName = $classCreditName;
     $this->subject = $subject;

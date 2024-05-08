@@ -53,11 +53,53 @@ class Admin extends Controller
     }
     public function classcreditmanagement($id = '')
     {
-        $this->viewAdmin('classcreditmanagement');
+        $modelClassCredit=new ModelClassCredit();
+        $list=$modelClassCredit->getAll();
+        $this->viewAdmin('classcreditmanagement',$list);
+    }
+    public function addclasscredit($id = '')
+    {
+        $this->viewAdmin('addclasscredit');
+    }
+    public function deleteclasscredit($id = '')
+    {
+        $modelClassCredit = new ModelClassCredit();
+        if($modelClassCredit->deleteObject((int)$id)){
+            $_SESSION['error']='Xoá lớp tín chỉ thành công';
+            
+        }
+        else{
+            $_SESSION['error']='Xoá thất bại';
+           
+        }
+        $list = $modelClassCredit->getAll();
+        $this->viewAdmin('classcreditmanagement', $list);
+        
     }
     public function registermanagement($id = '')
     {
-        $this->viewAdmin('registermanagement');
+        $modelRegister=new ModelRegister();
+        $list=$modelRegister->getAll();
+        $this->viewAdmin('registermanagement',$list);
+    }
+    public function addregister($id = '')
+    {
+        $this->viewAdmin('addregister');
+    }
+    public function deleteregister($id = '')
+    {
+        $modelRegister = new ModelRegister();
+        if($modelRegister->deleteObject((int)$id)){
+            $_SESSION['error']='Xoá đăng ký thành công';
+            
+        }
+        else{
+            $_SESSION['error']='Xoá thất bại';
+           
+        }
+        $list = $modelRegister->getAll();
+        $this->viewAdmin('registermanagement', $list);
+        
     }
 
 }

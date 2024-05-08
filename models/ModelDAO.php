@@ -272,6 +272,42 @@ class ModelClassCredit extends DAO
     }
 
   }
+  public function getAll (): array
+  {
+    $sql = "SELECT * FROM class_credits ORDER BY subject_id";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list = [];
+      $modelListSchedule = new ModelSchedule();
+      $modelSubject = new ModelSubject();
+
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $listSchedule = $modelListSchedule->getByCode($result["schedule_code"]);
+        $subject = $modelSubject->GetById($result["subject_id"]);
+        array_push(
+          $list,
+          new ClassCredit(
+            $result["class_credit_id"],
+            $result["class_credit_name"],
+            $subject,
+            $result["group_class"],
+            $listSchedule,
+            $result["teacher_max"],
+            $result["tutors_max"],
+            $result["student_max"]
+
+          )
+        );
+      }
+      return $list;
+    } catch (PDOException $e) {
+      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+
+    }
+
+  }
 
   public function getById(int $uid): object
   {
@@ -310,15 +346,16 @@ class ModelClassCredit extends DAO
   public function addObject(object $object): bool
   {
     try {
-      if ($object instanceof ClassCredit) {
-        $classCredit = $object;
-      }
+      $name=$object->getClassCreditName();
+      $subject=$object->getSubject()->getSubjectId();
+      $groupclass=$object->getGroupClass();
+      $schedule=$object->getListSchedule()[0]->getScheduleCode();
       $sql = "INSERT INTO class_credits (class_credit_name, subject_id, group_class, schedule_code) VALUES (?, ?, ?, ?)";
       $stmt = $this->link->prepare($sql);
-      $stmt->bindParam(1, $classCredit->getClassCreditName(), PDO::PARAM_STR);
-      $stmt->bindParam(2, $classCredit->getSubject()->getSubjectId(), PDO::PARAM_INT);
-      $stmt->bindParam(3, $classCredit->getGroupClass(), PDO::PARAM_INT);
-      $stmt->bindParam(4, $classCredit->getListSchedule()[0]->getScheduleCode(), PDO::PARAM_INT);
+      $stmt->bindParam(1, $name, PDO::PARAM_STR);
+      $stmt->bindParam(2, $subject, PDO::PARAM_INT);
+      $stmt->bindParam(3, $groupclass, PDO::PARAM_INT);
+      $stmt->bindParam(4, $schedule, PDO::PARAM_INT);
 
       $stmt->execute();
       return true;
@@ -810,6 +847,34 @@ class ModelRegister extends DAO
     }
 
   }
+  public function getAll(): array
+  {
+    $sql = "SELECT * FROM registers ORDER BY class_credit_id";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list=[];
+      $modelUser = new ModelUser();
+      $modelClassCredit = new ModelClassCredit();
+      while( $result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $user = $modelUser->getById($result["user_id"]);
+        $classCredit = $modelClassCredit->getById($result["class_credit_id"]);
+        array_push($list,new Register(
+          $result['register_id'],
+          $classCredit,
+          $user,
+          DateTime::createFromFormat('Y-m-d H:i:s', $result['register_time'])
+        ));
+
+      }
+      return $list;
+    } catch (PDOException $e) {
+      echo "Lỗi: " . $e->getMessage();
+
+
+    }
+
+  }
 
   public function getByUserId(int $uid): array
   {
@@ -1241,6 +1306,32 @@ class ModelSubject extends DAO
         );
 
       }
+    } catch (PDOException $e) {
+      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+
+    }
+
+  }
+  public function getAll():array
+  {
+    $sql = "SELECT * FROM subjects";
+    try {
+      // 2. Chuẩn bị câu lệnh sử dụng PDO
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list=[];
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+        array_push($list, new Subject(
+          $result['subject_id'],
+          $result['subject_code'],
+          $result['subject_name'],
+          $result['credit'],
+          $result['price_credit']
+        ));
+
+      }
+      return $list;
     } catch (PDOException $e) {
       // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
       echo "Lỗi: " . $e->getMessage();
