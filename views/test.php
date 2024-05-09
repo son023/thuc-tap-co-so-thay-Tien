@@ -1,4 +1,4 @@
 <?php
-define('_DIR_ROOT', __DIR__);
-echo _DIR_ROOT;
-?>
+require_once '../models/ModelDAO.php';
+$modelEmail=new ModelEmail();
+var_dump($modelEmail->getByUserId(40));

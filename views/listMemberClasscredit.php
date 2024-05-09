@@ -19,7 +19,19 @@ require_once 'header.php';
             </div>
             <div class="col-xl-10 ">
                 <div class="inner-body text-center pt-3">
-                    <h2 class="animate__animated animate__fadeInDown">Danh sách thành viên lớp tín chỉ</h2>
+                  
+                    <div class="suscribe-area animate__animated animate__fadeInDown "
+                    style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="suscribe-text text-center">
+                                    <h4 class="animate__animated animate__fadeInDown">Danh sách thành viên lớp tín chỉ</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Suscribe Section -->
 
                     <table
                         class="table table-hover table-bordered table-responsive animate__animated animate__fadeInUp">

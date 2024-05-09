@@ -582,7 +582,7 @@ class ModelEmail extends DAO
     $sql = "SELECT * FROM emails WHERE email_id = ?";
     try {
       $stmt = $this->link->prepare($sql);
-      $stmt->bindParam(1, $uiad, PDO::PARAM_INT);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       if ($result) {
@@ -597,6 +597,29 @@ class ModelEmail extends DAO
       }
     } catch (PDOException $e) {
       // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+    }
+
+  }
+  public function getByUserId(int $uid): object
+  {
+    $sql = "SELECT * FROM emails WHERE user_id = ?";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($result) {
+        $modelUser = new ModelUser();
+        $user = $modelUser->getById($result["user_id"]);
+        return new Email(
+          $result['email_id'],
+          $user,
+          $result['email'],
+        );
+
+      }
+    } catch (PDOException $e) {
       echo "Lỗi: " . $e->getMessage();
     }
 

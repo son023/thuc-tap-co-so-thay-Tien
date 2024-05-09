@@ -12,7 +12,19 @@ require_once _DIR_ROOT . '\views\header.php';
 
             </div>
             <div class="col-xl-10 justify-content-center">
-                <h3 style="left:490px  "class="animate__animated animate__fadeInDown mb-10">Danh sách lớp tín chỉ</h3>
+               
+                <div class="suscribe-area animate__animated animate__fadeInDown "
+                    style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="suscribe-text text-center">
+                                    <h4 class="animate__animated animate__fadeInDown"> danh sách lớp tín chỉ</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <p class="animate__animated animate__fadeInDown text-center"><?php check_message() ?></p>
                 <?php echo '<div><a class=" btn-get-started" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/addclasscredit" title="Sửa Thông Tin" data-toggle="tooltip" >  Thêm lớp tín chỉ </a> </div>';?>
                 <table class="table table-hover table-bordered table-responsive animate__animated animate__fadeInUp">

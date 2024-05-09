@@ -50,7 +50,19 @@ if (isset($_POST['updateuser']) ) {
             </div>
 
             <div class="col-xl-10">
-                <?php echo ' <h3   style="left:490px  "class="animate__animated animate__fadeInDown"> Sửa thông người dùng</h3>' ?>
+               
+                <div class="suscribe-area animate__animated animate__fadeInDown "
+                    style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="suscribe-text text-center">
+                                    <h4 class="animate__animated animate__fadeInDown"> Sửa thông tin người dùng</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">
@@ -177,14 +189,11 @@ if (isset($_POST['updateuser']) ) {
                             <div class="form-group">
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-9">
-                                    <button style="margin-right: 10px;" name='updateuser'>
+                                    <button class="btn-get" style="margin-right: 10px;" name='updateuser'>
                                         <i class="ace-icon glyphicon glyphicon-plus"></i>
                                         <span> Sửa người dùng</span>
                                     </button>
-                                    <button>
-                                        <i class="fa-solid fa-trash-can" name='huy'></i>
-                                        <span> Hủy thao tác</span>
-                                    </button>
+                                  
                                 </div>
 
                             </div>

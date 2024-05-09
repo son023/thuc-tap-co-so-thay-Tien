@@ -86,7 +86,19 @@ require "header.php";
                     }
                     $week = $modelWeek->getById($week_id);
 
-                    echo '<h3 style="left:320px"> Lịch học tuần ' . $week->getWeekName() . ' bắt đầu từ ' . toStrYear($week->getStartTime()) . ' đến ' . toStrYear($week->getEndTime()) . '</h3>
+                    echo '
+                    <div class="suscribe-area animate__animated animate__fadeInDown "
+                    style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="suscribe-text text-center">
+                                <h4> Lịch học tuần ' . $week->getWeekName() . ' bắt đầu từ ' . toStrYear($week->getStartTime()) . ' đến ' . toStrYear($week->getEndTime()) . '</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <table class="table table-bordered ">
                     <thead>
                         <tr>
@@ -140,10 +152,10 @@ require "header.php";
                                                         $value1->getClassRoom()->getClassRoomName() . ' ' . $value1->getClassRoom()->getBuilding();
                                                     $listGv = $modelRegister->getGvByClassCreditId($classCredit->getClassCreditId());
                                                     $listTg = $modelRegister->getTgByClassCreditId($classCredit->getClassCreditId());
-                                                    echo '<br><strong>';
+                                                    echo '<br>';
                                                     if (sizeof($listGv) != 0) {
 
-                                                        echo 'Giảng viên: ';
+                                                        echo '<strong>Giảng viên: ';
                                                         echo '</strong>';
                                                         foreach ($listGv as $ok => $gv) {
                                                             if (!is_null($gv)) {

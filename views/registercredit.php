@@ -61,7 +61,7 @@ $number = 70;
 
 
                 <div class="suscribe-area animate__animated animate__fadeInDown "
-                    style="display:block;margin: 5px 0px; border-radius: 10px;  ">
+                    style="display:block; margin: 5px 0px; border-radius: 10px;  ">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

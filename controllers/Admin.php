@@ -5,7 +5,19 @@ class Admin extends Controller
 
     public function index($id = '')
     {
-        $this->viewAdmin('loginadmin');
+        $modelUser = new ModelUser();
+        if ($id == '') {
+            $list = $modelUser->getAll();
+            $this->viewAdmin('usermanagement', $list);
+        } else {
+            $list = [];
+            $user = $modelUser->getById($id);
+            array_push($list, $user);
+            array_push($list,$user->getUserRole());
+            $teacher=$modelUser->getById($user->getClassFormal()->getTeacherId());
+            array_push($list,$teacher);
+            $this->viewAdmin('viewuser', $list);
+        }
     }
     public function usermanagement($id = '')
     {

@@ -122,19 +122,25 @@ INSERT INTO phone_numbers (
   user_id,
   phone_number
 )
-VALUES (
-  1,  -- Replace with the actual user ID
-  9072773  -- Replace with the actual phone number (integer format)
-);
-
+VALUES 
+(40, 981072773),
+(41, 981072773),
+(42, 981072773),
+(43, 981072773),
+(44, 981072773),
+(45, 981072773),
+(46, 981072773);
 INSERT INTO emails (
   user_id,
   email
 )
-VALUES (
-  1, 
-  'ample@email.com'
-);
+VALUES (40, 'b21dccn653@gmail.com'),
+(41, 'b21dccn653@gmail.com'),
+(42, 'b21dccn653@gmail.com'),
+(43, 'b21dccn653@gmail.com'),
+(44, 'b21dccn653@gmail.com'),
+(45, 'b21dccn653@gmail.com'),
+(46, 'b21dccn653@gmail.com');
 INSERT INTO class_rooms (class_room_name, building)
 VALUES ('G01', 'A2'),
        ('101', 'A2'),
