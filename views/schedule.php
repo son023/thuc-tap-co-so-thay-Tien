@@ -38,7 +38,7 @@ require "header.php";
             </div>
             <div class="col-xl-10 justify-content-center">
 
-                <form action="<?php echo htmlspecialchars("/schedules"); ?>" method="post">
+                <form action="<?php echo htmlspecialchars("/thuc-tap-co-so-thay-Tien/schedules"); ?>" method="post">
                     <select name="schedule" class="animate__animated animate__fadeInLeft">
                         <?php
                         $modelWeek = new ModelWeek();

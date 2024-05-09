@@ -223,7 +223,7 @@ $number = 70;
                 </div>
                 <div id="cart-container"></div>
                 <div>
-                    <a href='/schedules' class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá
+                    <a href='/thuc-tap-co-so-thay-Tien/schedules' class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá
                         biểu</a>
                 </div>
 
@@ -244,7 +244,7 @@ $number = 70;
                 $.ajax({
                     method: "POST",
                     data: { credit_id: creditId },
-                    url: "http://localhost:3000/views/registerlist.php",
+                    url: "http://localhost/thuc-tap-co-so-thay-Tien/views/registerlist.php",
                     success: function (data) {
                         data = JSON.parse(data);
                         if (data[0].status == 1) {
@@ -341,7 +341,7 @@ $number = 70;
                 $.ajax({
                     method: "POST",
                     data: { credit_id: creditId },
-                    url: "http://localhost:3000/views/removecredit.php",
+                    url: "http://localhost/thuc-tap-co-so-thay-Tien/views/removecredit.php",
                     success: function (data) {
                         data = JSON.parse(data);
                         const cartContainer = document.getElementById('cart-container');

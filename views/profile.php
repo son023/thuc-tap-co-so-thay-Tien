@@ -84,7 +84,7 @@ if ($data[1] == 1) {
         </div>
       </div>
       <div class="col-xl-2 animate__animated animate__fadeInRight">
-        <?php echo '<img src="' . $data[0]->getAvatarImagePath() . '" width=200 height=200>' ?>
+        <?php echo '<img src="' . $data[0]->getAvatarImagePath() . '" width=200 height=200> style="top:10px"' ?>
       </div>
 
     </div>

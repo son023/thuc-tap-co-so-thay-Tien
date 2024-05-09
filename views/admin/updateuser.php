@@ -28,11 +28,11 @@ if (isset($_POST['updateuser']) ) {
     $modelUser = new ModelUser();
     if ($modelUser->updateObject($userr)) {
         $_SESSION['error'] = 'Thay đổi thông tin thành công';
-        header('Location:http://localhost:3000/admin/usermanagement');
+        header('Location:http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement');
                     
     } else {
         $_SESSION['error'] = 'Thất bại';
-        header('Location: http://localhost:3000/admin/usermanagement');
+        header('Location: http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement');
                 
     }
 
@@ -54,7 +54,7 @@ if (isset($_POST['updateuser']) ) {
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">
-                        <form method="post" action="/admin/updateuser/<?php echo $userr->getUserId()?>" role="form" class="form-horizontal" id="form-edit">
+                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/updateuser/<?php echo $userr->getUserId()?>" role="form" class="form-horizontal" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-2">Tên người dùng</label>
                                 <div class="col-xs-9">
@@ -85,7 +85,7 @@ if (isset($_POST['updateuser']) ) {
                                                 $classNumber = $li->getClassNumber();
                                                 $brand = $li->getBranch()->getBranchName();
                                                 $id = $li->getClassFormalId();
-                                                $classFormal = 'D' . $classCourse . $brand . $classNumber;
+                                                $classFormal = 'D ' . $classCourse .' '. $brand.' ' . $classNumber;
                                                 echo '<option value="' . $id . '">' . $classFormal . '</option>';
                                             }
                                         }

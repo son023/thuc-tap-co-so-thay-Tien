@@ -45,7 +45,7 @@ require_once _DIR_ROOT . '\views\header.php';
                                     echo '<td class="text-center align-middle ">'.$li->getClassCredit()->getSubject()->getSubjectName().'</td>';
                                     echo '<td class="text-center align-middle">'.$li->getClassCredit()->getGroupClass().'</td>';
                                     echo '<td class="text-center align-middle">'.$li->getClassCredit()->getSubject()->getCredit().'</td>';
-                                    echo '<td class="text-center align-middle "> <a class="btn-get-started"href="/classcre/list/'.$li->getClassCredit()->getClassCreditId().'">Xem danh sách</a></td>';
+                                    echo '<td class="text-center align-middle "> <a class="btn-get-started"href="/thuc-tap-co-so-thay-Tien/classcre/list/'.$li->getClassCredit()->getClassCreditId().'">Xem danh sách</a></td>';
                                     echo '</tr>';
                                 }
                             }

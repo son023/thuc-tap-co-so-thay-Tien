@@ -39,7 +39,7 @@ if (isset($_POST['addclasscredit']) ) {
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">
-                        <form method="post" action="/admin/addclasscredit" role="form" class="form-horizontal" id="form-edit">
+                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/addclasscredit" role="form" class="form-horizontal" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-2">Tên lớp tín chỉ</label>
                                 <div class="col-xs-9">

@@ -22,7 +22,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <div class="inner-head "><?php echo $user->getFullName() ?></div>
       </div>
     </div>
-    <a href="http://localhost:3000/logout">
+    <a href="/thuc-tap-co-so-thay-Tien/logout">
       <button name="dangxuat" type="submit" class="form-control btn btn-primary kanit-medium">Đăng Xuất</button></a>
   </div>
 
@@ -36,19 +36,19 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
     <nav class="navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/home">Trang chủ</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/home">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/profile">Thông tin</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/profile">Thông tin</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/registercredit">Đăng ký tín chỉ</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/registercredit">Đăng ký tín chỉ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/schedules">Thời khoá biểu</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/schedules">Thời khoá biểu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/classcre">Lớp tín chỉ</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/classcre">Lớp tín chỉ</a>
         </li>
    
       </ul>

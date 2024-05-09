@@ -14,7 +14,7 @@ require_once _DIR_ROOT . '\views\header.php';
             <div class="col-xl-10 justify-content-center">
                 <h3 style="left:490px  "class="animate__animated animate__fadeInDown mb-10">Danh sách nguời dùng</h3>
                 <p class="animate__animated animate__fadeInDown text-center"><?php check_message() ?></p>
-                <?php echo '<div><a class=" btn-get-started" href="http://localhost:3000/admin/adduser" title="Sửa Thông Tin" data-toggle="tooltip" >  Thêm người dùng </a> </div>';?>
+                <?php echo '<div><a class=" btn-get-started" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/adduser" title="Sửa Thông Tin" data-toggle="tooltip" >  Thêm người dùng </a> </div>';?>
 
                 <table class="table table-hover table-bordered table-responsive animate__animated animate__fadeInUp">
                     <thead class="thead-light">
@@ -59,9 +59,9 @@ require_once _DIR_ROOT . '\views\header.php';
                                 echo '<td class="text-center align-middle">' . $li->getUserName() . '</td>';
                                 echo '<td class="text-center align-middle">' . $roleString . '</td>';
                                 echo '<td>';
-                                    echo '<a class="btn-crud" href="http://localhost:3000/admin/usermanagement/'.$li->getUserId().'" title="Xem Người Dùng" data-toggle="tooltip" ><i class="fa-regular fa-eye"></i></a>';
-                                    echo '<a class="btn-crud" href="http://localhost:3000/admin/updateuser/'.$li->getUserId().'" title="Sửa Thông Tin" data-toggle="tooltip" > <span><i class="fa-solid fa-pen"></i> </span> </a> ';
-                                    echo '<a class="btn-crud" href="http://localhost:3000/admin/deleteuser/'.$li->getUserId().'" title="Xoá Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
+                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement/'.$li->getUserId().'" title="Xem Người Dùng" data-toggle="tooltip" ><i class="fa-regular fa-eye"></i></a>';
+                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/updateuser/'.$li->getUserId().'" title="Sửa Thông Tin" data-toggle="tooltip" > <span><i class="fa-solid fa-pen"></i> </span> </a> ';
+                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteuser/'.$li->getUserId().'" title="Xoá Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
 
                                 echo '</tr>';
                                 $ok += 1;

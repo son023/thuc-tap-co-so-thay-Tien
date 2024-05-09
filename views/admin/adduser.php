@@ -46,10 +46,10 @@ if (isset($_POST['adduser']) ) {
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">
-                        <form method="post" action="/admin/adduser" role="form" class="form-horizontal" id="form-edit">
+                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/adduser" role="form" class="form-horizontal" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-2">Tên người dùng</label>
-                                <div class="col-xs-9">
+                                <div class="col-xs-12">
                                     <input type="text" class="form-control" name="username" required>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ if (isset($_POST['adduser']) ) {
                                                 $classNumber = $li->getClassNumber();
                                                 $brand = $li->getBranch()->getBranchName();
                                                 $id = $li->getClassFormalId();
-                                                $classFormal = 'D' . $classCourse . $brand . $classNumber;
+                                                $classFormal = 'D' . $classCourse .' '. $brand.' ' . $classNumber;
                                                 echo '<option value="' . $id . '">' . $classFormal . '</option>';
                                             }
                                         }

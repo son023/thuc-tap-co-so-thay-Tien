@@ -18,6 +18,7 @@ if (isset($_POST['addregister']) ) {
     $tgMax=$classCredit->getTgMax();
     $svMax=$classCredit->getSvMax();
     $role=$user->getUserRole();
+    $listSchedule = $modelRegister->getByUserId($user->getUserId());
     if(checkRegister($listGv,$listTg,$listSv,$gvMax,$tgMax,$svMax,$role)){
         foreach ($listSchedule as $key => $li){
             if(!is_null($key)){
@@ -41,7 +42,6 @@ if (isset($_POST['addregister']) ) {
                 $modelRegister->deleteByUserAndClassCredit($user->getUserId(),$tmp->getClassCreditId());
                 $regiter = new Register(1, $classCredit, $user, new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh')));
                 $modelRegister->addObject($regiter);
-                $modelRegister->deleteByUserAndClassCredit($user->getUserId(),$tmp->getClassCreditId());
                 $_SESSION['error'] = 'Thêm đăng ký thành công';
                 header('Location: registermanagement');
             }
@@ -104,7 +104,7 @@ if (isset($_POST['addregister']) ) {
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
                    
                     <div class="col-xs-12">
-                        <form method="post" action="/admin/addregister" role="form" class="form-horizontal" id="form-edit">
+                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/addregister" role="form" class="form-horizontal" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-2">Mã Sinh viên / Giáo viên / Trợ giảng</label>
                                 <div class="col-xs-9">

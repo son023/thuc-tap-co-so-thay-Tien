@@ -22,7 +22,7 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <div class="inner-head p0"><?php echo $user->getFullName() ?></div>
       </div>
     </div>
-    <a href="http://localhost:3000/logout">
+    <a href="/thuc-tap-co-so-thay-Tien/logout">
       <button name="dangxuat" type="submit" class="form-control btn btn-primary kanit-medium">Đăng Xuất</button></a>
   </div>
 
@@ -37,13 +37,13 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
       <ul class="navbar-nav">
 
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/admin/usermanagement">Quản lý người dùng</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement">Quản lý người dùng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/admin/classcreditmanagement">Quản lý lớp tín chỉ</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/classcreditmanagement">Quản lý lớp tín chỉ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:3000/admin/registermanagement">Quản lý đăng ký tín chỉ</a>
+          <a class="nav-link" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/registermanagement">Quản lý đăng ký tín chỉ</a>
         </li>
       
       </ul>

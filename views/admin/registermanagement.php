@@ -15,7 +15,7 @@ require_once _DIR_ROOT . '\views\header.php';
                 <h3 style="left:450px  " class="animate__animated animate__fadeInDown mb-10">Danh sách đăng ký lớp tín
                     chỉ</h3>
                 <p class="animate__animated animate__fadeInDown text-center"><?php check_message() ?></p>
-                <?php echo '<div><a class=" btn-get-started" href="http://localhost:3000/admin/addregister" title="Sửa Thông Tin" data-toggle="tooltip" >  Thêm đăng ký </a> </div>'; ?>
+                <?php echo '<div><a class=" btn-get-started" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/addregister" title="Sửa Thông Tin" data-toggle="tooltip" >  Thêm đăng ký </a> </div>'; ?>
                 <table class="table table-hover table-bordered table-responsive animate__animated animate__fadeInUp">
                     <thead class="thead-light">
                         <tr>
@@ -56,7 +56,7 @@ require_once _DIR_ROOT . '\views\header.php';
                                 echo '<td>';
                              
                                
-                                echo '<a class="btn-crud text-center align-middle" href="http://localhost:3000/admin/deleteregister/'.$li->getRegisterId().'" title="Xoá lớp tín chỉ" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
+                                echo '<a class="btn-crud text-center align-middle" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteregister/'.$li->getRegisterId().'" title="Xoá lớp tín chỉ" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
 
                                 echo '</tr>';
                                 $ok += 1;
