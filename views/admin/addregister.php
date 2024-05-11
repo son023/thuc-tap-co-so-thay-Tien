@@ -1,6 +1,9 @@
 <?php
-require_once _DIR_ROOT . '\views\header.php';
 
+require_once _DIR_ROOT . '\views\header.php';
+if($_SESSION['login']['role']!=4){
+    header('location: home');
+}
 $modelClassCredit=new ModelClassCredit();
 $modelUser = new ModelUser();
 $modelRegister = new ModelRegister();

@@ -31,7 +31,6 @@
                 $_SESSION['error'] = "Đăng nhập không thành công. Vui lòng kiểm tra tên đăng nhập và mật khẩu.";
                 
             }
-        
         }
         
         else{

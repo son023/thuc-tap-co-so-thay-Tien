@@ -1,5 +1,8 @@
 <?php
 require_once _DIR_ROOT . '\views\header.php';
+if($_SESSION['login']['role']!=4){
+    header('location: home');
+}
 $modelClassFormal = new ModelClassFormal();
 if (isset($_POST['adduser']) ) {
     $username = test_input($_POST['username']);

@@ -1,5 +1,8 @@
 <?php
 require_once _DIR_ROOT . '\views\header.php';
+if($_SESSION['login']['role']!=4){
+  header('location: home');
+}
 $roleString = '';
 $hiendien = '';
 if ($data[1] == 1) {

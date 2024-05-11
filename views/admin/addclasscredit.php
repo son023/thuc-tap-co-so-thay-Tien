@@ -1,4 +1,7 @@
 <?php
+ if($_SESSION['login']['role']!=4){
+    header('location: home');
+}
 require_once _DIR_ROOT . '\views\header.php';
 $modelSubject = new ModelSubject();
 $modelSchedule=new ModelSchedule();

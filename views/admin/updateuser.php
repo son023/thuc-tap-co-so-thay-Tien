@@ -1,5 +1,8 @@
 <?php
 require_once _DIR_ROOT . '\views\header.php';
+if($_SESSION['login']['role']!=4){
+    header('location: home');
+  }
 $modelClassFormal = new ModelClassFormal();
 $userr=$data[0];
 if (isset($_POST['updateuser']) ) {
@@ -50,7 +53,6 @@ if (isset($_POST['updateuser']) ) {
             </div>
 
             <div class="col-xl-10">
-               
                 <div class="suscribe-area animate__animated animate__fadeInDown "
                     style="display:block;margin: 5px 0px; border-radius: 10px;  ">
                     <div class="container">

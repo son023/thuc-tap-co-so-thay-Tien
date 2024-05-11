@@ -39,6 +39,7 @@ class App
             require_once 'controllers/' . ($this->__controller) . '.php';
             if (class_exists($this->__controller)) {
                 $this->__controller = new $this->__controller;
+               // ='Home'
                 unset($urlArr[0]);
             } else {
                 $this->loadError();

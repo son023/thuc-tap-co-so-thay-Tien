@@ -1621,7 +1621,6 @@ class ModelUser extends DAO
           $result['user_name'],
           $result['pass_word'],
           $result['full_name'],
-
           $result['user_role'],
           $result['status'],
           $result['date_of_birth'],
@@ -1652,14 +1651,12 @@ class ModelUser extends DAO
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       if ($result) {
         $modelClassFormal = new ModelClassFormal();
-
         return new User(
           $result['user_id'],
           $modelClassFormal->getById($result["class_formal_id"]),
           $result['user_name'],
           $result['pass_word'],
           $result['full_name'],
-
           $result['user_role'],
           $result['status'],
           $result['date_of_birth'],
@@ -1721,7 +1718,6 @@ class ModelUser extends DAO
       $stmt->bindParam(2, $userName, PDO::PARAM_STR);
       $stmt->bindParam(3, $password, PDO::PARAM_STR); // Assuming password is hashed
       $stmt->bindParam(4, $fullName, PDO::PARAM_STR);
-
       $stmt->bindParam(5, $userRole, PDO::PARAM_INT);  // Assuming valid role values are defined
       $stmt->bindParam(6, $status, PDO::PARAM_INT);    // Assuming valid status values are defined
       $stmt->bindParam(7, $dateOfBirth, PDO::PARAM_STR); // Assuming date format is appropriate for storage

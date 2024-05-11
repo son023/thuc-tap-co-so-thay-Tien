@@ -25,12 +25,8 @@ if ((isset($_POST['forgot']))) {
                 $mail->Password = 'mxrm tgfr efgi rdml';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                 $mail->Port = 465;
-            
-            
-            
                 $mail->setFrom('wonwon5800@gmail.com', 'Mailer');
                 $mail->addAddress($email, 'Người nhận');
-            
                 $pass=rand(10000, 10000000);
                 $mail->isHTML(true);
                 $mail->Subject = 'CAP LAI MAT KHAU MOI';
@@ -55,9 +51,6 @@ if ((isset($_POST['forgot']))) {
         } else {
             $_SESSION['error'] = 'Sai thông tin';
         }
-
-
-
     } else {
         $_SESSION['error'] = 'Sai thông tin';
     }

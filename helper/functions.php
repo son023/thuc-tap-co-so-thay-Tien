@@ -6,12 +6,8 @@ function show($stuff)
 	echo "</pre>";
 }
 
-
-
-
 function check_message()
 {
-
 	if (isset($_SESSION['error']) && $_SESSION['error'] != "") {
 		echo $_SESSION['error'];
 		unset($_SESSION['error']);
@@ -182,10 +178,9 @@ function getDaysDiffBetweenDates($date1, $date2) {
   
 	$diff = date_diff($date1, $date2);
 	$days = $diff->days;
-  
 	return $days;
   }
-  function test_input($data) {
+function test_input($data) {
 	$data = trim($data);
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
