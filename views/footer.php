@@ -13,7 +13,7 @@
     
 </div>
 <script src="http://localhost/thuc-tap-co-so-thay-Tien/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="http://localhost/thuc-tap-co-so-thay-Tien/public/vendor/php-email-form/validate.js"></script>
+
   <script src="http://localhost/thuc-tap-co-so-thay-Tien/public/js/main.js"></script>
 
 

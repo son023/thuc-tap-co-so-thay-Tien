@@ -1,5 +1,5 @@
 insert into departments(department_code,department_name)
-values('PTIT','Học viện công nghệ Bưu chính Viễn thông')
+values('CNTT','Công nghệ thông tin')
 
 insert into class_formals(class_number,department_id,class_course)
 values(1,1,21)

@@ -71,7 +71,7 @@ require_once _DIR_ROOT . '\views\header.php';
                                 echo '<td class="text-center align-middle">' . $li->getUserName() . '</td>';
                                 echo '<td class="text-center align-middle">' . $roleString . '</td>';
                                 echo '<td>';
-                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement/'.$li->getUserId().'" title="Xem Người Dùng" data-toggle="tooltip" ><i class="fa-regular fa-eye"></i></a>';
+                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement/'.$li->getUserId().'" title="Xem Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-eye"></i></a>';
                                     echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/updateuser/'.$li->getUserId().'" title="Sửa Thông Tin" data-toggle="tooltip" > <span><i class="fa-solid fa-pen"></i> </span> </a> ';
                                     echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteuser/'.$li->getUserId().'" title="Xoá Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
 

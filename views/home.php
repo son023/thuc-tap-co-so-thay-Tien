@@ -83,7 +83,7 @@ require_once _DIR_ROOT . '\views\header.php';
                                     <div class="card">
                                       <div class="card-header">
                                         <a class="btn" data-bs-toggle="collapse" href="#'.$value->getNewId().'">
-                                          '.$value->getNewTitle().' '.toStrRegister($value->getNewTime()).' 
+                                          '.$value->getNewTitle().' vào lúc '.toStrRegister($value->getNewTime()).' 
                                         </a>
                                       </div>
                                       <div id="'.$value->getNewId().'" class="collapse '.$check.'" data-bs-parent="#accordion">

@@ -9,20 +9,17 @@ abstract class DAO{
    public $user   = DB_USER;
    public $pass   = DB_PASS;
  
- 
    public $link;
    public $error;
- 
    public function __construct() {
       try {
           $this->link = new PDO($this->host, $this->user, $this->pass);
-          $this->link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Set error mode to exceptions
+          $this->link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
       } catch (PDOException $e) {
           $this->error = "Connection failed: " . $e->getMessage();
           
       }
   }
-
  abstract public function getById(int $objectid): Object ;
  abstract public function addObject(Object $object): bool ;
  abstract public function deleteObject(int $objectid): bool;

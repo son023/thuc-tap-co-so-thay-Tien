@@ -1,5 +1,4 @@
 <?php 
-
 Class Controller
 {
 	protected function view($view,$data = [])
@@ -24,10 +23,4 @@ Class Controller
  			include  _DIR_ROOT. "/views/404.php";
  		}
 	}
-	
-   
-
-	
-
-
 }

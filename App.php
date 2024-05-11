@@ -58,7 +58,6 @@ class App
             $this->loadError();
         }
     }
-
     public function loadError($name = '404')
     {
         require_once 'views/' . $name . '.php';

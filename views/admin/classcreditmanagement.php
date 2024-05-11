@@ -59,7 +59,7 @@ require_once _DIR_ROOT . '\views\header.php';
                                 echo '<td class="text-center align-middle">' . $li->getGroupClass() . '</td>';
                                 echo '<td class="text-justify align-middle">' . getSchedule($li,'') . '</td>';
                                 echo '<td>';
-                                    echo '<a class="btn-crud text-center align-middle" href="http://localhost/thuc-tap-co-so-thay-Tien/classcre/list/'.$li->getClassCreditId().'" title="Xem lớp" data-toggle="tooltip" ><i class="fa-regular fa-eye"></i></a>';
+                                    echo '<a class="btn-crud text-center align-middle" href="http://localhost/thuc-tap-co-so-thay-Tien/classcre/list/'.$li->getClassCreditId().'" title="Xem lớp" data-toggle="tooltip" ><i class="fa-solid fa-eye"></i></a>';
                                     echo '<a class="btn-crud text-center align-middle"  href="#" title="Sửa Thông Tin" data-toggle="tooltip" > <span><i class="fa-solid fa-pen"></i> </span> </a> ';
                                     echo '<a class="btn-crud text-center align-middle" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteclasscredit/'.$li->getClassCreditId().'" title="Xoá lớp tín chỉ" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
 
