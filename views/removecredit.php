@@ -31,4 +31,4 @@ $ok = 1;
 			$ok+=1;
 		}
 	}
-mecho json_encode($listKq,JSON_UNESCAPED_UNICODE) ;
+echo json_encode($listKq,JSON_UNESCAPED_UNICODE) ;
