@@ -95,7 +95,7 @@ if (isset($_POST['credit_id'])) {
             $listKq[$ok]['credit'] = $creditlist->getSubject()->getCredit();
             $listKq[$ok]['class'] = $creditlist->getClassCreditName();
             $listKq[$ok]['time'] = toStrRegister($li->getRegisterTime());
-            $listKq[$ok]['schedule'] = getSchedule($creditlist,'');
+            $listKq[$ok]['schedule'] = getSchedule($creditlist,'TKB ');
 			$ok+=1;
 		}
 	}

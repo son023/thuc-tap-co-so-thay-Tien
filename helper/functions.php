@@ -48,8 +48,8 @@ function getSchedule($creditlist,$ok1){
 	foreach ($creditlist->getListSchedule() as $key => $schedule) {
 		if (!is_null($schedule)) {
 			$day='';
-                    if($schedule->getDayStudy()==8) $day='Chủ nhật';
-                    else $day='Thứ '.$schedule->getDayStudy();
+            if($schedule->getDayStudy()==8) $day='Chủ nhật';
+            else $day=' Thứ '.$schedule->getDayStudy();
 			$timeStart = $schedule->getKipStudy()->getTimeStart();
 			$ok.= $day . ' kíp ' . $schedule->getKipStudy()->getKipStudyId() . ', từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
 				', phòng ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
@@ -75,6 +75,21 @@ function getSchedule($creditlist,$ok1){
 				$ok.=''. $gv->getFullName().' ';
 			}
 
+		}
+	}
+	return $ok;
+}
+function viewSchedule($list){
+	$ok='';
+	foreach ($list as $key => $schedule) {
+		if (!is_null($schedule)) {
+			$day='';
+            if($schedule->getDayStudy()==8) $day='Chủ nhật';
+            else $day='Thứ '.$schedule->getDayStudy();
+			$timeStart = $schedule->getKipStudy()->getTimeStart();
+			$ok.= $day. ', ' . toStr($timeStart) . ' ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
+				', ' . $schedule->getClassRoom()->getClassRoomName() .' '.$schedule->getClassRoom()->getBuilding(). ', ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+				'.';
 		}
 	}
 	return $ok;

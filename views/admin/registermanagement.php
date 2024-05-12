@@ -1,6 +1,6 @@
 <?php
 require_once _DIR_ROOT . '\views\header.php';
-if($_SESSION['login']['role']!=4){
+if ($_SESSION['login']['role'] != 4) {
     header('location: home');
 }
 ?>
@@ -15,14 +15,15 @@ if($_SESSION['login']['role']!=4){
 
             </div>
             <div class="col-xl-10 justify-content-center">
-            
-                    <div class="suscribe-area animate__animated animate__fadeInDown "
+
+                <div class="suscribe-area animate__animated animate__fadeInDown "
                     style="display:block;margin: 5px 0px; border-radius: 10px;  ">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="suscribe-text text-center">
-                                    <h4 class="animate__animated animate__fadeInDown"> Danh sách lớp đăng ký tín chỉ</h4>
+                                    <h4 class="animate__animated animate__fadeInDown"> Danh sách lớp đăng ký tín chỉ
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -40,11 +41,11 @@ if($_SESSION['login']['role']!=4){
                                 style="width: 3%;background-color: #3ec1d5; color:#fff">Mã định danh</th>
                             <th class="text-center align-middle"
                                 style="width: 4%;background-color: #3ec1d5; color:#fff">Họ tên</th>
-                                <th class="text-center align-middle"
+                            <th class="text-center align-middle"
                                 style="width: 4%;background-color: #3ec1d5; color:#fff">Môn học</th>
                             <th class="text-center align-middle"
                                 style="width: 5%;background-color: #3ec1d5; color:#fff">Thời gian</th>
-                            
+
                             <th class="text-center align-middle"
                                 style="width: 1%;background-color: #3ec1d5; color:#fff">Nhóm</th>
                             <th class="text-center align-middle"
@@ -58,20 +59,17 @@ if($_SESSION['login']['role']!=4){
                         foreach ($data as $key => $li) {
                             if (!is_null($li)) {
 
-                                echo '<tr>';
+                                echo '<tr id="' . $li->getRegisterId() . '" >';
                                 echo '<td class="text-center align-middle">' . $ok . '</td>';
                                 echo '<td class=" align-middle">' . $li->getUser()->getUserName() . '</td>';
-                                echo '<td class="text-center align-middle">' .  $li->getUser()->getFullName() . '</td>';
-                                echo '<td class="text-center align-middle">' .  $li->getClassCredit()->getSubject()->getSubjectName() . '</td>';
-                                echo '<td class="text-center align-middle">' .  toStrRegister($li->getRegisterTime()) . '</td>';
-                                
-                                echo '<td class="text-center align-middle">' . $li->getClassCredit()->getGroupClass() . '</td>';
-                              
-                                echo '<td>';
-                             
-                               
-                                echo '<a class="btn-crud text-center align-middle" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteregister/'.$li->getRegisterId().'" title="Xoá lớp tín chỉ" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
+                                echo '<td class="text-center align-middle">' . $li->getUser()->getFullName() . '</td>';
+                                echo '<td class="text-center align-middle">' . $li->getClassCredit()->getSubject()->getSubjectName() . '</td>';
+                                echo '<td class="text-center align-middle">' . toStrRegister($li->getRegisterTime()) . '</td>';
 
+                                echo '<td class="text-center align-middle">' . $li->getClassCredit()->getGroupClass() . '</td>';
+
+                                echo '<td>';
+                                echo '<button  id="' . $li->getRegisterId() . '" class="btn-crud text-center align-middle" style="border:0"title="Xoá lớp tín chỉ" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></button> ';
                                 echo '</tr>';
                                 $ok += 1;
                             }
@@ -89,6 +87,33 @@ if($_SESSION['login']['role']!=4){
     </div>
 </div>
 
+<script>
+        $(document).ready(function () {
+            $("button").click(function (event) {
+                event.preventDefault();
+                var registerId = $(this).attr('id'); 
+                console.log('Clicked on link:', registerId)
+                $.ajax({
+                    url: "http://localhost/thuc-tap-co-so-thay-Tien/views/admin/deleteregister.php", 
+                    method: "POST", 
+                    data: { registerId:registerId }, 
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        console.log(data.id);
+                        if(data.id>1){
+                            alert('Xoá đăng ký thành công');
+                            myElement = document.getElementById(data.id);
+                            myElement.style.display = "none";
+                        }
+                        else{
+                            alert('Server đang lỗi tí, thông cảm ');
+                        }
+                    }
+                });
+            
+        });
+   } );
+</script>
 
 <?php
 require_once _DIR_ROOT . '\views\footer.php';

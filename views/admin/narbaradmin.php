@@ -22,8 +22,8 @@ $user = $modelUser->getByUserName($_SESSION['login']['username']);
         <div class="inner-head p0"><?php echo $user->getFullName() ?></div>
       </div>
     </div>
-    <a href="/thuc-tap-co-so-thay-Tien/logout">
-      <button name="dangxuat" type="submit" class="form-control btn btn-primary kanit-medium">Đăng Xuất</button></a>
+    <a href="/thuc-tap-co-so-thay-Tien/logout"
+     class="form-control btn btn-primary kanit-medium">Đăng Xuất</a>
   </div>
 
 

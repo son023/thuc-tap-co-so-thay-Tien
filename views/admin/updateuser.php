@@ -88,8 +88,10 @@ if (isset($_POST['updateuser']) ) {
                                 <div class="col-xs-9">
                                     <select class="form-control" name="classformal" id="districtId"   >
 
-                                        <option>---Chọn lớp---</option>
+                                        
                                         <?php
+                                        $classformalbegin=$userr->getClassFormal();
+                                        echo '<option value="' . $classformalbegin->getClassFormalId() . '">D ' . $classformalbegin->getClassCourse().' '. $classformalbegin->getBranch()->getBranchName().' '.$classformalbegin->getClassNumber() . '</option>';
                                         $modelClassFormal = new ModelClassFormal();
                                         $list = $modelClassFormal->getAll();
 
@@ -114,7 +116,15 @@ if (isset($_POST['updateuser']) ) {
                                 <div class="col-xs-9">
                                     <select class="form-control" name="userrole">
 
-                                        <option>---Chọn loại---</option>
+                                        <?php 
+                                        $roleString='';
+                                        $role=$userr->getUserRole();
+                                        if($role==1) $roleString='Sinh Viên';
+                                        else if($role==2) $roleString='Trợ Giảng';
+                                        else if($role==3) $roleString='Giảng Viên';
+                                        else $roleString='Admin';
+                                        
+                                        echo '<option value="'.$role.'">'.$roleString.'</option> ';?>
 
                                         <option value="1">Sinh viên</option>
 
@@ -132,9 +142,13 @@ if (isset($_POST['updateuser']) ) {
                                 <label class="col-xs-2">Hiện diện</label>
                                 <div class="col-xs-9">
                                     <select class="form-control" name="status">
-
-                                        <option>---Chọn loại---</option>
-
+                                        <?php
+                                        $statusbegin=$userr->getStatus();
+                                        $hiendien='';
+                                        if($statusbegin==1) $hiendien='Đang làm việc';
+                                        else $hiendien='Đã nghỉ';
+                                        echo '<option  value="'.$statusbegin.'">'.$hiendien.'</option>';
+                                        ?>
                                         <option value="1">Đang làm việc</option>
 
                                         <option value="0">Đã nghỉ</option>
@@ -152,8 +166,17 @@ if (isset($_POST['updateuser']) ) {
                                 <label class="col-xs-2">Giới tính </label>
                                 <div class="col-xs-9">
                                     <select class="form-control" name="gender" >
+                                        <?php
+                                        $gioitinh='';
+                                        $genderbegin=$userr->getGender();
+                                        if($genderbegin==1){
+                                            $gioitinh='Nam';
 
-                                        <option>---Chọn giới tính---</option>
+                                        }
+                                        else $gioitinh='Nữ';
+                                        echo '<option value="'.$genderbegin.'">'.$gioitinh.'</option>';
+                                        ?>
+                                      
 
                                         <option value="1">Nam</option>
 

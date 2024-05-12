@@ -39,21 +39,21 @@ class Admin extends Controller
     {
         $this->viewAdmin('adduser');
     }
-    public function deleteuser($id = '')
-    {
-        $modelUser = new ModelUser();
-        if($modelUser->deleteObject((int)$id)){
-            $_SESSION['error']='Xoá người dùng thành công';
+    // public function deleteuser($id = '')
+    // {
+    //     $modelUser = new ModelUser();
+    //     if($modelUser->deleteObject((int)$id)){
+    //         $_SESSION['error']='Xoá người dùng thành công';
             
-        }
-        else{
-            $_SESSION['error']='Xoá thất bại';
+    //     }
+    //     else{
+    //         $_SESSION['error']='Xoá thất bại, vui lòng xoá dữ liệu các';
            
-        }
-        $list = $modelUser->getAll();
-        $this->viewAdmin('usermanagement', $list);
+    //     }
+    //     $list = $modelUser->getAll();
+    //     $this->viewAdmin('usermanagement', $list);
         
-    }
+    // }
 
     public function updateuser($id = '')
     {
@@ -73,21 +73,29 @@ class Admin extends Controller
     {
         $this->viewAdmin('addclasscredit');
     }
-    public function deleteclasscredit($id = '')
+    public function updateclasscredit($id = '')
     {
-        $modelClassCredit = new ModelClassCredit();
-        if($modelClassCredit->deleteObject((int)$id)){
-            $_SESSION['error']='Xoá lớp tín chỉ thành công';
-            
-        }
-        else{
-            $_SESSION['error']='Xoá thất bại';
-           
-        }
-        $list = $modelClassCredit->getAll();
-        $this->viewAdmin('classcreditmanagement', $list);
-        
+        $modelClassCredit=new ModelClassCredit();
+        $list = [];
+        $classcredit =  $modelClassCredit->getById((int)$id);
+        array_push($list, $classcredit);
+        $this->viewAdmin('updateclasscredit', $list);
     }
+    // public function deleteclasscredit($id = '')
+    // {
+    //     $modelClassCredit = new ModelClassCredit();
+    //     if($modelClassCredit->deleteObject((int)$id)){
+    //         $_SESSION['error']='Xoá lớp tín chỉ thành công';
+            
+    //     }
+    //     else{
+    //         $_SESSION['error']='Xoá thất bại';
+           
+    //     }
+    //     $list = $modelClassCredit->getAll();
+    //     $this->viewAdmin('classcreditmanagement', $list);
+        
+    // }
     public function registermanagement($id = '')
     {
         $modelRegister=new ModelRegister();
@@ -98,21 +106,21 @@ class Admin extends Controller
     {
         $this->viewAdmin('addregister');
     }
-    public function deleteregister($id = '')
-    {
-        $modelRegister = new ModelRegister();
-        if($modelRegister->deleteObject((int)$id)){
-            $_SESSION['error']='Xoá đăng ký thành công';
+    // public function deleteregister($id = '')
+    // {
+    //     $modelRegister = new ModelRegister();
+    //     if($modelRegister->deleteObject((int)$id)){
+    //         $_SESSION['error']='Xoá đăng ký thành công';
             
-        }
-        else{
-            $_SESSION['error']='Xoá thất bại';
+    //     }
+    //     else{
+    //         $_SESSION['error']='Xoá thất bại';
            
-        }
-        $list = $modelRegister->getAll();
-        $this->viewAdmin('registermanagement', $list);
+    //     }
+    //     $list = $modelRegister->getAll();
+    //     $this->viewAdmin('registermanagement', $list);
         
-    }
+    // }
 
 }
 

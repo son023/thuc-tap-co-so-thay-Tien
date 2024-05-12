@@ -174,61 +174,6 @@ class ModelClassRoom extends DAO
 
 
 
-class ModelListSchedule extends DAO
-{
-  public function getByCode(int $uid): object
-  {
-    $sql = "SELECT * FROM list_schedules WHERE list_schedule_code = ?";
-    try {
-      $stmt = $this->link->prepare($sql);
-      $stmt->bindParam(1, $uid, PDO::PARAM_INT);
-      $stmt->execute();
-      $list = [];
-
-      $modelSchedule = new ModelSchedule();
-      $listScheduleId = 0;
-      $ok = "22";
-      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $schedule = $modelSchedule->getById($result["schedule_id"]);
-        $listScheduleId = $result["list_schedule_id"];
-        array_push($list, $schedule);
-
-      }
-
-      return new ListSchedule(
-        $listScheduleId,
-        $uid,
-        $list
-      );
-
-    } catch (PDOException $e) {
-      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
-      echo "Lỗi: " . $e->getMessage();
-    }
-  }
-  public function getById(int $uid): object
-  {
-    return null;
-  }
-  public function addObject(object $object): bool
-  {
-    return false;
-
-  }
-  public function deleteObject(int $objectid): bool
-  {
-
-    return false;
-  }
-  public function updateObject($object): bool
-  {
-
-    return false;
-
-  }
-}
-
-
 
 class ModelClassCredit extends DAO
 {
@@ -368,6 +313,8 @@ class ModelClassCredit extends DAO
   public function deleteObject(int $objectid): bool
   {
     try {
+      $modelRegister=new ModelRegister();
+      $modelRegister->deleteByClassCredit($objectid);
       $sql = "DELETE FROM class_credits WHERE class_credit_id = ?";
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
@@ -380,26 +327,28 @@ class ModelClassCredit extends DAO
     }
 
   }
+  
   public function updateObject($object): bool
   {
-    // try {
-    //   if ($object instanceof ClassCredit) {
-    //     $classCredit = $object;
-    //   }
-    //   $sql = "UPDATE class_credits SET class_credit_name = ?, subject_id = ?, group_class = ?, schedule_id = ?, class_room_id = ?,class_credit_code=?  WHERE class_credit_id = ?";
-    //   $stmt = $this->link->prepare($sql);
-    //   $stmt->bindParam(1, $classCredit->getClassCreditName(), PDO::PARAM_STR);
-    //   $stmt->bindParam(2, $classCredit->getSubject()->getSubjectId(), PDO::PARAM_INT);
-    //   $stmt->bindParam(3, $classCredit->getGroupClass(), PDO::PARAM_INT);
-    //   $stmt->bindParam(4, $classCredit->getSchedule()->getScheduleId(), PDO::PARAM_INT);
-    //   $stmt->bindParam(5, $classCredit->getClassRoom()->getClassRoomId(), PDO::PARAM_INT);
-    //   $stmt->bindParam(6, $classCredit->getClassCreditCode(), PDO::PARAM_INT);
-    //   $stmt->bindParam(7, $classCredit->getClassCreditId(), PDO::PARAM_INT);
-    //   $stmt->execute();
-    //   return true;
-    // } catch (PDOException $e) {
+    try {
+     
+      $sql = "UPDATE class_credits SET class_credit_name = ?, subject_id = ?, group_class = ?, schedule_code = ?  WHERE class_credit_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $name=$object->getClassCreditName();
+      $subject=$object->getSubject()->getSubjectId();
+      $groupclass=$object->getGroupClass();
+      $schedule=$object->getListSchedule()[0]->getScheduleCode();
+      $id=$object->getClassCreditId();
+      $stmt->bindParam(1,  $name, PDO::PARAM_STR);
+      $stmt->bindParam(2,$subject, PDO::PARAM_INT);
+      $stmt->bindParam(3,$groupclass, PDO::PARAM_INT);
+      $stmt->bindParam(4,  $schedule, PDO::PARAM_INT);
+      $stmt->bindParam(5,$id , PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+    } catch (PDOException $e) {
     return false;
-    // }
+    }
   }
 }
 
@@ -657,6 +606,21 @@ class ModelEmail extends DAO
     }
 
   }
+  public function deleteByUserId(int $objectid): bool
+  {
+    try {
+      $sql = "DELETE FROM emails WHERE user_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+
+    } catch (PDOException $e) {
+      echo "" . $e->getMessage();
+      return false;
+    }
+
+  }
   public function updateObject($object): bool
   {
     try {
@@ -810,6 +774,21 @@ class ModelPhoneNumber extends DAO
   {
     try {
       $sql = "DELETE FROM phone_numbers WHERE phone_number_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+
+    } catch (PDOException $e) {
+      echo "" . $e->getMessage();
+      return false;
+    }
+
+  }
+  public function deleteByUserId(int $objectid): bool
+  {
+    try {
+      $sql = "DELETE FROM phone_numbers WHERE user_id = ?";
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
       $stmt->execute();
@@ -1063,6 +1042,37 @@ class ModelRegister extends DAO
     }
 
   }
+  public function deleteByUserId(int $objectid): bool
+  {
+    try {
+      $sql = "DELETE FROM registers WHERE user_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+
+    } catch (PDOException $e) {
+      echo "" . $e->getMessage();
+      return false;
+    }
+
+  }
+  public function  deleteByClassCredit(int $objectid): bool
+  {
+    try {
+      $sql = "DELETE FROM registers WHERE class_credit_id = ?";
+      $stmt = $this->link->prepare($sql);
+      $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
+      $stmt->execute();
+      return true;
+
+    } catch (PDOException $e) {
+      echo "" . $e->getMessage();
+      return false;
+    }
+
+  }
+ 
   public function deleteByUserAndClassCredit(int $objectid, int $classCreditId): bool
   {
     try {
@@ -1188,6 +1198,7 @@ class ModelSchedule extends DAO
         $classRoom = $modelClassRoom->GetById($result["class_room_id"]);
         return new Schedule(
           $result['schedule_id'],
+          $result['schedule_code'],
           $kipStudy,
           $result['day_study'],
           $week,
@@ -1234,6 +1245,27 @@ class ModelSchedule extends DAO
 
       }
       return $list;
+
+
+
+    } catch (PDOException $e) {
+      // 7. Xử lý lỗi cơ sở dữ liệu tiềm ẩn
+      echo "Lỗi: " . $e->getMessage();
+    }
+  }
+  public function getAll()
+  {
+    $sql = "SELECT * FROM schedules";
+    try {
+      $stmt = $this->link->prepare($sql);
+      $stmt->execute();
+      $list = [];
+      while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+     
+        array_push($list,$result['schedule_code']);
+
+      }
+      return  $list;
 
 
 
@@ -1740,6 +1772,12 @@ class ModelUser extends DAO
   public function deleteObject(int $objectid): bool
   {
     try {
+      $modelRegister=new ModelRegister();
+      $modelEmail=new ModelEmail();
+      $modelPhoneNumber=new ModelPhoneNumber();
+      $modelRegister->deleteByUserId($objectid);
+      $modelEmail->deleteByUserId($objectid);
+      $modelPhoneNumber->deleteByUserId($objectid);
       $sql = "DELETE FROM users WHERE user_id = ?";
       $stmt = $this->link->prepare($sql);
       $stmt->bindParam(1, $objectid, PDO::PARAM_INT);
@@ -1747,7 +1785,7 @@ class ModelUser extends DAO
       return true;
 
     } catch (PDOException $e) {
-      echo "" . $e->getMessage();
+      // echo "" . $e->getMessage();
       return false;
     }
 

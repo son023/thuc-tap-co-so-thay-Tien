@@ -223,7 +223,8 @@ $number = 70;
                 </div>
                 <div id="cart-container"></div>
                 <div>
-                    <a href='/thuc-tap-co-so-thay-Tien/schedules' class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá
+                    <a href='/thuc-tap-co-so-thay-Tien/schedules'
+                        class="btn-get-started animate__animated animate__fadeInUp">Xem thời khoá
                         biểu</a>
                 </div>
 
@@ -234,9 +235,8 @@ $number = 70;
 </div>
 <script>
     $(document).ready(function () {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         myElement = document.getElementById('credit-container');
-        function handleCheckboxClick(event) {
+        $('input[type="checkbox"]').click(function (event) {
             const creditId = event.target.getAttribute('data-credit-id');
             const isChecked = event.target.checked;
             myElement.style.display = "none";
@@ -424,11 +424,8 @@ $number = 70;
             }
 
         }
-        for (const checkbox of checkboxes) {
 
-            checkbox.addEventListener('click', handleCheckboxClick);
-        }
-    });
+    );} );
 </script>
 
 <?php

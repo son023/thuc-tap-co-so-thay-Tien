@@ -58,6 +58,37 @@ class ClassCredit {
   public function getListSchedule() {
     return $this->listSchedule;
   }
+  public function setClassCreditId(int $classCreditId): void {
+    $this->classCreditId = $classCreditId;
+  }
+
+  public function setClassCreditName(string $classCreditName): void {
+    $this->classCreditName = $classCreditName;
+  }
+
+  public function setSubject(Subject $subject): void {
+    $this->subject = $subject;
+  }
+
+  public function setGroupClass(int $groupClass): void {
+    $this->groupClass = $groupClass;
+  }
+
+  public function setListSchedule(array $listSchedule): void {
+    $this->listSchedule = $listSchedule;
+  }
+
+  public function setGvMax(int $gvMax): void {
+    $this->gvMax = $gvMax;
+  }
+
+  public function setTgMax(int $tgMax): void {
+    $this->tgMax = $tgMax;
+  }
+
+  public function setSvMax(int $svMax): void {
+    $this->svMax = $svMax;
+  }
 
   
 }

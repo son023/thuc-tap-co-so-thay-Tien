@@ -27,8 +27,8 @@ $ok = 1;
             $listKq[$ok]['credit'] = $creditlist->getSubject()->getCredit();
             $listKq[$ok]['class'] = $creditlist->getClassCreditName();
             $listKq[$ok]['time'] = toStrRegister($li->getRegisterTime());
-            $listKq[$ok]['schedule'] = getSchedule($creditlist,'TKB');
+            $listKq[$ok]['schedule'] = getSchedule($creditlist,'TKB ');
 			$ok+=1;
 		}
 	}
-    echo json_encode($listKq,JSON_UNESCAPED_UNICODE) ;
+mecho json_encode($listKq,JSON_UNESCAPED_UNICODE) ;

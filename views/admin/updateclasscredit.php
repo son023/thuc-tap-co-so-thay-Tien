@@ -6,21 +6,26 @@ require_once _DIR_ROOT . '\views\header.php';
 $modelSubject = new ModelSubject();
 $modelSchedule = new ModelSchedule();
 $modelClassCredit = new ModelClassCredit();
-if (isset($_POST['addclasscredit'])) {
+$classcredit=$data[0];
+if (isset($_POST['updateclasscredit'])) {
     $name = test_input($_POST['classcreditname']);
     $subjectId = test_input($_POST['subject']);
     $subject = $modelSubject->getById($subjectId);
     $groupclass = test_input($_POST['groupclass']);
     $scheduleCode = test_input($_POST['schedule']);
     $schedule = $modelSchedule->getByCode($scheduleCode);
-    $classCredit = new ClassCredit(1, $name, $subject, $groupclass, $schedule, 70, 2, 2);
-    if ($modelClassCredit->addObject($classCredit)) {
-        $_SESSION['error'] = 'Thêm lớp tín chỉ thành công';
-        header('Location: classcreditmanagement');
+    $classcredit->setClassCreditName($name);
+    $classcredit->setSubject($subject);
+    $classcredit->setListSchedule($schedule);
+    $classcredit->setGroupClass($groupclass);
+    if ($modelClassCredit->updateObject($classcredit)) {
+        $_SESSION['error'] = 'Sửa lớp tín chỉ thành công';
+        header('Location:http://localhost/thuc-tap-co-so-thay-Tien/admin/classcreditmanagement');
+       
 
     } else {
         $_SESSION['error'] = 'Thất bại';
-        header('Location: classcreditmanagement');
+        header('Location:http://localhost/thuc-tap-co-so-thay-Tien/admin/classcreditmanagement');
 
     }
 
@@ -45,7 +50,7 @@ if (isset($_POST['addclasscredit'])) {
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="suscribe-text text-center">
-                                    <h4 class="animate__animated animate__fadeInDown"> Thêm lớp tín chỉ</h4>
+                                    <h4 class="animate__animated animate__fadeInDown"> Sửa thông tin lớp tín chỉ</h4>
                                 </div>
                             </div>
                         </div>
@@ -54,21 +59,21 @@ if (isset($_POST['addclasscredit'])) {
                 <div class="row" style="font-family: 'Inria Serif', sans-serif;">
 
                     <div class="col-xs-12">
-                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/addclasscredit" role="form"
+                        <form method="post" action="/thuc-tap-co-so-thay-Tien/admin/updateclasscredit/<?php echo $classcredit->getClassCreditId()?>" 
                             class="form-horizontal" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-2">Tên lớp tín chỉ</label>
                                 <div class="col-xs-9">
-                                    <input type="text" class="form-control" name="classcreditname" required>
+                                    <input type="text" class="form-control" name="classcreditname" value="<?php echo $classcredit->getClassCreditName()?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-2">Môn học</label>
                                 <div class="col-xs-9">
-                                    <select class="form-control" name="subject" id="districtId">
+                                    <select class="form-control" name="subject">
 
-                                        <option>---Chọn môn học---</option>
+                                        <?php echo '<option value="'.$classcredit->getSubject()->getSubjectId().'">'.$classcredit->getSubject()->getSubjectName().'</option>'?>
                                         <?php
 
                                         $list = $modelSubject->getAll();
@@ -91,7 +96,7 @@ if (isset($_POST['addclasscredit'])) {
                                 <div class="col-xs-9">
                                     <select class="form-control" name="groupclass">
 
-                                        <option>---Chọn nhóm---</option>
+                                         <?php echo '<option value="'.$classcredit->getGroupClass().'"> Nhóm '.$classcredit->getGroupClass().'</option>'?>
 
                                         <option value="1"> Nhóm 1</option>
 
@@ -112,7 +117,8 @@ if (isset($_POST['addclasscredit'])) {
                                 <label class="col-xs-2">Lịch học</label>
                                 <div class="col-xs-9">
                                     <select  class="form-control" name="schedule">
-                                        <option>---Chọn lịch học---</option>
+                                        
+                                        <?php echo '<option value="'.$classcredit->getListSchedule()[0]->getScheduleCode().'">'.viewSchedule($classcredit->getListSchedule()).'</option>'?>
                                         <?php
                                         $list = $modelSchedule->getAll();
                                         $uniqueSchedules = array_unique($list); // Assuming 'scheduleCode' is unique
@@ -134,9 +140,9 @@ if (isset($_POST['addclasscredit'])) {
                             <div class="form-group">
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-9">
-                                    <button class="btn-get" style="margin-right: 10px;" name='addclasscredit'>
+                                    <button class="btn-get" style="margin-right: 10px;" name='updateclasscredit'>
                                         <i class="ace-icon glyphicon glyphicon-plus"></i>
-                                        <span> Thêm lớp tín chỉ</span>
+                                        <span> Sửa thông tin</span>
                                     </button>
 
                                 </div>

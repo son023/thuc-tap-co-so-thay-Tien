@@ -68,7 +68,7 @@ if($_SESSION['login']['role']!=4){
                                     $roleString = 'Giảng viên';
 
                                 }
-                                echo '<tr>';
+                                echo '<tr id="' . $li->getUserId() . '">';
                                 echo '<td class="text-center align-middle">' . $ok . '</td>';
                                 echo '<td class="text-center align-middle">' . $li->getFullName() . '</td>';
                                 echo '<td class="text-center align-middle">' . $li->getUserName() . '</td>';
@@ -76,7 +76,7 @@ if($_SESSION['login']['role']!=4){
                                 echo '<td>';
                                     echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/usermanagement/'.$li->getUserId().'" title="Xem Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-eye"></i></a>';
                                     echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/updateuser/'.$li->getUserId().'" title="Sửa Thông Tin" data-toggle="tooltip" > <span><i class="fa-solid fa-pen"></i> </span> </a> ';
-                                    echo '<a class="btn-crud" href="http://localhost/thuc-tap-co-so-thay-Tien/admin/deleteuser/'.$li->getUserId().'" title="Xoá Người Dùng" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></a> ';
+                                    echo '<button  id="' . $li->getUserId() . '" class="btn-crud text-center align-middle" style="border:0"title="Xoá người dùng" data-toggle="tooltip" ><i class="fa-solid fa-delete-left"></i></button> ';
 
                                 echo '</tr>';
                                 $ok += 1;
@@ -95,7 +95,33 @@ if($_SESSION['login']['role']!=4){
     </div>
 </div>
 
-
+<script>
+        $(document).ready(function () {
+            $("button").click(function (event) {
+                event.preventDefault();
+                var userId = $(this).attr('id'); 
+                console.log('Clicked on link:',  userId )
+                $.ajax({
+                    url: "http://localhost/thuc-tap-co-so-thay-Tien/views/admin/deleteuser.php", 
+                    method: "POST", 
+                    data: {  userId : userId  }, 
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        console.log(data.id);
+                        if(data.id>1){
+                            alert('Xoá người dùng thành công');
+                            myElement = document.getElementById(data.id);
+                            myElement.style.display = "none";
+                        }
+                        else{
+                            alert('Server đang lỗi tí, thông cảm ');
+                        }
+                    }
+                });
+            
+        });
+   } );
+</script>
 <?php
 require_once _DIR_ROOT . '\views\footer.php';
 ?>

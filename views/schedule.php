@@ -1,5 +1,29 @@
 <?php
 require "header.php";
+$modelUser = new ModelUser();
+$modelRegister = new ModelRegister();
+$modelKipStudy = new ModelKipStudy();
+$modelWeek = new ModelWeek();
+$user = $modelUser->getByUserName($_SESSION['login']['username']);
+$listRegister = $modelRegister->getByUserId($user->getUserId());
+$week_id = 0;
+if (isset($_POST['schedule'])) {
+    $schedule = $_POST['schedule'];
+    $week_id = $schedule;
+}
+if ($week_id == 0) {
+    $now = new DateTime();
+    $dateStr = $now->format('Y-m-d');//chuyen date qua string  Y-m-d
+    $dateObject = DateTime::createFromFormat('Y-m-d', $dateStr);//chuyen qua date
+    for ($ok = 8; $ok <= 32; $ok++) {
+        $week = $modelWeek->getById($ok);
+        $time = $week->getStartTime();
+        if (getDaysDiffBetweenDates($dateObject, $time) < 7) {
+            $week_id = $ok;
+            break;
+        }
+    }
+}
 ?>
 <style>
     form {
@@ -37,10 +61,12 @@ require "header.php";
                 ?>
             </div>
             <div class="col-xl-10 justify-content-center">
-
                 <form action="<?php echo htmlspecialchars("/thuc-tap-co-so-thay-Tien/schedules"); ?>" method="post">
                     <select name="schedule" class="animate__animated animate__fadeInLeft">
+
                         <?php
+                        $weeknow = $modelWeek->getById($week_id);
+                        echo '<option value="' . $week_id . '">Tuần ' . $weeknow->getWeekName() . ' bắt đầu từ ' . toStrYear($weeknow->getStartTime()) . ' đến ' . toStrYear($weeknow->getEndTime()) . '</option>';
                         $modelWeek = new ModelWeek();
                         for ($i = 8; $i <= 31; $i++) {
                             $week = $modelWeek->getById($i);
@@ -48,43 +74,11 @@ require "header.php";
                         }
                         ?>
                     </select>
-                    <input type="submit" class="btn-get-started animate__animated animate__fadeInRight" style="border:0;"
-                        value="Xem lịch">
+                    <input type="submit" class="btn-get-started animate__animated animate__fadeInRight"
+                        style="border:0;" value="Xem lịch">
                 </form>
                 <div class="schedule-body animate__animated animate__fadeInUp ">
                     <?php
-                    $week_id = 0;
-                    if (isset($_POST['schedule'])) {
-                        $schedule = $_POST['schedule'];
-                        // echo $schedule;
-                        for ($ok = 8; $ok <= 31; $ok++) {
-                            if ($ok == $schedule) {
-                                $week_id = $schedule;
-                                break;
-                            }
-                        }
-                    }
-                    $modelUser = new ModelUser();
-                    $modelRegister = new ModelRegister();
-                    $user = $modelUser->getByUserName($_SESSION['login']['username']);
-                    $listRegister = $modelRegister->getByUserId($user->getUserId());
-                    $modelKipStudy = new ModelKipStudy();
-                    $modelWeek = new ModelWeek();
-                    if ($week_id == 0) {
-                        $now = new DateTime();
-                        $dateStr = $now->format('Y-m-d');
-                        $dateObject = DateTime::createFromFormat('Y-m-d', $dateStr);
-                        for ($ok = 8; $ok <= 32; $ok++) {
-                            $week = $modelWeek->getById($ok);
-                            $time = $week->getStartTime();
-                            if (getDaysDiffBetweenDates($dateObject, $time) < 7) {
-                                $week_id = $ok;
-                                break;
-                            }
-                        }
-
-                    }
-                    $week = $modelWeek->getById($week_id);
 
                     echo '
                     <div class="suscribe-area animate__animated animate__fadeInDown "
@@ -93,7 +87,7 @@ require "header.php";
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="suscribe-text text-center">
-                                <h4> Lịch học tuần ' . $week->getWeekName() . ' bắt đầu từ ' . toStrYear($week->getStartTime()) . ' đến ' . toStrYear($week->getEndTime()) . '</h4>
+                                <h4> Lịch học tuần ' . $weeknow->getWeekName() . ' bắt đầu từ ' . toStrYear($weeknow->getStartTime()) . ' đến ' . toStrYear($weeknow->getEndTime()) . '</h4>
                                 </div>
                             </div>
                         </div>
@@ -193,12 +187,9 @@ require "header.php";
 
                         $kipStudy = $modelKipStudy->getById($tmp);
                         $timeStart = $kipStudy->getTimeStart();
-                        echo '<td class="text-center align-middle" style="background-color: #3ec1d5; 
-                    color:#fff">' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $kipStudy->getTimeStudy())) . '</td>';
-
+                        echo '<td class="text-center align-middle" style="background-color: #3ec1d5;color:#fff">' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $kipStudy->getTimeStudy())) . '</td>';
                         echo '</tr>';
                     }
-
                     echo '
                     </tbody>
                 </table>';
