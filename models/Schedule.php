@@ -14,12 +14,12 @@ class Schedule {
   private ClassRoom $classRoom;
      // Day of the week for the study session (consider using an enum for weekdays)
 
-  public function __construct(int $scheduleId,int $scheduleCode, KipStudy $kipStudy, int $dayStudy,Week $week, Week $weekEnd,$classRoom) {
+  public function __construct(int $scheduleId,int $scheduleCode, KipStudy $kipStudy, int $dayStudy,string $category,Week $week, Week $weekEnd,$classRoom) {
     $this->scheduleId = $scheduleId;
     $this->scheduleCode = $scheduleCode;
     $this->kipStudy = $kipStudy;
     $this->dayStudy = $dayStudy;
-   
+   $this->category = $category;
     $this->week = $week;
     $this->weekEnd=$weekEnd;
     $this->classRoom = $classRoom;
@@ -31,6 +31,7 @@ class Schedule {
   public function getScheduleCode(): int {
     return $this->scheduleCode;
   }
+  
 
   public function getKipStudy(): KipStudy {
     return $this->kipStudy;

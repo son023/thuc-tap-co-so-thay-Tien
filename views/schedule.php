@@ -139,7 +139,10 @@ if ($week_id == 0) {
                                             //neu tuan bang tuan dang tim + thu = thu + kip =kip => in r
                                             if ($week_id >= $week && $week_end >= $week_id) {
                                                 if ($value1->getDayStudy() == $i && $value1->getKipStudy()->getKipStudyId() == $tmp) {
-                                                    echo '<td class="text-left align-middle " style="background-color:#CAEEF3;" ><strong>'
+                                                    echo '<td class="text-left align-middle "';
+                                                    if($value1->getCategory()=='0')  echo 'style="background-color:#CAEEF3;" >';
+                                                    else echo 'style="background-color:#FF9E9E;" >';
+                                                     echo '<strong>'
                                                         . $classCredit->getSubject()->getSubjectName() . ' (' .
                                                         $classCredit->getSubject()->getSubjectCode() . ')</strong> <br/> <b>Nhóm : </b>' .
                                                         $classCredit->getGroupClass() . '<br><strong>Phòng học : </strong>' .

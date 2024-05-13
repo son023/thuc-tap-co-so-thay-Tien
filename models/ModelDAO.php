@@ -1201,6 +1201,7 @@ class ModelSchedule extends DAO
           $result['schedule_code'],
           $kipStudy,
           $result['day_study'],
+          $result['category'],
           $week,
           $weekEnd,
           $classRoom
@@ -1237,6 +1238,7 @@ class ModelSchedule extends DAO
           $result['schedule_code'],
           $kipStudy,
           $result['day_study'],
+          $result['category'],
           $week,
           $weekEnd,
           $classRoom
