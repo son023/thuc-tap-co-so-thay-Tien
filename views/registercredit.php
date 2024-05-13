@@ -144,7 +144,7 @@ $number = 70;
                                             $day = 'Thứ ' . $schedule->getDayStudy();
                                         $timeStart = $schedule->getKipStudy()->getTimeStart();
                                         echo $day . ' kíp ' . $schedule->getKipStudy()->getKipStudyId() . ', từ ' . toStr($timeStart) . ' đến ' . toStr(addDate($timeStart, $schedule->getKipStudy()->getTimeStudy())) .
-                                            ', phòng ' . $schedule->getClassRoom()->getClassRoomName() . '. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
+                                            ', phòng ' . $schedule->getClassRoom()->getClassRoomName() . ' '.$schedule->getClassRoom()->getBuilding().'. Thời gian học từ ' . formatYear($schedule->getWeek()->getStartTime()) . ' đến ' . formatYear($schedule->getWeekEnd()->getEndTime()) .
                                             '<br/>';
                                     }
                                 }
