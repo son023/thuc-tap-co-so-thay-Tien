@@ -34,7 +34,7 @@ full_name nvarchar(255) not null, -- ten
 user_role int not null, -- 3 role
 status int not null,
 date_of_birth varchar(255) not null, -- sinh nhat
-gender bit not null, -- gioi tinh
+gender int not null, -- gioi tinh
 birthplace varchar(100),
 current_address varchar(100),
 avatar_image_path varchar(100) not null, -- link avatar
@@ -43,8 +43,6 @@ description_text varchar(255), -- mo ta
 password_latest int not null, -- mat khau gan nhat
 password_latest_time bigint, -- lan doi mat khau gan nhat
 login_failed int, -- so lan dang nhap sai,
-gpa int not null,
-toeic int not null
 );
 
 create table phone_numbers (
@@ -66,15 +64,15 @@ email varchar(255) not null
 create table kip_studys(
 kip_study_id int auto_increment,
 primary key(kip_study_id),
-time_start int not null,
+time_start time not null,
 time_study int not null
 );
 create table weeks(
 week_id int auto_increment,
 primary key(week_id),
 week_name int not null,
-start_time datetime not null,
-end_time datetime not null
+start_time datenot null,
+end_time date not null
 );
 create table class_rooms(
 class_room_id int auto_increment,
